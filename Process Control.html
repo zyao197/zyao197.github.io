@@ -950,9 +950,9 @@ pre[class*="language-"].line-numbers > code {
 
 <h2 id="toc_4">Transfer Function</h2>
 
-<p>\(K_1=\frac{w_1}{w}\)</p>
+<p>\(K_1=\dfrac{w_1}{w}\)</p>
 
-<p>\(\tau=\frac{\rho V}{w}\)</p>
+<p>\(\tau=\dfrac{\rho V}{w}\)</p>
 
 <p>\(t\rightarrow \infty\)=\(s\rightarrow 0\)</p>
 
@@ -965,13 +965,13 @@ pre[class*="language-"].line-numbers > code {
 
 <h2 id="toc_6">Second-Order Transfer</h2>
 
-<p>\(G(s)=\frac{K}{\tau^2s^2+2\zeta\tau s+1}\) </p>
+<p>\(G(s)=\dfrac{K}{\tau^2s^2+2\zeta\tau s+1}\) </p>
 
-<p>\(\zeta&gt;1\)    Overdamped过阻尼<br/>
-\(\zeta=1\)    Critically damped临界阻尼<br/>
-\(\zeta&lt;1\)    Underdamped欠阻尼</p>
+<p>\(\zeta&gt;1\)    Overdamped 过阻尼<br/>
+\(\zeta=1\)    Critically damped  临界阻尼<br/>
+\(\zeta&lt;1\)    Underdamped    欠阻尼</p>
 
-<p><img src="https://mweb-1257833059.cos.ap-shanghai.myqcloud.com/2019/06/16/15606935771352.jpg" alt=""/><br/>
+<p><img src="https://mweb-1257833059.cos.ap-shanghai.myqcloud.com/2019/06/19/15603420196310.jpg" alt=""/><br/>
 <strong><em>Rise Time</em></strong>     \(t_r\)<br/>
 <strong><em>Time to First Peak</em></strong>     \(t_p\)<br/>
 <strong><em>Settling Time</em></strong>     \(t_s\)<br/>
@@ -979,30 +979,34 @@ pre[class*="language-"].line-numbers > code {
 <strong><em>Decay Ratio</em></strong>     \(DR=c/a\)<br/>
 <strong><em>Period of Oscillation</em></strong>     \(P\)</p>
 
-<h2 id="toc_7">First-Order-Plus-Time-Delay Model (FOPTD)</h2>
+<h3 id="toc_7">Inverse Response</h3>
 
-<p>\(G(s)=\frac{Ke^{-\theta s}}{\tau s+1}\)</p>
+<p>\(G(s)=\dfrac{K(\tau_as+1)}{(\tau_1s+1)(\tau_2s+1)}\) , \(\tau_a&lt;0\)</p>
 
-<p><img src="https://mweb-1257833059.cos.ap-shanghai.myqcloud.com/2019/06/16/15606935940736.jpg" alt=""/></p>
+<h2 id="toc_8">First-Order-Plus-Time-Delay Model (FOPTD)</h2>
 
-<h3 id="toc_8">0.632法</h3>
+<p>\(G(s)=\dfrac{Ke^{-\theta s}}{\tau s+1}\)</p>
 
-<p>\(K=\frac{\Delta y}{step\ change}\)<br/>
+<p><img src="https://mweb-1257833059.cos.ap-shanghai.myqcloud.com/2019/06/19/15605688053788.jpg" alt=""/></p>
+
+<h3 id="toc_9">0.632法</h3>
+
+<p>\(K=\dfrac{\Delta y}{step\ change}\)<br/>
 \(y(\tau)=y(0)+0.632(y(\infty)-y(0))\)</p>
 
-<h3 id="toc_9">曲线法</h3>
+<h3 id="toc_10">曲线法</h3>
 
-<h3 id="toc_10">两点法</h3>
+<h3 id="toc_11">两点法</h3>
 
 <p>\[<br/>
 \begin{cases}<br/>
-T=\frac{t_2-t_1}{M_1-M_2}; \\<br/>
-\tau=\frac{t_2M_1-t_1M_2}{M_1-M_2}<br/>
+T=\dfrac{t_2-t_1}{M_1-M_2}; \\<br/>
+\tau=\dfrac{t_2M_1-t_1M_2}{M_1-M_2}<br/>
 \end{cases}<br/>
 \]</p>
 
-<p>\(M_1=ln(1-\frac{y_1}{K})\)<br/>
-\(M_2=ln(1-\frac{y_2}{K})\)</p>
+<p>\(M_1=ln(1-\dfrac{y_1}{K})\)<br/>
+\(M_2=ln(1-\dfrac{y_2}{K})\)</p>
 
 <table>
 <thead>
@@ -1025,7 +1029,7 @@ T=\frac{t_2-t_1}{M_1-M_2}; \\<br/>
 <td>0.393</td>
 <td>0.632</td>
 <td>\(2(t_2-t_1)\)</td>
-<td>\(2t_1-t2\)</td>
+<td>\(2t_1-t_2\)</td>
 </tr>
 <tr>
 <td>0.55</td>
@@ -1036,9 +1040,9 @@ T=\frac{t_2-t_1}{M_1-M_2}; \\<br/>
 </tbody>
 </table>
 
-<h2 id="toc_11">Controllers</h2>
+<h2 id="toc_12">Controllers</h2>
 
-<h3 id="toc_12">Electronic devices standard ranges for input and output signals</h3>
+<h3 id="toc_13">Electronic devices standard ranges for input and output signals</h3>
 
 <ul>
 <li>4~20 mA</li>
@@ -1046,7 +1050,7 @@ T=\frac{t_2-t_1}{M_1-M_2}; \\<br/>
 <li>3~15 psig (20~100 kPa)</li>
 </ul>
 
-<h3 id="toc_13">判断\(K_c\)的正反作用</h3>
+<h3 id="toc_14">判断\(K_c\)的正反作用</h3>
 
 <ul>
 <li>在液位控制系统中，控制阀装在入口处，对象的增益是正的；<br>如果装在出口处，则对象的增益是负的。</li>
@@ -1073,7 +1077,7 @@ T=\frac{t_2-t_1}{M_1-M_2}; \\<br/>
 </tr>
 <tr>
 <td>\(K_p\)</td>
-<td>大小与MV和CV呈正相关</td>
+<td>大小与MV和CV呈正相关 <br> <font color="#dd0000">&gt;0 Transmitter Direct Acting</font></td>
 </tr>
 <tr>
 <td>\(K_m\)</td>
@@ -1082,28 +1086,180 @@ T=\frac{t_2-t_1}{M_1-M_2}; \\<br/>
 </tbody>
 </table>
 
-<h3 id="toc_14">PID</h3>
+<h3 id="toc_15">PID</h3>
 
-<h4 id="toc_15">P</h4>
+<h4 id="toc_16">P</h4>
 
-<h4 id="toc_16">PI</h4>
+<h4 id="toc_17">PI</h4>
 
-<p><img src="https://mweb-1257833059.cos.ap-shanghai.myqcloud.com/2019/06/16/15606936075699.jpg" alt=""/></p>
+<h5 id="toc_18">Exercise 7.1</h5>
 
-<p>Slope=\(\frac{K_c \mathbf{e}}{\tau_I}\)</p>
+<p><img src="https://mweb-1257833059.cos.ap-shanghai.myqcloud.com/2019/06/19/15609435127748.jpg" alt=""/><br/>
+Slope=\(\dfrac{K_c \mathbf{e}}{\tau_I}\)</p>
 
-<h4 id="toc_17">PID</h4>
+<h5 id="toc_19">Exercise 7.6</h5>
 
-<p>\(\frac{P’(s)}{E(s)}=K_c[1+\frac{1}{\tau_I s}+\tau_D s]\)<br/>
+<p>\(e(t)=y_{sp}-y_m\)</p>
+
+<h4 id="toc_20">PID</h4>
+
+<h5 id="toc_21">Parallel Form of PID Controller</h5>
+
+<p>\(\dfrac{P’(s)}{E(s)}=K_c[1+\dfrac{1}{\tau_I s}+\tau_D s]\)</p>
+
+<h5 id="toc_22">Series Form of PID Controller</h5>
+
+<p>\(\dfrac{P’(s)}{E(s)}=K_c(\dfrac{\tau_Is+1}{\tau_Is})(\dfrac{\tau_Ds+1}{\alpha\tau_Ds+1})\)<br/>
 If feedback control is not used, the process slowly reaches a new steady state. </p>
 
 <ul>
 <li>Proportional control speeds up the process response and reduces the offset.</li>
 <li>The addition of integral control action eliminates offset but tends to make the response more oscillatory.</li>
-<li>Adding derivatives action reduces both the degree of oscillation and the response time.</li>
+<li>Adding derivatives action reduces both the degree of oscillation and the response time.<br/>
+\(p(t)=\bar{p}+K_c[e(t)+\dfrac{1}{\tau_I}\int_0^t e(t^*)dt^*+\tau_Ds]\)</li>
 </ul>
 
-<h2 id="toc_18">翻译</h2>
+<h2 id="toc_23">Transducers &amp; Transmitters</h2>
+
+<p>The gain of the measurement:\(K_m=\dfrac{range\ of\ instrument\ output}{range\ of\ instrument\ input}\)</p>
+
+<h2 id="toc_24">Block Diagram</h2>
+
+<p><img src="https://mweb-1257833059.cos.ap-shanghai.myqcloud.com/2019/06/20/15610289743339.jpg" alt=""/></p>
+
+<p><img src="https://mweb-1257833059.cos.ap-shanghai.myqcloud.com/2019/06/20/15610290278525.jpg" alt=""/></p>
+
+<p><img src="https://mweb-1257833059.cos.ap-shanghai.myqcloud.com/2019/06/20/15610290350924.jpg" alt=""/></p>
+
+<h2 id="toc_25">Controller Tuning</h2>
+
+<h3 id="toc_26">Direct Synthesis Method</h3>
+
+<p>It can be applied if the model is first stabilized by an additional feedback control loop.<br/>
+\(G_c=\dfrac{1}{\widetilde{G}}\dfrac{e^{-\theta s}}{(\tau_c+\theta)s}\)</p>
+
+<ul>
+<li><p>FOPTD<br/>
+\(\widetilde{G}(s)=\dfrac{Ke^{-\theta s}}{\tau s+1}\)</p>
+<p><em>PI Controller</em></p>
+<p>\(K_c=\dfrac{1}{K}\dfrac{\tau}{\theta+\tau_c}\) , \(\tau_I=\tau\)</p></li>
+<li><p>SOPTD<br/>
+\(\widetilde{G}(s)=\dfrac{Ke^{-\theta s}}{(\tau_1s+1)(\tau_2s+1)}\)</p>
+<p><em>PID Controller</em></p>
+<p>\(K_c=\dfrac{1}{K}\dfrac{\tau_1+\tau_2}{\tau_c+\theta}\) , \(\tau_I=\tau_1+\tau_2\) , \(\tau_D=\dfrac{\tau_1\tau_2}{\tau_1+\tau_2}\)</p></li>
+</ul>
+
+<h3 id="toc_27">Internal Model Control</h3>
+
+<p><img src="https://mweb-1257833059.cos.ap-shanghai.myqcloud.com/2019/06/22/15611921957317.jpg" alt=""/></p>
+
+<h3 id="toc_28">Several General Conclusions</h3>
+
+<p><img src="https://mweb-1257833059.cos.ap-shanghai.myqcloud.com/2019/06/22/15611924977352.jpg" alt=""/></p>
+
+<h3 id="toc_29">Continuous Cycling Method (Z-N)</h3>
+
+<p><img src="https://mweb-1257833059.cos.ap-shanghai.myqcloud.com/2019/06/22/15611910709514.jpg" alt=""/></p>
+
+<p><img src="https://mweb-1257833059.cos.ap-shanghai.myqcloud.com/2019/06/22/15611910769111.jpg" alt=""/></p>
+
+<h3 id="toc_30">Guidelines for Common Control Loops</h3>
+
+<hr/>
+
+<h4 id="toc_31">Flow Control</h4>
+
+<ul>
+<li>Fast response, no time delay</li>
+<li><strong>Use PI Controller with intermediate \(K_c\)</strong></li>
+<li>No D-mode because of high frequency noise</li>
+</ul>
+
+<h4 id="toc_32">Liquid Level</h4>
+
+<ul>
+<li>Integrating process</li>
+<li><strong>Use P or PI controller with high gain</strong></li>
+<li>D-mode is not suitable since level signal is usually noisy due to the splashing and turbulence of the liquid entering the tank</li>
+</ul>
+
+<h4 id="toc_33">Gas Pressure</h4>
+
+<ul>
+<li>Fast response</li>
+<li><strong>Use PI controller with large \(\tau_I\)</strong></li>
+</ul>
+
+<h4 id="toc_34">Temperature</h4>
+
+<ul>
+<li>Various characteristics with time delay</li>
+<li><strong>Use PID or PI controller</strong></li>
+<li>D-mode can accelerate the response</li>
+</ul>
+
+<h4 id="toc_35">Composition</h4>
+
+<ul>
+<li>Noisy, large time delay</li>
+<li>Recommend to use advanced control technique </li>
+</ul>
+
+<h2 id="toc_36">Feedforward Control</h2>
+
+<ol>
+<li>Liquid Level in a Boiler Drum</li>
+<li>Distillation Column</li>
+<li><p>Blending System<br/>
+\(p(t)=C_1+C_2\Bigg[\dfrac{K_tx_{sp}-x_{1m}(t)+C_3}{\overline{x}_2-x_{sp}}\Bigg]\)<br/>
+Where</p>
+<p>\(C_1\triangleq 4-\dfrac{(w_2)_0}{K_vK_{IP}}\)</p>
+<p>\(C_2\triangleq \dfrac{\overline{w}_1}{K_vK_{IP}K_t}\)</p>
+<p>\(C_3\triangleq 4+K_t(x_1)_0\)</p></li>
+</ol>
+
+<h2 id="toc_37">Ratio Control</h2>
+
+<p>\(R=\dfrac{u}{d}\)<br/>
+\(K_R=R_d\dfrac{S_d}{S_u}\)<br/>
+\(K_R=\dfrac{u_m-u_{m0}}{d_m-d_{m0}}\)<br/>
+\(R_d\rightarrow\) Desired Ration \(\dfrac{u}{d}\)<br/>
+\(S_d\rightarrow\) Spans of the DV<br/>
+\(S_u\rightarrow\) Spans of the MV</p>
+
+<h3 id="toc_38">单闭环比值控制系统</h3>
+
+<h3 id="toc_39">双闭环比值控制系统</h3>
+
+<h3 id="toc_40">变比值控制系统</h3>
+
+<h2 id="toc_41">FF Controller Design</h2>
+
+<p><img src="https://mweb-1257833059.cos.ap-shanghai.myqcloud.com/2019/06/23/15612716908745.jpg" alt=""/><br/>
+\(\dfrac{Y(s)}{D(s)}=\dfrac{G_d+G_tG_fG_vG_p}{1+G_cG_vG_pG_m}\)</p>
+
+<h4 id="toc_42">Based on a Steady-State Analysis</h4>
+
+<h4 id="toc_43">Based on a DynamicAnalysis</h4>
+
+<h3 id="toc_44">Tuning FF Controllers</h3>
+
+<ol>
+<li>\(K_f=-\dfrac{K_d}{K_tK_vK_p}\)</li>
+</ol>
+
+<p><img src="https://mweb-1257833059.cos.ap-shanghai.myqcloud.com/2019/06/23/15612836235514.jpg" alt=""/></p>
+
+<p>\(K_p=\dfrac{\partial R}{\partial u}\)</p>
+
+<ol>
+<li><p>\(G_p(s)=\dfrac{K_p}{\tau_ps+1}\)</p>
+<p>\(G_d(s)=\dfrac{K_d}{\tau_ds+1}\)</p>
+<p>\(\tau_1=\tau_p\) , \(\tau_2=\tau_d\)</p></li>
+<li><p>Fine-tune</p></li>
+</ol>
+
+<h2 id="toc_45">翻译</h2>
 
 <table>
 <thead>
@@ -1133,12 +1289,12 @@ If feedback control is not used, the process slowly reaches a new steady state. 
 <tr>
 <td>Self-regulating process without oscillation</td>
 <td>自衡非振荡过程</td>
-<td>\(G(s)=\frac{K}{\tau s+1}e^{-\theta s}\) <br>Or \(G(s)=\frac{K}{(\tau_1 s+1)(\tau_2 s+1)}e^{-\theta s}\)</td>
+<td>\(G(s)=\dfrac{K}{\tau s+1}e^{-\theta s}\) <br>Or \(G(s)=\dfrac{K}{(\tau_1 s+1)(\tau_2 s+1)}e^{-\theta s}\)</td>
 </tr>
 <tr>
 <td>Non-self-regulating process without oscillation</td>
 <td>无自衡非振荡过程</td>
-<td>\(G(s)=\frac{K}{s}e^{-\theta s}\) <br>Or \(G(s)=\frac{K}{(\tau s+1)s}e^{-\theta s}\)</td>
+<td>\(G(s)=\dfrac{K}{s}e^{-\theta s}\) <br>Or \(G(s)=\dfrac{K}{(\tau s+1)s}e^{-\theta s}\)</td>
 </tr>
 <tr>
 <td>Damped oscillation process</td>
@@ -1156,6 +1312,71 @@ If feedback control is not used, the process slowly reaches a new steady state. 
 <td></td>
 </tr>
 <tr>
+<td>Denote</td>
+<td>表明、意思是</td>
+<td></td>
+</tr>
+<tr>
+<td>Implement</td>
+<td>执行</td>
+<td></td>
+</tr>
+<tr>
+<td>Ultimate Gain</td>
+<td>临界增益</td>
+<td></td>
+</tr>
+<tr>
+<td>Continuous Cycling</td>
+<td>等幅震荡</td>
+<td></td>
+</tr>
+<tr>
+<td>Feasible</td>
+<td>可行的</td>
+<td></td>
+</tr>
+<tr>
+<td>Lead-Lag Unit</td>
+<td>超前滞后单位</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
 <td></td>
 <td></td>
 <td></td>
@@ -1198,11 +1419,86 @@ If feedback control is not used, the process slowly reaches a new steady state. 
 <tr>
 <td></td>
 <td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>respectively</td>
+<td>分别地</td>
+<td></td>
+</tr>
+<tr>
+<td>in essence</td>
+<td>在本质上</td>
 <td></td>
 </tr>
 <tr>
 <td>Consequently</td>
-<td></td>
+<td>因此</td>
 <td></td>
 </tr>
 <tr>
@@ -1218,10 +1514,16 @@ If feedback control is not used, the process slowly reaches a new steady state. 
 </tbody>
 </table>
 
-<h2 id="toc_19">Questions</h2>
+<h2 id="toc_46">Good Examples</h2>
 
 <ol>
-<li>P120 Exercise 6.1 \(\tau\)</li>
+<li>P130 Exercise 7.1</li>
+</ol>
+
+<h2 id="toc_47">Questions</h2>
+
+<ol>
+<li>Example 14.5</li>
 </ol>
 
 </div></body>
