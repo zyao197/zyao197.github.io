@@ -849,9 +849,40 @@ else
 end
 </code></pre>
 
+<p><em>只有前面的条件不成立，才会进行后面的条件判断。</em></p>
+
 <h4 id="toc_20">switch语句</h4>
 
+<pre><code class="language-matlab">switch 表达式
+    case 结果表1
+        语句组1
+    case 结果表2
+        语句组2
+        …
+    case 结果表m
+        语句组m
+    otherwise
+        语句组m+1
+end
+</code></pre>
+
+<ul>
+<li>switch子句后面的表达式应为一个<strong>标量</strong>或一个<strong>字符串</strong>。</li>
+<li>case子句后面的表达式不仅可以为一个<strong>标量</strong>或一个<strong>字符串</strong>，还可以是一个<strong>单元数组</strong>（此时表达式的值等于单元数组中的某个元素时，执行相应的语句）。</li>
+</ul>
+
 <h4 id="toc_21">try语句</h4>
+
+<p>试探性执行语句</p>
+
+<pre><code class="language-matlab">try
+    语句组1
+catch
+    语句组2
+end
+</code></pre>
+
+<p>try语句先试探性执行语句1，如果语句1在执行过程中出现错误，则将错误信息赋给预定义变量lasterr，并转去执行语句组2.如果不出错，则转去执行end后面的语句。</p>
 
 <h3 id="toc_22">循环结构</h3>
 
