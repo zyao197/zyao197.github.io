@@ -932,6 +932,7 @@ end
 
 <ul>
 <li><code>function 输出形参表=函数名（输入形参表）</code></li>
+<li>在函数定义时，函数的输入输出参数称为<strong>形式参数</strong>，简称<strong>形参</strong>。在函数调用时，函数的输入输出参数称为<strong>实际参数</strong>，简称<strong>实参</strong>。</li>
 <li>当输出形参多于一个时，则应该用方括号括起来。</li>
 <li>函数名要与函数文件名一致。</li>
 <li>如果在函数中插入return语句，则执行到该语句就结束函数的运行，程序流程转到调用该函数的位置；在函数文件中，也可以不使用return语句，这时被调用的函数执行完成后自动返回。</li>
@@ -955,6 +956,11 @@ end
 <ul>
 <li>语法错误：词法或文法的错误，例如：函数名的拼写错、表达式书写错等。</li>
 <li>运行时的错误（程序逻辑错误）。</li>
+<li>调试方法
+<ul>
+<li>调试函数</li>
+<li>调试工具</li>
+</ul></li>
 </ul>
 
 <h4 id="toc_29">程序优化</h4>
@@ -968,6 +974,226 @@ end
 </ol>
 
 <h2 id="toc_30">MATLAB绘图</h2>
+
+<ul>
+<li><strong>高层绘图函数</strong>：不需要过多考虑绘图细节，只需给出一些基本参数就能得到所需图形。</li>
+<li><strong>低层绘图函数</strong>：直接对图形对象句柄进行操作。</li>
+</ul>
+
+<h3 id="toc_31">二维图形</h3>
+
+<h5 id="toc_32">plot函数的基本用法</h5>
+
+<ol>
+<li>当\(\mathbf{x}\)是向量，\(\mathbf{y}\)是矩阵时，\(\mathbf{x}\)的长度与矩阵\(\mathbf{y}\)的行数或列数必须相等。
+<ul>
+<li>如果\(\mathbf{x}\)的<strong>长度</strong>等于\(\mathbf{y}\)的<strong>行数</strong>，则以\(\mathbf{x}\)和\(\mathbf{y}\)的<strong>每列</strong>为横、纵坐标绘制曲线，曲线的条数等于\(\mathbf{y}\)的<strong>列数</strong>。</li>
+<li>如果\(\mathbf{x}\)的<strong>长度</strong>等于\(\mathbf{y}\)的<strong>列数</strong>，则以\(\mathbf{x}\)和\(\mathbf{y}\)的<strong>每行</strong>为横、纵坐标绘制曲线，曲线的条数等于\(\mathbf{y}\)的<strong>行数</strong>。</li>
+<li>如果\(\mathbf{y}\)是<strong>方阵</strong>，\(\mathbf{x}\)的长度和矩阵\(\mathbf{y}\)的行数或列数都相等，则以\(\mathbf{x}\)和\(\mathbf{y}\)的<strong>每列</strong>为横、纵坐标绘制曲线。</li>
+</ul></li>
+<li>当\(\mathbf{x}\)、\(\mathbf{y}\)是同型（同维）矩阵时，则以\(\mathbf{x}\)、\(\mathbf{y}\)对应元素为横、纵坐标分别绘制曲线，曲线条数等于矩阵的<strong>列数</strong>。</li>
+<li>当\(\mathbf{x}\)是<strong>实向量</strong>，以该向量<strong>元素的下标</strong>为横坐标，<strong>元素值</strong>为纵坐标画出一条连续曲线，这实际上是绘制折线图。</li>
+<li>当\(\mathbf{x}\)是<strong>复向量</strong>，则分别以元素实部和虚部为横、纵坐标绘制出一条曲线。</li>
+</ol>
+
+<h5 id="toc_33">含多个输入参数的plot函数</h5>
+
+<ul>
+<li><code>plotyy</code>：绘制出具有不同纵坐标标度的两个图形。</li>
+</ul>
+
+<h5 id="toc_34">含选项的plot函数</h5>
+
+<p><code>plot(x1，y1，’选项‘，…，xn，yn，‘选项n’)</code></p>
+
+<ul>
+<li>线型选择</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: center">选项</th>
+<th style="text-align: center">线型</th>
+<th style="text-align: center">选项</th>
+<th style="text-align: center">线型</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td style="text-align: center">-</td>
+<td style="text-align: center">实线（默认值）</td>
+<td style="text-align: center">-.</td>
+<td style="text-align: center">点画线</td>
+</tr>
+<tr>
+<td style="text-align: center">：</td>
+<td style="text-align: center">虚线</td>
+<td style="text-align: center">--</td>
+<td style="text-align: center">双画线</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>颜色选项</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: center">序号</th>
+<th style="text-align: center">选项</th>
+<th style="text-align: center">颜色</th>
+<th style="text-align: center">序号</th>
+<th style="text-align: center">选项</th>
+<th style="text-align: center">颜色</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td style="text-align: center">1</td>
+<td style="text-align: center">b（blue）</td>
+<td style="text-align: center">蓝色</td>
+<td style="text-align: center">5</td>
+<td style="text-align: center">m（magenta）</td>
+<td style="text-align: center">品红色</td>
+</tr>
+<tr>
+<td style="text-align: center">2</td>
+<td style="text-align: center">g（green）</td>
+<td style="text-align: center">绿色</td>
+<td style="text-align: center">6</td>
+<td style="text-align: center">y（yellow）</td>
+<td style="text-align: center">黄色</td>
+</tr>
+<tr>
+<td style="text-align: center">3</td>
+<td style="text-align: center">r（red）</td>
+<td style="text-align: center">红色</td>
+<td style="text-align: center">7</td>
+<td style="text-align: center">k（black）</td>
+<td style="text-align: center">黑色</td>
+</tr>
+<tr>
+<td style="text-align: center">4</td>
+<td style="text-align: center">c（cyan）</td>
+<td style="text-align: center">青色</td>
+<td style="text-align: center">8</td>
+<td style="text-align: center">w（white）</td>
+<td style="text-align: center">白色</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>标记符号选项</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: center">选项</th>
+<th style="text-align: center">标记符号</th>
+<th style="text-align: center">选项</th>
+<th style="text-align: center">标记符号</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td style="text-align: center">.</td>
+<td style="text-align: center">点</td>
+<td style="text-align: center">v（字母）</td>
+<td style="text-align: center">朝下三角符号</td>
+</tr>
+<tr>
+<td style="text-align: center">o（字母）</td>
+<td style="text-align: center">圆圈</td>
+<td style="text-align: center">^</td>
+<td style="text-align: center">朝上三角符号</td>
+</tr>
+<tr>
+<td style="text-align: center">x（字母）</td>
+<td style="text-align: center">叉号</td>
+<td style="text-align: center">&lt;</td>
+<td style="text-align: center">朝左三角符号</td>
+</tr>
+<tr>
+<td style="text-align: center">+</td>
+<td style="text-align: center">加号</td>
+<td style="text-align: center">&gt;</td>
+<td style="text-align: center">朝右三角符号</td>
+</tr>
+<tr>
+<td style="text-align: center">*</td>
+<td style="text-align: center">星号</td>
+<td style="text-align: center">p（pentagram）</td>
+<td style="text-align: center">五角星符</td>
+</tr>
+<tr>
+<td style="text-align: center">s（square）</td>
+<td style="text-align: center">方块符</td>
+<td style="text-align: center">h（hexagram）</td>
+<td style="text-align: center">六角星符</td>
+</tr>
+<tr>
+<td style="text-align: center">d（diamond）</td>
+<td style="text-align: center">菱形符</td>
+<td style="text-align: center"></td>
+<td style="text-align: center"></td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="toc_35">绘制图形的辅助操作</h4>
+
+<ul>
+<li>title（图形名称）</li>
+<li>xlabel、ylabel（x轴、y轴说明）</li>
+<li>text（x，y，图形说明）</li>
+<li>legend（图例）</li>
+<li>受\(\LaTeX\)字符控制部分要加<code>{ }</code>括起来。</li>
+</ul>
+
+<h5 id="toc_36">坐标控制</h5>
+
+<ul>
+<li><code>axis([xmin xmax ymin ymax zmin zmax])</code>
+<ul>
+<li><code>axis equal</code>：纵、横坐标轴采用等长刻度。</li>
+<li><code>axis square</code>：产生正方形坐标系（缺省为矩形）。</li>
+<li><code>axis auto</code>：使用缺省设置。</li>
+<li><code>axis off</code>：取消坐标轴。</li>
+<li><code>axis on</code>：显示坐标轴。</li>
+</ul></li>
+<li><code>grid on/off</code>：网格线</li>
+<li><code>box on/off</code>：边框</li>
+<li>每执行一次绘图命令就刷新一次当前图形窗口，图形窗口原有图形将不复存在。</li>
+<li><code>hold on/off</code>：图形保持/刷新</li>
+</ul>
+
+<h5 id="toc_37">图形窗口的分割</h5>
+
+<ul>
+<li><code>subplot(m,n,p)</code></li>
+</ul>
+
+<h5 id="toc_38">其他形式的二维图形</h5>
+
+<h3 id="toc_39">三维图形</h3>
+
+<h3 id="toc_40">三维图形的精细处理</h3>
+
+<h3 id="toc_41">隐函数绘图</h3>
+
+<h3 id="toc_42">低层绘图操作</h3>
+
+<h3 id="toc_43">光照和材质处理</h3>
+
+<h3 id="toc_44">图像显示与动画制作</h3>
 
 </div></body>
 
