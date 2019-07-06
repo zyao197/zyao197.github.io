@@ -843,7 +843,7 @@ end
     语句组1
 elseif 条件2
     语句组2
-    ……
+    …
 elseif 条件m
     语句组m
 else
@@ -1291,6 +1291,7 @@ Y =
 <li>曲线对象：<code>句柄变量=line(x,y,z,属性名1,属性值1,属性名2,属性值2,…)</code></li>
 <li>曲面对象：<code>句柄变量=surface(x,y,z,属性名1,属性值1,属性名2,属性值2,…)</code></li>
 <li>文本对象：<code>句柄变量=text(x,y,z,属性名1,属性值1,属性名2,属性值2,…)</code></li>
+<li><code>patch</code>：创建一个或多个多边形。</li>
 </ul>
 
 <h3 id="toc_45">光照和材质处理</h3>
@@ -1308,19 +1309,30 @@ Y =
 <li>创建轨迹动画：<code>comet(x,y,p)</code>、<code>comet3(x,y,z,p)</code></li>
 </ul>
 
-<h3 id="toc_47">其他</h3>
+<h2 id="toc_47">MATLAB数值计算</h2>
 
-<h2 id="toc_48">MATLAB数值计算</h2>
+<h3 id="toc_48">特殊矩阵</h3>
 
-<h3 id="toc_49">特殊矩阵</h3>
+<ul>
+<li><code>zeros</code>：全0矩阵</li>
+<li><code>ones</code>：全1矩阵</li>
+<li><code>eye</code>：单位矩阵</li>
+<li><code>rand</code>：产生0～1间均匀分布的随机矩阵</li>
+<li><code>randn</code>：产生均值为0，方差为1的标准正态分布N（0，1）随机矩阵</li>
+<li><code>magic</code>：魔方矩阵</li>
+<li><code>vander(V)</code>：范德蒙矩阵——最后一列全为1，倒数第2列为一个指定的向量，其他各列是其后列与倒数第二列的点乘积。</li>
+<li><code>hilb(n)</code>：希尔伯特矩阵\(h_{ij}=\dfrac{1}{i+j-1}\)</li>
+<li><code>invhilb(n)</code>：求n阶的希尔伯特矩阵的逆矩阵</li>
+<li><code>toeplitz(x,y)</code>：托普利兹矩阵——除第一行和第一列外，其他每个元素都与左上角的元素相同。</li>
+</ul>
 
-<h3 id="toc_50">矩阵结构变换</h3>
+<h3 id="toc_49">矩阵结构变换</h3>
 
-<h3 id="toc_51">矩阵求逆与线性方程组求解</h3>
+<h3 id="toc_50">矩阵求逆与线性方程组求解</h3>
 
-<h3 id="toc_52">矩阵求值</h3>
+<h3 id="toc_51">矩阵求值</h3>
 
-<h3 id="toc_53">矩阵的特征值与特征向量</h3>
+<h3 id="toc_52">矩阵的特征值与特征向量</h3>
 
 </div></body>
 
