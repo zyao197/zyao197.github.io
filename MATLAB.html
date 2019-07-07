@@ -1363,7 +1363,76 @@ ans =
 
 <h3 id="toc_51">矩阵求值</h3>
 
+<ul>
+<li>方阵的行列式：<code>det(A)</code></li>
+<li>矩阵的秩：<code>rank(A)</code></li>
+<li>矩阵的迹：<code>trace(A)</code></li>
+<li>向量、矩阵的范数：<code>norm</code></li>
+<li>矩阵的条件数：<code>cond(A)</code>——A的范数与A逆矩阵的范数的乘积，条件数越接近于1，矩阵的性能就越好。条件数事实上表示了矩阵计算对于误差的敏感性。</li>
+</ul>
+
 <h3 id="toc_52">矩阵的特征值与特征向量</h3>
+
+<ul>
+<li><code>eig(A)</code>
+<ul>
+<li><code>V=eig(A)</code>：求矩阵A的全部特征值，构成向量V。</li>
+<li><code>[X,D]=eig(A)</code>：求矩阵A的全部特征值，构成对角阵D，并产生矩阵X，X各列是相应的特征向量，满足A·X=X·D。</li>
+<li><code>[X,D]=eig(A,&#39;nobalance&#39;)</code>：直接求矩阵A的特征值和特征向量。</li>
+</ul></li>
+</ul>
+
+<h3 id="toc_53">数据统计处理</h3>
+
+<ul>
+<li>最大值和最小值
+<ul>
+<li><code>y=max(X)</code></li>
+<li><code>[y,I]=max(X)</code>：返回向量X的最大值存入y，最大值的序号存入I，如果X中包含复数元素，则按模取最大值。</li>
+<li><code>[Y,U]=max(A)</code>：返回行向量Y和U，Y向量记录A的<strong>每列</strong>的最大值，U向量记录每列最大值的<strong>行号</strong>。</li>
+<li><code>max(A,[],dim)</code>：dim取1或2。dim取1时，该函数和<code>max(A)</code>完全相同；dim取2时，该函数返回一个列向量，其第i个元素是A矩阵的第i行上的最大值。</li>
+</ul></li>
+<li>求平均值和中值
+<ul>
+<li><code>mean(X)</code>：返回向量X的算术平均值</li>
+<li><code>median(X)</code>：返回向量X的中值</li>
+</ul></li>
+<li>矩阵元素求和与求积
+<ul>
+<li><code>sum(A)</code></li>
+<li><code>prod(A)</code></li>
+<li><code>sum(A,dim)</code>：当dim为1时，该函数等同于<code>sum(A)</code>；当dim为2时，返回一个列向量，其第i个元素是A的第i行的各元素之和。</li>
+<li><code>prod(A,dim)</code>：当dim为1时，该函数等同于<code>prod(A)</code>；当dim为2时，返回一个列向量，其第i个元素是A的第i行的各元素乘积。</li>
+</ul></li>
+<li>矩阵元素累加与累乘积
+<ul>
+<li><code>cumsum(A)</code></li>
+<li><code>cumprod(A)</code></li>
+<li><code>cumsum(A,dim)</code></li>
+<li><code>cumprod(A,dim)</code></li>
+</ul></li>
+<li>标准方差
+<ul>
+<li><code>std(A,flag,dim)</code>
+<ul>
+<li>dim取1或2:当dim=1时，求各列元素的标准方差；当dim=2时，则求各行元素的标准方差。</li>
+<li>flag取0或1:当flag=0时，按\(S_1=\sqrt{\dfrac{1}{N-1}\sum\limits_{i=1}^n(x_i-\bar{x})^2}\)计算标准方差；当flag=1时，按\(S_2=\sqrt{\dfrac{1}{N}\sum\limits_{i=1}^n(x_i-\bar{x})^2}\)计算标准方差。</li>
+<li>\(\bar{x}=\dfrac{1}{N}\sum\limits_{i=1}^nx_i\)</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3 id="toc_54">数据插值</h3>
+
+<h3 id="toc_55">曲线拟合</h3>
+
+<h3 id="toc_56">多项式计算</h3>
+
+<h3 id="toc_57">数值微积分</h3>
+
+<h3 id="toc_58">非线形方程与最优化问题求解</h3>
+
+<h3 id="toc_59">常微分方程的数值求解</h3>
 
 </div></body>
 
