@@ -1321,14 +1321,45 @@ Y =
 <li><code>randn</code>：产生均值为0，方差为1的标准正态分布N（0，1）随机矩阵</li>
 <li><code>magic</code>：魔方矩阵</li>
 <li><code>vander(V)</code>：范德蒙矩阵——最后一列全为1，倒数第2列为一个指定的向量，其他各列是其后列与倒数第二列的点乘积。</li>
-<li><code>hilb(n)</code>：希尔伯特矩阵\(h_{ij}=\dfrac{1}{i+j-1}\)</li>
+<li><code>hilb(n)</code>：希尔伯特矩阵——\(h_{ij}=\dfrac{1}{i+j-1}\)</li>
 <li><code>invhilb(n)</code>：求n阶的希尔伯特矩阵的逆矩阵</li>
 <li><code>toeplitz(x,y)</code>：托普利兹矩阵——除第一行和第一列外，其他每个元素都与左上角的元素相同。</li>
+<li><code>compan(p)</code>：伴随矩阵</li>
+</ul>
+
+<pre><code class="language-matlab">&gt;&gt; p=[1,0,-7,6];
+&gt;&gt; compan(p)
+ans =
+     0     7    -6
+     1     0     0
+     0     1     0
+</code></pre>
+
+<ul>
+<li><code>pascal</code>：帕斯卡矩阵——\(A(i,j)=A(i,j-1)+A(i-1,j)\),矩阵次对角线上的元素为展开式的系数。</li>
 </ul>
 
 <h3 id="toc_49">矩阵结构变换</h3>
 
+<ul>
+<li>对角矩阵：只有对角线上有非0元素</li>
+<li>数量矩阵：对角线上的元素相等</li>
+<li>单位矩阵：对角线上的元素都为1</li>
+<li><code>diag(A,k)</code>：提取矩阵A的第k条对角线的元素</li>
+<li><code>diag(V,k)</code>：——产生一个对角阵，其第k条对角线的元素即为向量V的元素</li>
+<li><code>triu(A)</code>——上三角阵，<code>tril(A)</code>——下三角阵。</li>
+<li><code>A&#39;</code>：矩阵的转置</li>
+<li><code>rot90(A,k)</code>：将矩阵按逆时针方向旋转90°的k倍。</li>
+<li><code>fliplr(A)</code>——左右翻转，<code>flipud(A)</code>——上下翻转。</li>
+</ul>
+
 <h3 id="toc_50">矩阵求逆与线性方程组求解</h3>
+
+<ul>
+<li>矩阵的逆：<code>inv(A)</code></li>
+<li>用求逆矩阵的方法解线性方程组</li>
+<li>矩阵的伪逆：<code>pinv(A)</code>，矩阵A不是一个方阵或非满秩的方阵</li>
+</ul>
 
 <h3 id="toc_51">矩阵求值</h3>
 
