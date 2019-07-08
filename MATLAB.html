@@ -1524,9 +1524,365 @@ ans =
 
 <h3 id="toc_60">非线形方程与最优化问题求解</h3>
 
-<h3 id="toc_61">常微分方程的数值求解</h3>
+<h4 id="toc_61">单变量非线性方程求解</h4>
 
-<h2 id="toc_62">总结</h2>
+<ul>
+<li><code>fzero(fun,x0,tol,trace)</code></li>
+<li>fun是待求根的函数文件名或函数句柄</li>
+<li>x0为搜索的起点</li>
+<li>tol控制结果的相对精度，缺省时tol=eps</li>
+<li>trace定迭代信息是否在运算中显示，为1时显示，为0时不显示，缺省时取trace=0</li>
+</ul>
+
+<h4 id="toc_62">非线性方程组求解</h4>
+
+<ul>
+<li><code>X=fsolve(fun,X0,option)</code></li>
+<li>option为最优化工具箱的选项设定。<code>optimset</code></li>
+</ul>
+
+<h4 id="toc_63">无约束最优化问题求解</h4>
+
+<ul>
+<li><code>[x,fval]=fminbnd(fun,x1,x2,option)</code>：求一元函数(x1,x2)区间中最小值点x和最小值fval</li>
+<li><code>[x,fval]=fminsearch(fun,x0,option)</code>：基于单纯形算法求多元函数的最小值点x和最小值fval</li>
+<li><code>[x,fval]=fminunc(fun,x0,option)</code>：基于牛顿法求多元函数的最小值点x和最小值fval</li>
+<li>x1和x2分别表示研究区间的左右界；x0是一个向量，表示极值点的初值</li>
+</ul>
+
+<h4 id="toc_64">有约束最优化问题求解</h4>
+
+<ul>
+<li><code>[x,fval]=fmincon(fun,x0,A,b,Aeq,beq,Lbnd,Ubnd,NonF,option)</code></li>
+</ul>
+
+<h3 id="toc_65">常微分方程的数值求解</h3>
+
+<h4 id="toc_66">常识</h4>
+
+<ul>
+<li>函数方程：含有未知数的方程    \(x^2+5=0\)</li>
+<li>微分方程：未知数及其倒数或微分的关系式    \(y&#39;+5y=3x\ (y=f(x))\)</li>
+<li>常微分方程：一个位置函数及其倒数或微分的关系式    \(f&#39;(x)-7f(x)=0\)</li>
+</ul>
+
+<h4 id="toc_67">龙格——库塔法</h4>
+
+<ul>
+<li><code>[t,y]=ode23(fun,tspan,y0)</code></li>
+<li><code>[t,y]=ode45(fun,tspan,y0)</code>
+<ul>
+<li>tspan形式为[t0,tf]，表示求解区间</li>
+<li>y0是初始状态列向量</li>
+<li>t和y分别给出时间向量和相应的状态向量</li>
+</ul></li>
+</ul>
+
+<h2 id="toc_68">MATLAB符号计算</h2>
+
+<h3 id="toc_69">符号计算基础</h3>
+
+<ul>
+<li><code>符号量名=sym(符号字符串)</code></li>
+<li><code>syms 符号变量名1 符号变量名2 … 符号变量名n</code>——用这种格式定义符号变量时不要在变量名上加单引号，变量间用<strong>空格</strong>而不要用逗号分隔。</li>
+<li>建立符号表达式的3种方法：
+<ul>
+<li>利用单引号来生成</li>
+<li>用<code>sym</code>函数建立</li>
+<li>使用已经定义的符号变量</li>
+</ul></li>
+<li>符号表达式提取分子和分母：<code>[n,d]=numden(s)</code>——提取符号表达式s的分子和分母，分别将它们存放在n与d中。</li>
+<li>符号表达式的因式分解与展开：
+<ul>
+<li><code>factor(s)</code>：分解因式</li>
+<li><code>expand(s)</code>：展开</li>
+<li><code>collect(s)</code>：合并同类项</li>
+<li><code>collect(s,v)</code>：对符号表达式s按变量v合并同类项</li>
+</ul></li>
+<li>符号表达式的化简：<code>simplify(s)</code></li>
+<li>符号表达式与数值表达式之间的转换
+<ul>
+<li><code>sym</code>可以将数值表达式变换成它的符号表达式</li>
+<li><code>eval</code>可以将符号表达式变换成数值表达式</li>
+</ul></li>
+<li>符号表达式中变量的确定：<code>findsym(s,n)</code></li>
+</ul>
+
+<h3 id="toc_70">符号函数及应用</h3>
+
+<h4 id="toc_71">符号函数的极限</h4>
+
+<ul>
+<li><code>limit(f,x,a)</code>：即计算当变量x趋近于常数a时，f(x)函数的极限值</li>
+<li><code>limit(f,a)</code>：符号函数f(x)的变量为函数findsym(f)确定的默认自变量，即变量x趋近于a</li>
+<li><code>limit(f)</code>：符号函数f(x)的变量为函数findsym(f)确定的默认自变量；没有指定变量的目标值时，系统默认变量趋近于0，即a=0的情况</li>
+<li><code>limit(f,x,a,&#39;right&#39;)</code>：&#39;right&#39;表示变量x从右边趋近于a</li>
+<li><code>limit(f,x,a,&#39;left&#39;)</code>：&#39;left&#39;表示变量x从左边趋近于a</li>
+</ul>
+
+<h4 id="toc_72">符号函数的求导</h4>
+
+<ul>
+<li><code>diff(f)</code>：没有指定变量和导数阶数，则系统按findsym函数指示的默认变量对符号表达式f求一阶导数</li>
+<li><code>diff(f,&#39;v&#39;)</code>：以v为自变量。对符号表达式f求一阶导数</li>
+<li><code>diff(f,n)</code>：按findsym函数指示的默认变量对符号表达式f求n阶导数，n为正整数</li>
+<li><code>diff(f,&#39;v&#39;,n)</code>：以v为自变量，对符号表达式f求n阶导数</li>
+</ul>
+
+<h3 id="toc_73">符号积分</h3>
+
+<h4 id="toc_74">符号函数的不定积分</h4>
+
+<ul>
+<li><code>int(f)</code>：没有指定积分变量和积分阶数时，系统按findsym函数指示的默认变量对被积函数或符号表达式f求不定积分</li>
+<li><code>int(f,v)</code>：以v为自变量，对被积函数或符号表达式f求不定积分</li>
+</ul>
+
+<h4 id="toc_75">符号函数的定积分</h4>
+
+<ul>
+<li><code>int(f,v,a,b)</code></li>
+<li>当a，b中有一个是inf时，函数返回一个广义积分</li>
+<li>当a，b中有一个符号表达式时，函数返回一个符号函数</li>
+</ul>
+
+<h3 id="toc_76">级数</h3>
+
+<h4 id="toc_77">级数的符号求和</h4>
+
+<ul>
+<li><code>symsum(f,x,a,b)</code>
+<ul>
+<li>f表示一个级数的通项，是一个符号表达式</li>
+<li>x是求和变量，x省略时使用系统的默认变量</li>
+<li>a和b是求和的开始项和末项</li>
+</ul></li>
+</ul>
+
+<h4 id="toc_78">函数的泰勒级数</h4>
+
+<ul>
+<li><code>taylor(f,x,a)</code></li>
+<li>将函数f按变量x展开为泰勒级数，缺省展开到第6项（即变量x的5次幂）为止</li>
+<li>参数a指定将函数f在自变量x=a处展开，a的缺省值是0    <code>taylor(f,x,a,&#39;Order&#39;,n)</code>       展开到第n项（即变量x的第n-1次幂）为止</li>
+</ul>
+
+<h3 id="toc_79">符号方程求解</h3>
+
+<h4 id="toc_80">符号代数方程求解</h4>
+
+<ul>
+<li><code>solve(s)</code>：求解变量为默认变量</li>
+<li><code>solve(s,v)</code>：求解变量为v</li>
+<li><code>solve(s1,s2,…,sn,v1,v2,…,vn)</code></li>
+</ul>
+
+<h2 id="toc_81">Simulink仿真技术</h2>
+
+<h3 id="toc_82">Simulink基本操作</h3>
+
+<h4 id="toc_83">利用Simulink进行系统仿真的步骤</h4>
+
+<ol>
+<li>启动Simulink，打开Simulink模块库</li>
+<li>打开空白模型窗口</li>
+<li>建立Simulink仿真模型</li>
+<li>设置仿真参数，进行仿真</li>
+<li>输出仿真结果</li>
+</ol>
+
+<h3 id="toc_84">模块库和系统仿真</h3>
+
+<ul>
+<li>Source
+<ul>
+<li>Sine Wave</li>
+<li>Step</li>
+</ul></li>
+<li>Sinks
+<ul>
+<li>数字表</li>
+<li>X-Y绘图仪</li>
+<li>示波器</li>
+</ul></li>
+<li>Continuous
+<ul>
+<li>微分环节</li>
+<li>积分环节</li>
+<li>传递函数</li>
+</ul></li>
+<li>Math
+<ul>
+<li>加法器</li>
+<li>符号函数</li>
+</ul></li>
+<li>Signals Routing
+<ul>
+<li>信号分路器</li>
+<li>信号汇总器</li>
+</ul></li>
+<li>Solver页
+<ul>
+<li>Simulation time（仿真开始时间）</li>
+<li>Solver options（仿真算法选择）</li>
+<li>Error Tolerance（误差限度）</li>
+</ul></li>
+<li>Data Import/Export</li>
+</ul>
+
+<h4 id="toc_85">系统仿真实例</h4>
+
+<ul>
+<li>构建函数曲线
+<ul>
+<li>方法1:采用MATLAB Fcn模块构建</li>
+<li>方法2:采用基本模块组合构建</li>
+</ul></li>
+<li>构造求解微分方程
+<ul>
+<li>利用Integrator（积分器）模块直接构造求解微分方程的模型</li>
+<li>利用传递函数模块（Transfer Fcn）建模</li>
+<li>利用状态方程模块（State-Space）建模</li>
+</ul></li>
+</ul>
+
+<h3 id="toc_86">子系统创建与封装</h3>
+
+<ul>
+<li>子系统的作用
+<ul>
+<li>模型得到简化，便于连线；</li>
+<li>提高效率，便于调试；</li>
+<li>可生成层次化的模型图表，用户可以采取自上而下或自下而上的设计方法。</li>
+</ul></li>
+<li>子系统的创建
+<ul>
+<li>通过子系统模块（Subsystem）</li>
+<li>通过已有的模块</li>
+</ul></li>
+<li>子系统的封装
+<ul>
+<li>设置好子系统中各模块的参数变量</li>
+<li>定义提示对话框及其特性</li>
+<li>定义被封装子系统的描述和帮助文档</li>
+<li>定义产生模块图标的命令</li>
+</ul></li>
+</ul>
+
+<h2 id="toc_87">PID控制器参数整定</h2>
+
+<h3 id="toc_88">控制系统性能指标</h3>
+
+<h3 id="toc_89">PID控制器各参数作用</h3>
+
+<h4 id="toc_90">比例控制</h4>
+
+<ul>
+<li>随着Kp值的增加，系统的响应速度也加快，系统的超调也随着增加，调节时间也随着增长。</li>
+<li>但当Kp增大到一定值后，闭环系统将趋于不稳定。</li>
+<li>比例控制只改变系统的增益而不影响相位，它对系统的影响 主要反映在系统的稳态误差和稳定性上。</li>
+<li>增大比例系数，可提高系统的开环增益，减小系统的稳态误差，从而提高系统的控制精度，但这会降低系统的相对稳定性，甚者可能造成闭环系统的不稳定。因此，系统校正和设计中，比例控制一般不单独使用。</li>
+</ul>
+
+<h4 id="toc_91">比例积分控制</h4>
+
+<ul>
+<li>增加积分控制对系统而言是增加了极点，对系统响应而言是可消除稳态误差；</li>
+<li>由于积分引入了相位滞后，对瞬态响应会造成不良影响，使系统稳定性变差，甚至造成不稳定，因此积分控制不单独使用。</li>
+<li>随着积分时间常数的减少，积分控制作用增强，闭环系统的稳定性变差。</li>
+</ul>
+
+<h4 id="toc_92">比例微分控制</h4>
+
+<ul>
+<li>在微分控制中，控制器的输出与输入误差信号的微分（即误差的变化率）成正比关系。微分控制反映误差的变化率，只有当误差随时间变化时，微分控制才会对系统起作用，而对无变化或缓慢变化的对象不起作用。</li>
+<li>“微分项”能预测误差变化的趋势，这样PD控制器就能提前使抑制误差的控制作用等于零，甚至为负值，从而避免被控量的严重超调。</li>
+<li>仅有比例控制时，系统阶跃响应有相当大的超调量和较强烈的振荡；</li>
+<li>随着微分作用的加强，系统的超调量减小，稳定性提高，上升时间减小，快速性提高。</li>
+</ul>
+
+<h3 id="toc_93">PID控制器参数整定方法</h3>
+
+<ul>
+<li>Ziegler-Nichols法</li>
+<li>响应曲线法</li>
+<li>临界比例度法</li>
+</ul>
+
+<h2 id="toc_94">控制系统的数学模型</h2>
+
+<h3 id="toc_95">TF数学模型（传递函数模型）</h3>
+
+<ul>
+<li>SISO系统
+<ul>
+<li><code>sys=tf(num,den)</code>：建立以num为分子多项式、den为分母多项式的TF模型</li>
+<li><code>sys=tf(num,den,&#39;Property1&#39;,V1,…,&#39;PropertyN&#39;,VN)</code>：初始化TF模型的其他属性</li>
+<li><code>sys=tf(&#39;s&#39;)</code>：建立拉普拉斯变换的自变量s的TF模型</li>
+</ul></li>
+</ul>
+
+<pre class="line-numbers"><code class="language-matlab">&gt;&gt; s=tf(&#39;s&#39;);
+&gt;&gt; H=s/(s^2+2*s+10);
+</code></pre>
+
+<ul>
+<li>MIMO系统</li>
+</ul>
+
+<pre class="line-numbers"><code class="language-matlab">&gt;&gt; N={[1 -1];[1 2]};
+&gt;&gt; D={[1 1];[1 4 5]};
+&gt;&gt; sys=tf(N,D)
+</code></pre>
+
+<h3 id="toc_96">ZPK模型（零极点模型）</h3>
+
+<ul>
+<li><code>sys=zpk(z,p,k)</code>：建立以z为零点，p为极点，k为增益的ZPK模型</li>
+<li><code>sys=zpk(z,p,k,&#39;Property1&#39;,V1,…,&#39;PropertyN&#39;,VN)</code></li>
+<li><code>sys=zpk(&#39;s&#39;)</code></li>
+<li>如果没有零点，则z为<strong>空数组</strong></li>
+</ul>
+
+<h3 id="toc_97">SS模型（状态空间模型）</h3>
+
+<ul>
+<li><code>sys=ss(a,b,c,d)</code></li>
+<li><code>sys=ss(a,b,c,d,&#39;Property1&#39;,V1,…,&#39;PropertyN&#39;,VN)</code></li>
+<li><code>sys=ss(d)</code>：建立静态增益矩阵d的状态空间模型</li>
+<li>a,b,c,d分别表示状态方程的系统矩阵、输入矩阵、输出矩阵和传输矩阵</li>
+</ul>
+
+<h3 id="toc_98">离散系统的数学模型</h3>
+
+<ul>
+<li>脉冲传递函数
+<ul>
+<li><code>sys=tf(num,den,Ts)</code>：Ts是离散系统的采样周期</li>
+<li><code>sys=zpk(z,p,k,Ts)</code></li>
+</ul></li>
+<li>状态空间模型
+<ul>
+<li><code>sys=ss(a,b,c,d,Ts)</code></li>
+</ul></li>
+</ul>
+
+<h3 id="toc_99">连续系统和离散系统之间的转换</h3>
+
+<ul>
+<li><code>sysd=c2d(sysc,Ts)</code>：将连续系统转换为采样周期为Ts的离散系统</li>
+<li><code>sysd=c2d(sysc,Ts,&#39;method&#39;)</code>：指定连续系统的离散化方法method</li>
+<li><code>[sysd,G]=c2d(sysc,Ts,&#39;method&#39;)</code>：对于SS模型，同时求得初始条件的转换阵G</li>
+<li><code>[Ad,Bd,Cd,Dd]=c2dm(A,B,C,D,Ts,&#39;method&#39;)</code>：用于连续SS模型的离散化</li>
+<li><code>sysc=d2c(sysd)</code>：将离散系统转换为连续系统</li>
+<li><code>sysc=d2c(sysd,&#39;method&#39;)</code>：指定离散系统的连续化方法method</li>
+<li><code>[Ac,Bc,Cc,Dc]=d2cm(A,B,C,D,Ts,&#39;method&#39;)</code>：用于离散SS模型的连续化</li>
+<li><code>sysd1=d2d(sysd,Ts)</code>：改变离散系统的采样周期，生成新的离散系统</li>
+</ul>
+
+<h2 id="toc_100">控制系统的分析</h2>
+
+<h2 id="toc_101">总结</h2>
 
 </div></body>
 

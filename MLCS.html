@@ -476,15 +476,19 @@ Prism.languages.yaml={scalar:{pattern:/([\-:]\s*(?:![^\s]+)?[ \t]*[|>])[ \t]*(?:
 <h3 id="toc_6">连续系统和离散系统之间的转换</h3>
 
 <ul>
-<li><code>sysd=c2d(sysc,Ts)</code></li>
-<li><code>sysd=c2d(sysc,Ts,&#39;method&#39;)</code></li>
-<li><code>[sysd,G]=c2d(sysc,Ts,&#39;method&#39;)</code></li>
-<li><code>[Ad,Bd,Cd,Dd]=c2dm(A,B,C,D,Ts,&#39;method&#39;)</code></li>
-<li><code>sysc=d2c(sysd)</code></li>
-<li><code>sysc=d2c(sysd,&#39;method&#39;)</code></li>
-<li><code>[Ac,Bc,Cc,Dc]=d2cm(A,B,C,D,Ts,&#39;method&#39;)</code></li>
-<li><code>sysd1=d2d(sysd,Ts)</code></li>
+<li><code>sysd=c2d(sysc,Ts)</code>：将连续系统转换为采样周期为Ts的离散系统</li>
+<li><code>sysd=c2d(sysc,Ts,&#39;method&#39;)</code>：指定连续系统的离散化方法method</li>
+<li><code>[sysd,G]=c2d(sysc,Ts,&#39;method&#39;)</code>：对于SS模型，同时求得初始条件的转换阵G</li>
+<li><code>[Ad,Bd,Cd,Dd]=c2dm(A,B,C,D,Ts,&#39;method&#39;)</code>：用于连续SS模型的离散化</li>
+<li><code>sysc=d2c(sysd)</code>：将离散系统转换为连续系统</li>
+<li><code>sysc=d2c(sysd,&#39;method&#39;)</code>：指定离散系统的连续化方法method</li>
+<li><code>[Ac,Bc,Cc,Dc]=d2cm(A,B,C,D,Ts,&#39;method&#39;)</code>：用于离散SS模型的连续化</li>
+<li><code>sysd1=d2d(sysd,Ts)</code>：改变离散系统的采样周期，生成新的离散系统</li>
 </ul>
+
+<hr/>
+
+<p>Powered by 姚哲宇</p>
 
 </div></body>
 
