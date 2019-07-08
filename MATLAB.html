@@ -1,6 +1,8 @@
 <!DOCTYPE html><html>
 
 <head>
+<title>MATLAB复习</title>
+<link rel="icon" type="image/x-icon" href="images/logo.PNG" />
 <meta charset="utf-8">
 <title>MATLAB</title>
 <style>
@@ -1882,7 +1884,43 @@ ans =
 
 <h2 id="toc_100">控制系统的分析</h2>
 
-<h2 id="toc_101">总结</h2>
+<h3 id="toc_101">线性系统的根轨迹</h3>
+
+<ul>
+<li>根轨迹绘制
+<ul>
+<li><code>rlocus(sys)</code>：绘制系统的根轨迹</li>
+<li><code>rlocus(sys,k)</code>：使用用户指定的根轨迹增益k值来绘制系统的根轨迹</li>
+<li><code>rlocus(sys1,sys2,…)</code>：绘制多个系统的根轨迹</li>
+<li><code>[R,K]=rlocus(sys)</code>：计算根轨迹增益值和闭环极点值</li>
+<li><code>R=rlocus(sys,k)</code>：计算对应于根轨迹增益值k的闭环极点值</li>
+</ul></li>
+<li>计算根轨迹增益
+<ul>
+<li><code>[K,poles]=rlocfind(sys)</code>：计算鼠标拾取点处的根轨迹增益和闭环极点</li>
+<li><code>[K,poles]=rlocfind(sys,P)</code>：计算最靠近给定闭环极点P处的根轨迹增益</li>
+</ul></li>
+</ul>
+
+<h3 id="toc_102">线性系统的频域响应</h3>
+
+<h4 id="toc_103">奈奎斯特（Nyquist）图</h4>
+
+<ul>
+<li><code>[re,im,w]=nyquist(sys)</code>：自动确定频率区间w，计算频率响应</li>
+<li><code>[re,im]=nyquist(sys,w)</code>：求取指定频率区间w内的频率响应</li>
+<li><code>[re,im]=nyquist(A,B,C,D,iu,w)</code>：系统对第iu个输入分量的频率响应</li>
+</ul>
+
+<h4 id="toc_104">伯德（Bode）图</h4>
+
+<ul>
+<li><code>[mag,phase,w]=bode(sys)</code></li>
+<li><code>[mag,phase]=bode(sys,w)</code></li>
+<li><code>[mag,phase]=bode(A,B,C,D,iu,w)</code></li>
+</ul>
+
+<h2 id="toc_105">总结</h2>
 
 </div></body>
 
