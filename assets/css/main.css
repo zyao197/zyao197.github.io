@@ -993,12 +993,13 @@ section.special, article.special {
   text-align: center; }
 
 header p {
-  font-family: "Roboto Slab", serif;
-  font-size: 1em;
-  font-weight: 400;
-  letter-spacing: 0.075em;
-  margin-top: -0.5em;
-  text-transform: uppercase; }
+    font-family: "Open Sans", sans-serif;
+    font-size: 1em;
+    font-weight: 400;
+    letter-spacing: 0.075em;
+    margin-top: -0.5em;
+    text-transform: uppercase;
+}
 
 header.major > :last-child {
     border-bottom: solid 3px #1590ed;
@@ -2211,18 +2212,19 @@ button,
 
 /* Menu */
 #menu ul {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  color: #3d4449;
-  font-family: "Roboto Slab", serif;
-  font-weight: 400;
-  letter-spacing: 0.075em;
-  list-style: none;
-  margin-bottom: 0;
-  padding: 0;
-  text-transform: uppercase; }
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #3d4449;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.075em;
+    list-style: none;
+    margin-bottom: 0;
+    padding: 0;
+    text-transform: uppercase;
+}
   #menu ul a, #menu ul span {
     border-bottom: 0;
     color: inherit;
