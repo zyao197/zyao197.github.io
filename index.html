@@ -1,249 +1,431 @@
-<!DOCTYPE HTML>
-<!--
-	Editorial by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Zheyu Yao's Blog</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.1/css/all.css" crossorigin="anonymous" onerror="this.onerror=null;this.href='assets/css/fontawesome-all.min.css';">
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zheyu Yao</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+        @keyframes fadeInBackground {
+            0% {
+                opacity: 1;
+            }
+            70% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
 
-				<!-- Main -->
-					<div id="main">
-						<div class="inner">
+        @keyframes floatIn {
+            0% {
+                transform: translateX(-30px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
 
-							<!-- Header -->
-								<header id="header">
-									<a href="index.html" class="logo"><strong>Zheyu Yao's</strong> Blog</a>
-									<ul class="icons">
-										<li><a href="https://github.com/zyao197" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-										<li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
-										<li><a href="https://x.com/zyao197" class="icon brands fa-x-twitter"><span class="label">Twitter</span></a></li>
-									</ul>
-								</header>
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
 
-							<!-- Banner -->
-								<section id="banner">
-									<div class="content">
-										<header>
-											<h1>Hi, I'm Zheyu Yao</h1>
-											<p>Welcome to my blog!</p>
-										</header>
-										<p>Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisis ante interdum congue. Integer mollis, nisl amet convallis, porttitor magna ullamcorper, amet egestas mauris. Ut magna finibus nisi nec lacinia. Nam maximus erat id euismod egestas. Pellentesque sapien ac quam. Lorem ipsum dolor sit nullam.</p>
-										<ul class="actions">
-											<li><a href="#" class="button big">Learn More</a></li>
-										</ul>
-									</div>
-									<span class="image object">
-										<img src="images/Introduction/Intro.jpg" alt="" />
-									</span>
-								</section>
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.98);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
 
-							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Erat lacinia</h2>
-									</header>
-									<div class="features">
-										<article>
-											<span class="icon fa-solid fa-gem"></span>
-											<div class="content">
-												<h3>Portitor ullamcorper</h3>
-												<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											</div>
-										</article>
-										<article>
-											<span class="icon solid fa-paper-plane"></span>
-											<div class="content">
-												<h3>Sapien veroeros</h3>
-												<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											</div>
-										</article>
-										<article>
-											<span class="icon solid fa-rocket"></span>
-											<div class="content">
-												<h3>Quam lorem ipsum</h3>
-												<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											</div>
-										</article>
-										<article>
-											<span class="icon solid fa-signal"></span>
-											<div class="content">
-												<h3>Sed magna finibus</h3>
-												<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											</div>
-										</article>
-									</div>
-								</section>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=2400&q=100') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Ipsum sed dolor</h2>
-									</header>
-									<div class="posts">
-										<article>
-											<a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
-											<h3>Interdum aenean</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
-											<h3>Nulla amet dolore</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
-											<h3>Tempus ullamcorper</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
-											<h3>Sed etiam facilis</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic05.jpg" alt="" /></a>
-											<h3>Feugiat lorem aenean</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic06.jpg" alt="" /></a>
-											<h3>Amet varius aliquam</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-									</div>
-								</section>
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #1a1a1a;
+            animation: fadeInBackground 2s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
+            z-index: -1;
+        }
 
-						</div>
-					</div>
+        .card {
+            background: rgba(51, 51, 51, 0.7);
+            border-radius: 25px;
+            padding: 3.5rem;
+            max-width: 1000px;
+            width: 90%;
+            margin: 2rem;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            display: grid;
+            grid-template-columns: 0.8fr 1px 1.2fr;
+            gap: 3rem;
+            animation: fadeIn 1s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+        }
 
-				<!-- Sidebar -->
-					<div id="sidebar">
-						<div class="inner">
+        .profile > *, .content > * {
+            animation: floatIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            opacity: 0;
+        }
 
-							<!-- Search -->
-								<section id="search" class="alt">
-									<form method="post" action="#">
-										<input type="text" name="query" id="query" placeholder="Search" />
-									</form>
-								</section>
+        .profile-img {
+            animation-delay: 0.3s !important;
+        }
 
-							<!-- Menu -->
-								<nav id="menu">
-									<header class="major">
-										<h2>Menu</h2>
-									</header>
-									<ul>
-										<li><a href="index.html">Homepage</a></li>
-										<li><a href="generic.html">Generic</a></li>
-										<li><a href="elements.html">Elements</a></li>
-										<li>
-											<span class="opener">Submenu</span>
-											<ul>
-												<li><a href="#">Lorem Dolor</a></li>
-												<li><a href="#">Ipsum Adipiscing</a></li>
-												<li><a href="#">Tempus Magna</a></li>
-												<li><a href="#">Feugiat Veroeros</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Etiam Dolore</a></li>
-										<li><a href="#">Adipiscing</a></li>
-										<li>
-											<span class="opener">Another Submenu</span>
-											<ul>
-												<li><a href="#">Lorem Dolor</a></li>
-												<li><a href="#">Ipsum Adipiscing</a></li>
-												<li><a href="#">Tempus Magna</a></li>
-												<li><a href="#">Feugiat Veroeros</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Maximus Erat</a></li>
-										<li><a href="#">Sapien Mauris</a></li>
-										<li><a href="#">Amet Lacinia</a></li>
-									</ul>
-								</nav>
+        .name {
+            animation-delay: 0.4s !important;
+        }
 
-							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Ante interdum</h2>
-									</header>
-									<div class="mini-posts">
-										<article>
-											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-									</div>
-									<ul class="actions">
-										<li><a href="#" class="button">More</a></li>
-									</ul>
-								</section>
+        .bio {
+            animation-delay: 0.5s !important;
+        }
 
-							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Get in touch</h2>
-									</header>
-									<p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-									<ul class="contact">
-										<li class="icon solid fa-envelope"><a href="mailto:zheyu.yao@outlook.com">zheyu.yao@outlook.com</a></li>
-										<li class="icon solid fa-home">Suzhou, Jiangsu Province, <br />People's Republic of China</li>
-									</ul>
-								</section>
+        .contact-icons {
+            animation-delay: 0.6s !important;
+        }
 
-							<!-- Footer -->
-								<footer id="footer">
-									<p class="copyright">&copy; 2025 Zheyu Yao. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-								</footer>
+        .section:nth-child(1) {
+            animation-delay: 0.7s !important;
+        }
 
-						</div>
-					</div>
+        .section:nth-child(2) {
+            animation-delay: 0.8s !important;
+        }
 
-			</div>
+        .social-links {
+            animation-delay: 0.9s !important;
+        }
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+        .vertical-line {
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
+            opacity: 0;
+        }
 
-	</body>
-</html>
+        .vertical-line {
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+        }
+
+        .profile {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .name {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .location {
+            color: #ccc;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .location i {
+            font-size: 1rem;
+        }
+
+        .bio {
+            color: #ccc;
+            margin-bottom: 2rem;
+        }
+
+        .contact-icons {
+            display: flex;
+            justify-content: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .icon i {
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .section {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .section:first-child {
+            border-bottom: none;
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+
+        .section:first-child::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 1px;
+            margin-bottom: -0.75rem;
+            background: linear-gradient(
+                to right,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+        }
+
+        .section:nth-child(2) {
+            margin-bottom: 0.5rem;
+            padding-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0;
+        }
+
+        .social-link {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.7rem 1.2rem;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-link i {
+            font-size: 1.1rem;
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+            }
+
+            .vertical-line {
+                display: none;
+            }
+
+            .profile {
+                align-items: center;
+                text-align: center;
+                height: auto;
+                justify-content: flex-start;
+            }
+
+            .contact-icons {
+                justify-content: center;
+            }
+
+            .profile-img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .name {
+                font-size: 1.5rem;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 高质量背景图片数组
+            const backgrounds = [
+                'https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=2400&q=100',
+                'https://images.unsplash.com/photo-1505159940484-eb2b9f2588e2?w=2400&q=100',
+                'https://images.unsplash.com/photo-1503803548695-c2a7b4a5b875?w=2400&q=100',
+                'https://images.unsplash.com/photo-1439784463130-8d46e76c68fd?w=2400&q=100',
+                'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=2400&q=100',
+                'https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?w=2400&q=100',
+                'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=2400&q=100',
+                'https://images.unsplash.com/photo-1502787530428-11cf61d6ba18?w=2400&q=100'
+            ];
+            
+            // 随机选择一张图片
+            const randomBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+            
+            // 应用背景图片
+            document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('${randomBg}')`;
+        });
+    </script>
+</head>
+<body>
+    <div class="card">
+        <div class="profile">
+            <img src="images/profile/biophoto.jpg" alt="Profile" class="profile-img">
+            <h1 class="name">Zheyu Yao</h1>
+            <div class="location">
+                <i class="fa-solid fa-location-dot"></i>
+                Suzhou, China
+            </div>
+            <p class="bio">Graduate master student of Pattern Recognition and Intelligent Systems at University of Liverpool</p>
+            <div class="contact-icons">
+                <a href="sms:+19093750525" class="icon">
+                    <i class="fa-regular fa-comment"></i>
+                </a>
+                <!-- <a href="tel:+447123456789" class="icon">
+                    <i class="fa-regular fa-phone"></i>
+                </a> -->
+                <a href="mailto:zheyu.yao@outlook.com" class="icon">
+                    <i class="fa-regular fa-envelope"></i>
+                </a>
+                <a href="#" class="icon">
+                    <i class="fa-regular fa-file"></i>
+                </a>
+            </div>
+        </div>
+        <div class="vertical-line"></div>
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">Projects</h2>
+                <p>Divein2Papers</p>
+            </div>
+            <div class="section">
+                <h2 class="section-title">Find Me</h2>
+                <p>Haha.</p>
+            </div>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/zyao197" class="social-link" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                    LinkedIn
+                </a>
+                <a href="https://scholar.google.com/citations?user=Uu2pcowAAAAJ&hl=en&oi=sra" class="social-link" target="_blank">
+                    <i class="fab fa-google-scholar"></i>
+                    Google Scholar
+                </a>
+                <a href="https://orcid.org/0009-0002-1397-865X" class="social-link" target="_blank">
+                    <i class="fab fa-orcid"></i>
+                    ORCiD
+                </a>
+                <!-- <a href="https://www.snapchat.com/add/your-username" class="social-link" target="_blank">
+                    <i class="fab fa-snapchat"></i>
+                    Snapchat
+                </a> -->
+                <!-- <a href="https://www.youtube.com/@your-channel" class="social-link" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                    YouTube
+                </a> -->
+                <!-- <a href="https://www.instagram.com/your-username" class="social-link" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                    Instagram
+                </a> -->
+                <a href="https://x.com/zyao197" class="social-link" target="_blank">
+                    <i class="fab fa-x-twitter"></i>
+                    X
+                </a>
+                
+                <!-- <a href="https://discord.gg/zyao197" class="social-link" target="_blank">
+                    <i class="fab fa-discord"></i>
+                    Discord
+                </a> -->
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
