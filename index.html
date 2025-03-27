@@ -437,11 +437,31 @@
                 }
             }
 
+            // 检查并调整卡片位置
+            function adjustCardPosition() {
+                const card = document.querySelector('.card');
+                const windowHeight = window.innerHeight;
+                const cardHeight = card.offsetHeight;
+                const body = document.body;
+
+                if (windowHeight >= cardHeight) {
+                    body.style.alignItems = 'center';
+                } else {
+                    body.style.alignItems = 'flex-start';
+                }
+            }
+
             // 初始加载背景
             updateBackground();
 
             // 每30分钟更新一次背景
             setInterval(updateBackground, 30 * 60 * 1000);
+
+            // 初始检查卡片位置
+            adjustCardPosition();
+
+            // 监听窗口大小变化
+            window.addEventListener('resize', adjustCardPosition);
         });
     </script>
 </head>
