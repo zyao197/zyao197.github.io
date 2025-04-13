@@ -70,10 +70,6 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
             color: #fff;
-            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=2400&q=100') no-repeat center center fixed;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
             min-height: 100vh;
             min-height: 100dvh;
             display: flex;
@@ -95,6 +91,28 @@
             bottom: 0;
             background: #1a1a1a;
             animation: fadeInBackground 2s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
+            z-index: -1;
+        }
+
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.45);
             z-index: -1;
         }
 
@@ -416,6 +434,16 @@
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // 创建背景图片元素
+            const backgroundImage = document.createElement('div');
+            backgroundImage.className = 'background-image';
+            document.body.insertBefore(backgroundImage, document.body.firstChild);
+
+            // 创建背景遮罩元素
+            const backgroundOverlay = document.createElement('div');
+            backgroundOverlay.className = 'background-overlay';
+            document.body.insertBefore(backgroundOverlay, document.body.firstChild);
+
             // 高质量背景图片数组
             const backgrounds = [
                 'https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=2400&q=100',
@@ -448,11 +476,11 @@
                     await preloadImage(randomBg);
                     
                     // 应用背景图片
-                    document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('${randomBg}')`;
+                    backgroundImage.style.backgroundImage = `url('${randomBg}')`;
                 } catch (error) {
                     console.error('Error updating background:', error);
                     // 如果加载失败，使用默认背景
-                    document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('${backgrounds[0]}')`;
+                    backgroundImage.style.backgroundImage = `url('${backgrounds[0]}')`;
                 }
             }
 
