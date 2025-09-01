@@ -958,23 +958,173 @@
                 });
             }
 
+            createFallbackPosts() {
+                // 当无法加载markdown文件时的备用文章数据
+                return [
+                    {
+                        id: 'fallback1',
+                        title: 'Advanced React Patterns for Modern Applications',
+                        excerpt: 'React has evolved significantly over the years, and with it, the patterns we use to build scalable and maintainable applications. In this article, we explore some advanced React patterns that can help you write better code.',
+                        content: `# Advanced React Patterns for Modern Applications
+
+*Published on December 22, 2024 · 7 min read*
+
+## Introduction
+
+React has evolved significantly over the years, and with it, the patterns we use to build scalable and maintainable applications. In this article, we'll explore some advanced React patterns that can help you write better code.
+
+## 1. Compound Components Pattern
+
+The compound components pattern allows you to create flexible and reusable component APIs.
+
+\`\`\`jsx
+function Accordion({ children, ...props }) {
+  const [openItems, setOpenItems] = useState(new Set());
+  
+  const toggleItem = (id) => {
+    const newOpenItems = new Set(openItems);
+    if (newOpenItems.has(id)) {
+      newOpenItems.delete(id);
+    } else {
+      newOpenItems.add(id);
+    }
+    setOpenItems(newOpenItems);
+  };
+
+  return (
+    <div className="accordion" {...props}>
+      {React.Children.map(children, (child, index) =>
+        React.cloneElement(child, {
+          isOpen: openItems.has(index),
+          onToggle: () => toggleItem(index),
+          index
+        })
+      )}
+    </div>
+  );
+}
+\`\`\`
+
+## Conclusion
+
+These advanced React patterns provide powerful tools for building maintainable and scalable applications.`,
+                        date: '2024-12-22',
+                        readTime: '7 min read',
+                        views: 1234,
+                        category: 'web-development',
+                        tags: ['React', 'JavaScript', 'WebDevelopment', 'Frontend'],
+                        icon: 'fas fa-code',
+                        featured: true,
+                        slug: 'advanced-react-patterns'
+                    },
+                    {
+                        id: 'fallback2',
+                        title: 'AI-Powered Development: The Future of Coding',
+                        excerpt: 'Artificial Intelligence is revolutionizing software development, from code generation to automated testing. Let\'s explore how AI tools are reshaping the development landscape.',
+                        content: `# AI-Powered Development: The Future of Coding
+
+*Published on December 20, 2024 · 6 min read*
+
+## Introduction
+
+Artificial Intelligence is revolutionizing software development, from code generation to automated testing. Let's explore how AI tools are reshaping the development landscape.
+
+## Current AI Development Tools
+
+### 1. Code Generation
+
+AI assistants like GitHub Copilot and ChatGPT can generate code snippets:
+
+\`\`\`python
+def process_user_data(users):
+    """
+    Process user data and return analytics
+    """
+    analytics = {
+        'total_users': len(users),
+        'active_users': len([u for u in users if u.get('active', False)]),
+        'avg_age': sum(u.get('age', 0) for u in users) / len(users) if users else 0
+    }
+    return analytics
+\`\`\`
+
+## Conclusion
+
+AI is not replacing developers but augmenting their capabilities. The future belongs to developers who can effectively leverage AI tools while maintaining critical thinking and creativity.`,
+                        date: '2024-12-20',
+                        readTime: '6 min read',
+                        views: 987,
+                        category: 'machine-learning',
+                        tags: ['AI', 'Development', 'Future', 'Technology'],
+                        icon: 'fas fa-brain',
+                        featured: false,
+                        slug: 'ai-powered-development'
+                    },
+                    {
+                        id: 'fallback3',
+                        title: 'OCR Technology in Mobile Applications',
+                        excerpt: 'Optical Character Recognition (OCR) has become increasingly important in mobile app development. This article explores the implementation and best practices for OCR in mobile apps.',
+                        content: `# OCR Technology in Mobile Applications
+
+*Published on December 18, 2024 · 5 min read*
+
+## Introduction
+
+Optical Character Recognition (OCR) has become increasingly important in mobile app development. This article explores the implementation and best practices for OCR in mobile apps.
+
+## Implementation Strategies
+
+### 1. Cloud-based OCR
+
+Using services like Google Cloud Vision API or AWS Textract provides high accuracy but requires internet connectivity.
+
+### 2. On-device OCR
+
+On-device processing ensures privacy and works offline but may have limitations in accuracy.
+
+## Conclusion
+
+OCR technology continues to evolve, offering new possibilities for mobile application development.`,
+                        date: '2024-12-18',
+                        readTime: '5 min read',
+                        views: 654,
+                        category: 'mobile-apps',
+                        tags: ['OCR', 'Mobile', 'ComputerVision'],
+                        icon: 'fas fa-mobile-alt',
+                        featured: false,
+                        slug: 'ocr-mobile-apps'
+                    }
+                ];
+            }
+
             async scanAndLoadPosts() {
                 document.getElementById('loading').style.display = 'block';
                 
                 try {
-                    // 动态扫描posts目录中的所有markdown文件
+                    // 尝试加载markdown文件
                     const markdownFiles = await this.discoverMarkdownFiles();
-                    this.posts = [];
                     
-                    for (const file of markdownFiles) {
-                        try {
-                            const post = await this.loadMarkdownPost(file);
-                            if (post) {
-                                this.posts.push(post);
+                    // 如果返回的是备用数据
+                    if (Array.isArray(markdownFiles) && markdownFiles.length > 0 && typeof markdownFiles[0] === 'object') {
+                        this.posts = markdownFiles;
+                    } else {
+                        // 否则加载实际的markdown文件
+                        this.posts = [];
+                        for (const file of markdownFiles) {
+                            try {
+                                const post = await this.loadMarkdownPost(file);
+                                if (post) {
+                                    this.posts.push(post);
+                                }
+                            } catch (error) {
+                                console.warn(`Failed to load ${file}:`, error);
                             }
-                        } catch (error) {
-                            console.warn(`Failed to load ${file}:`, error);
                         }
+                    }
+
+                    // 如果仍然没有文章，使用备用数据
+                    if (this.posts.length === 0) {
+                        this.posts = this.createFallbackPosts();
                     }
 
                     // 按日期排序，最新的在前
@@ -983,16 +1133,21 @@
                     
                 } catch (error) {
                     console.error('Error scanning posts:', error);
+                    // 出错时使用备用数据
+                    this.posts = this.createFallbackPosts();
+                    this.filteredPosts = [...this.posts];
                 } finally {
                     document.getElementById('loading').style.display = 'none';
                 }
             }
 
             async discoverMarkdownFiles() {
-                // 已知的markdown文件列表
+                // 所有已知的markdown文件列表
                 const knownFiles = [
                     'posts/ocr-mobile-apps.md',
-                    'posts/new-blog-post.md'
+                    'posts/new-blog-post.md',
+                    'posts/advanced-react-patterns.md',
+                    'posts/ai-powered-development.md'
                 ];
 
                 const availableFiles = [];
@@ -1006,6 +1161,11 @@
                     } catch (error) {
                         console.log(`File ${file} not accessible`);
                     }
+                }
+
+                // 如果没有找到任何文件，使用默认示例数据
+                if (availableFiles.length === 0) {
+                    return this.createFallbackPosts();
                 }
 
                 return availableFiles;
