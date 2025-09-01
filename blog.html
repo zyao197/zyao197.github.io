@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,43 +16,41 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.7;
-            color: #2d3748;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            line-height: 1.6;
+            color: #1a202c;
+            background: #f7fafc;
             min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
         }
 
         .header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid #e2e8f0;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 0;
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d3748;
             text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #4299e1;
         }
 
         .nav {
@@ -63,51 +62,33 @@
         .nav a {
             color: #4a5568;
             text-decoration: none;
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav a:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1e3c72, #3b82f6);
-            transition: left 0.3s ease;
-            z-index: -1;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
 
         .nav a:hover, .nav a.active {
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(30, 60, 114, 0.4);
+            color: #4299e1;
+            background: #ebf8ff;
         }
 
         .hero {
-            text-align: center;
-            padding: 6rem 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            text-align: center;
+            padding: 4rem 2rem;
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 8vw, 5rem);
+            font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 900;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff, #e2e8f0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.1;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .hero p {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             opacity: 0.9;
             max-width: 600px;
             margin: 0 auto 2rem;
@@ -128,13 +109,13 @@
             backdrop-filter: blur(10px);
             font-size: 1rem;
             outline: none;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
 
         .search-input:focus {
             background: white;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
         }
 
         .search-icon {
@@ -147,31 +128,136 @@
         }
 
         .main-content {
-            padding: 4rem 0;
-        }
-
-        .content-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
             display: grid;
             grid-template-columns: 1fr 300px;
-            gap: 4rem;
+            gap: 3rem;
             align-items: start;
         }
 
-        .filter-section {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            position: sticky;
-            top: 120px;
+        .blog-container {
+            display: grid;
+            gap: 2rem;
         }
 
-        .filter-section h3 {
+        .blog-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .blog-header {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+        }
+
+        .blog-content {
+            padding: 2rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .blog-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #2d3748;
+            line-height: 1.3;
+        }
+
+        .blog-excerpt {
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .blog-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background: #ebf8ff;
+            color: #2b6cb0;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: #bee3f8;
+            transform: translateY(-1px);
+        }
+
+        .read-more {
+            background: #4299e1;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .sidebar-section h3 {
             color: #2d3748;
             margin-bottom: 1.5rem;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
         }
 
@@ -183,236 +269,28 @@
 
         .filter-btn {
             background: transparent;
-            color: #667eea;
-            border: 2px solid #e2e8f0;
-            padding: 0.8rem 1.2rem;
-            border-radius: 15px;
-            text-decoration: none;
-            font-weight: 600;
+            color: #4a5568;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
             text-align: left;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-        }
-
-        .filter-btn i {
-            font-size: 1.1rem;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-color: transparent;
-            transform: translateX(5px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        .blog-container {
-            display: grid;
-            gap: 2.5rem;
-        }
-
-        .blog-card {
-            background: white;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(20px);
-            cursor: pointer;
-        }
-
-        .blog-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.15);
-        }
-
-        .blog-header {
-            height: 250px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 4rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .blog-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8));
-            backdrop-filter: blur(10px);
-        }
-
-        .blog-header i {
-            position: relative;
-            z-index: 1;
-        }
-
-        .blog-content {
-            padding: 2.5rem;
-        }
-
-        .blog-meta {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: #718096;
-            font-size: 0.9rem;
+            gap: 0.75rem;
             font-weight: 500;
         }
 
-        .blog-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .blog-title {
-            font-size: 1.6rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            color: #2d3748;
-            line-height: 1.3;
-        }
-
-        .blog-excerpt {
-            color: #4a5568;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-            font-size: 1rem;
-        }
-
-        .blog-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-bottom: 2rem;
-        }
-
-        .tag {
-            background: linear-gradient(135deg, #f7fafc, #edf2f7);
-            color: #667eea;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border: 2px solid #e2e8f0;
-            transition: all 0.3s ease;
-        }
-
-        .tag:hover {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-color: transparent;
-            transform: translateY(-2px);
-        }
-
-        .read-more {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            text-decoration: none;
-            font-weight: 700;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        .read-more:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
-        }
-
-        .featured-post {
-            grid-column: 1 / -1;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0;
-            min-height: 400px;
-        }
-
-        .featured-post .blog-header {
-            height: 100%;
-            border-radius: 24px 0 0 24px;
-        }
-
-        .featured-post .blog-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .featured-post .blog-title {
-            font-size: 2.2rem;
-        }
-
-        .back-link {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: rgba(255, 255, 255, 0.9);
-            color: #667eea;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.5rem;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(20px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000;
-        }
-
-        .back-link:hover {
-            background: #667eea;
-            color: white;
-            transform: scale(1.1) translateY(-5px);
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
-        }
-
-        .recent-posts {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            margin-top: 2rem;
-        }
-
-        .recent-posts h3 {
-            color: #2d3748;
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
-            font-weight: 700;
+        .filter-btn:hover, .filter-btn.active {
+            background: #ebf8ff;
+            color: #2b6cb0;
+            transform: translateX(5px);
         }
 
         .recent-post-item {
             padding: 1rem 0;
-            border-bottom: 1px solid #e2e8f7;
-            transition: all 0.3s ease;
-        }
-
-        .recent-post-item:hover {
-            background: #f7fafc;
-            padding: 1rem;
-            border-radius: 10px;
-            margin: 0 -1rem;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         .recent-post-item:last-child {
@@ -423,31 +301,56 @@
             color: #2d3748;
             text-decoration: none;
             font-weight: 600;
+            font-size: 0.95rem;
             transition: color 0.3s ease;
         }
 
         .recent-post-item a:hover {
-            color: #667eea;
+            color: #4299e1;
         }
 
         .recent-post-date {
             color: #718096;
-            font-size: 0.9rem;
-            margin-top: 0.3rem;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
         }
 
-        /* Loading spinner for markdown parsing */
+        .back-link {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #4299e1;
+            color: white;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 20px rgba(66, 153, 225, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-link:hover {
+            background: #3182ce;
+            transform: scale(1.1) translateY(-2px);
+            box-shadow: 0 8px 30px rgba(66, 153, 225, 0.5);
+        }
+
         .loading {
             display: none;
             text-align: center;
             padding: 4rem;
-            color: white;
+            color: #4a5568;
         }
 
         .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
+            border: 3px solid #e2e8f0;
             border-radius: 50%;
-            border-top: 4px solid white;
+            border-top: 3px solid #4299e1;
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
@@ -459,14 +362,39 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Featured post styling */
+        .featured-post {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 0;
+            min-height: 350px;
+        }
+
+        .featured-post .blog-header {
+            height: 100%;
+            border-radius: 16px 0 0 16px;
+        }
+
+        .featured-post .blog-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-post .blog-title {
+            font-size: 2rem;
+        }
+
+        /* Responsive design */
         @media (max-width: 1024px) {
-            .content-grid {
+            .main-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+                padding: 2rem 1rem;
             }
 
-            .filter-section {
-                position: static;
+            .sidebar {
                 order: -1;
             }
 
@@ -480,19 +408,16 @@
             }
 
             .featured-post .blog-header {
-                border-radius: 24px 24px 0 0;
-                height: 250px;
+                border-radius: 16px 16px 0 0;
+                height: 200px;
             }
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 0 1rem;
-            }
-
             .header-content {
                 flex-direction: column;
                 gap: 1rem;
+                padding: 1rem;
             }
 
             .nav {
@@ -501,7 +426,7 @@
             }
 
             .hero {
-                padding: 4rem 0;
+                padding: 3rem 1rem;
             }
 
             .hero h1 {
@@ -509,15 +434,128 @@
             }
 
             .blog-content {
-                padding: 2rem;
+                padding: 1.5rem;
             }
 
             .back-link {
                 bottom: 1rem;
                 right: 1rem;
-                width: 50px;
-                height: 50px;
+                width: 48px;
+                height: 48px;
             }
+        }
+
+        /* Article detail styles */
+        .article-detail {
+            display: none;
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .article-detail.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .article-detail h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+
+        .article-detail h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem 0;
+            color: #2d3748;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+
+        .article-detail h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem 0;
+            color: #4a5568;
+        }
+
+        .article-detail p {
+            margin-bottom: 1.5rem;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+
+        .article-detail code {
+            background: #f1f5f9;
+            color: #e53e3e;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 0.9em;
+        }
+
+        .article-detail pre {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'SF Mono', Consolas, monospace;
+        }
+
+        .article-detail pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+
+        .article-detail ul, .article-detail ol {
+            margin: 1rem 0 1.5rem 2rem;
+            color: #4a5568;
+        }
+
+        .article-detail li {
+            margin-bottom: 0.5rem;
+        }
+
+        .article-detail blockquote {
+            border-left: 4px solid #4299e1;
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #4a5568;
+            background: #f7fafc;
+            padding: 1rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .back-to-list {
+            background: #e2e8f0;
+            color: #4a5568;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-list:hover {
+            background: #cbd5e0;
+            transform: translateY(-1px);
         }
     </style>
 </head>
@@ -527,190 +565,92 @@
     </a>
 
     <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo">Zheyu's Tech Hub</a>
-                <nav class="nav">
-                    <a href="index.html">Home</a>
-                    <a href="academic.html">Academic</a>
-                    <a href="blog.html" class="active">Blog</a>
-                </nav>
-            </div>
+        <div class="header-content">
+            <a href="index.html" class="logo">Zheyu's Tech Blog</a>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="blog.html" class="active">Blog</a>
+            </nav>
         </div>
     </header>
 
     <div class="hero">
-        <div class="container">
-            <h1>Tech Insights & Innovation</h1>
-            <p>Exploring cutting-edge technology, research breakthroughs, and practical tutorials</p>
-            <div class="search-container">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="Search articles..." id="searchInput">
-            </div>
+        <h1>Tech Insights & Innovation</h1>
+        <p>Exploring cutting-edge technology, research breakthroughs, and practical tutorials</p>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Search articles..." id="searchInput">
         </div>
     </div>
 
     <div class="loading" id="loading">
         <div class="spinner"></div>
-        <p>Loading articles from markdown files...</p>
+        <p>Loading articles...</p>
     </div>
 
-    <main class="main-content">
-        <div class="container">
-            <div class="content-grid">
-                <div class="blog-container" id="blogContainer">
-                    <!-- Featured Post -->
-                    <article class="blog-card featured-post">
-                        <div class="blog-header">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-meta">
-                                <span><i class="fas fa-calendar"></i> December 15, 2024</span>
-                                <span><i class="fas fa-clock"></i> 8 min read</span>
-                                <span><i class="fas fa-eye"></i> 1.2k views</span>
-                            </div>
-                            <h2 class="blog-title">Building Intelligent Mobile Apps with OCR Technology</h2>
-                            <p class="blog-excerpt">Discover how to integrate advanced Optical Character Recognition into mobile applications for enhanced user experiences. This comprehensive guide covers implementation strategies, optimization techniques, and real-world applications in modern app development.</p>
-                            <div class="blog-tags">
-                                <span class="tag">OCR</span>
-                                <span class="tag">Mobile Development</span>
-                                <span class="tag">Machine Learning</span>
-                                <span class="tag">iOS</span>
-                            </div>
-                            <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </article>
+    <!-- Article detail view -->
+    <div class="article-detail" id="articleDetail">
+        <a href="#" class="back-to-list" onclick="blogManager.showBlogList()">
+            <i class="fas fa-arrow-left"></i>
+            Back to Blog
+        </a>
+        <div id="articleContent"></div>
+    </div>
 
-                    <!-- Regular Posts -->
-                    <article class="blog-card">
-                        <div class="blog-header">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-meta">
-                                <span><i class="fas fa-calendar"></i> December 10, 2024</span>
-                                <span><i class="fas fa-clock"></i> 6 min read</span>
-                                <span><i class="fas fa-eye"></i> 890 views</span>
-                            </div>
-                            <h2 class="blog-title">Deep Learning for Pattern Recognition</h2>
-                            <p class="blog-excerpt">A deep dive into modern pattern recognition techniques using neural networks and their applications in computer vision and signal processing.</p>
-                            <div class="blog-tags">
-                                <span class="tag">Deep Learning</span>
-                                <span class="tag">Pattern Recognition</span>
-                                <span class="tag">Neural Networks</span>
-                            </div>
-                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </article>
-
-                    <article class="blog-card">
-                        <div class="blog-header">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-meta">
-                                <span><i class="fas fa-calendar"></i> December 5, 2024</span>
-                                <span><i class="fas fa-clock"></i> 5 min read</span>
-                                <span><i class="fas fa-eye"></i> 1.5k views</span>
-                            </div>
-                            <h2 class="blog-title">Modern Web Development with React</h2>
-                            <p class="blog-excerpt">Best practices for building scalable and maintainable React applications in 2024, including new features and performance optimizations.</p>
-                            <div class="blog-tags">
-                                <span class="tag">React</span>
-                                <span class="tag">JavaScript</span>
-                                <span class="tag">Web Development</span>
-                            </div>
-                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </article>
-
-                    <article class="blog-card">
-                        <div class="blog-header">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-meta">
-                                <span><i class="fas fa-calendar"></i> November 28, 2024</span>
-                                <span><i class="fas fa-clock"></i> 7 min read</span>
-                                <span><i class="fas fa-eye"></i> 976 views</span>
-                            </div>
-                            <h2 class="blog-title">iOS App Development: From Concept to App Store</h2>
-                            <p class="blog-excerpt">A complete guide to developing and publishing iOS applications, covering design patterns, testing strategies, and deployment best practices.</p>
-                            <div class="blog-tags">
-                                <span class="tag">iOS</span>
-                                <span class="tag">Swift</span>
-                                <span class="tag">Mobile Development</span>
-                            </div>
-                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </article>
-                </div>
-
-                <aside>
-                    <div class="filter-section">
-                        <h3>Categories</h3>
-                        <div class="filter-buttons">
-                            <button class="filter-btn active" data-category="all">
-                                <i class="fas fa-th-large"></i>
-                                All Posts
-                            </button>
-                            <button class="filter-btn" data-category="machine-learning">
-                                <i class="fas fa-brain"></i>
-                                Machine Learning
-                            </button>
-                            <button class="filter-btn" data-category="web-development">
-                                <i class="fas fa-code"></i>
-                                Web Development
-                            </button>
-                            <button class="filter-btn" data-category="mobile-apps">
-                                <i class="fas fa-mobile-alt"></i>
-                                Mobile Apps
-                            </button>
-                            <button class="filter-btn" data-category="research">
-                                <i class="fas fa-flask"></i>
-                                Research
-                            </button>
-                            <button class="filter-btn" data-category="tutorials">
-                                <i class="fas fa-graduation-cap"></i>
-                                Tutorials
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="recent-posts">
-                        <h3>Recent Posts</h3>
-                        <div class="recent-post-item">
-                            <a href="#">Machine Learning Model Deployment Strategies</a>
-                            <div class="recent-post-date">December 12, 2024</div>
-                        </div>
-                        <div class="recent-post-item">
-                            <a href="#">Understanding Microservices Architecture</a>
-                            <div class="recent-post-date">December 8, 2024</div>
-                        </div>
-                        <div class="recent-post-item">
-                            <a href="#">API Design Principles for Modern Applications</a>
-                            <div class="recent-post-date">December 3, 2024</div>
-                        </div>
-                        <div class="recent-post-item">
-                            <a href="#">Security Best Practices in Web Development</a>
-                            <div class="recent-post-date">November 25, 2024</div>
-                        </div>
-                        <div class="recent-post-item">
-                            <a href="#">Advanced CSS Grid Techniques</a>
-                            <div class="recent-post-date">November 20, 2024</div>
-                        </div>
-                    </div>
-                </aside>
-            </div>
+    <main class="main-content" id="mainContent">
+        <div class="blog-container" id="blogContainer">
+            <!-- Blog posts will be dynamically loaded here -->
         </div>
+
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>Categories</h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-category="all">
+                        <i class="fas fa-th-large"></i>
+                        All Posts
+                    </button>
+                    <button class="filter-btn" data-category="machine-learning">
+                        <i class="fas fa-brain"></i>
+                        Machine Learning
+                    </button>
+                    <button class="filter-btn" data-category="web-development">
+                        <i class="fas fa-code"></i>
+                        Web Development
+                    </button>
+                    <button class="filter-btn" data-category="mobile-apps">
+                        <i class="fas fa-mobile-alt"></i>
+                        Mobile Apps
+                    </button>
+                    <button class="filter-btn" data-category="research">
+                        <i class="fas fa-flask"></i>
+                        Research
+                    </button>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Recent Posts</h3>
+                <div class="recent-post-item">
+                    <a href="#" onclick="blogManager.openPost(4)">Machine Learning Model Deployment</a>
+                    <div class="recent-post-date">December 12, 2024</div>
+                </div>
+                <div class="recent-post-item">
+                    <a href="#" onclick="blogManager.openPost(5)">Understanding Microservices</a>
+                    <div class="recent-post-date">December 8, 2024</div>
+                </div>
+                <div class="recent-post-item">
+                    <a href="#" onclick="blogManager.openPost(6)">API Design Principles</a>
+                    <div class="recent-post-date">December 3, 2024</div>
+                </div>
+            </div>
+        </aside>
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
-        // Blog functionality
         class BlogManager {
             constructor() {
                 this.posts = [];
@@ -726,12 +666,9 @@
             }
 
             async loadMarkdownPosts() {
-                // Show loading
                 document.getElementById('loading').style.display = 'block';
 
                 try {
-                    // In a real implementation, you would fetch markdown files from a posts directory
-                    // For now, we'll simulate with sample data
                     await this.simulateMarkdownLoading();
                 } catch (error) {
                     console.error('Error loading markdown posts:', error);
@@ -741,16 +678,98 @@
             }
 
             async simulateMarkdownLoading() {
-                // Simulate loading delay
-                await new Promise(resolve => setTimeout(resolve, 1500));
+                await new Promise(resolve => setTimeout(resolve, 1000));
 
-                // Sample markdown posts (in real implementation, these would be loaded from files)
+                // Sample markdown posts with full content
                 this.posts = [
                     {
                         id: 1,
                         title: "Building Intelligent Mobile Apps with OCR Technology",
                         excerpt: "Discover how to integrate advanced Optical Character Recognition into mobile applications for enhanced user experiences.",
-                        content: "# Building Intelligent Mobile Apps with OCR Technology\n\nThis is the full content of the post...",
+                        content: `# Building Intelligent Mobile Apps with OCR Technology
+
+## Introduction
+
+Optical Character Recognition (OCR) technology has revolutionized how we interact with text in the digital world. In this comprehensive guide, we'll explore how to integrate advanced OCR capabilities into mobile applications.
+
+## What is OCR?
+
+OCR is a technology that converts different types of documents, such as scanned paper documents, PDF files, or images captured by a digital camera, into editable and searchable data.
+
+### Key Benefits:
+- **Accessibility**: Makes text content accessible to users with visual impairments
+- **Efficiency**: Eliminates manual data entry
+- **Searchability**: Makes scanned documents searchable
+- **Automation**: Enables automated document processing
+
+## Implementation Strategies
+
+### 1. Choosing the Right OCR Framework
+
+For iOS development, you have several options:
+
+\`\`\`swift
+import Vision
+import UIKit
+
+class OCRViewController: UIViewController {
+    func recognizeText(in image: UIImage) {
+        guard let cgImage = image.cgImage else { return }
+        
+        let request = VNRecognizeTextRequest { (request, error) in
+            guard let observations = request.results as? [VNRecognizedTextObservation] else { return }
+            
+            let recognizedStrings = observations.compactMap { observation in
+                return observation.topCandidates(1).first?.string
+            }
+            
+            DispatchQueue.main.async {
+                self.handleRecognizedText(recognizedStrings)
+            }
+        }
+        
+        request.recognitionLevel = .accurate
+        
+        let imageRequestHandler = VNImageRequestHandler(cgImage: cgImage, options: [:])
+        try? imageRequestHandler.perform([request])
+    }
+    
+    func handleRecognizedText(_ texts: [String]) {
+        // Process recognized text
+        print("Recognized text: \\(texts.joined(separator: " "))")
+    }
+}
+\`\`\`
+
+### 2. Optimization Techniques
+
+To improve OCR accuracy:
+
+1. **Image Preprocessing**: Enhance image quality before processing
+2. **Language Models**: Use appropriate language models for your target text
+3. **Confidence Thresholds**: Filter results based on confidence scores
+
+## Real-World Applications
+
+OCR technology powers many innovative applications:
+
+- **Document Digitization**: Converting physical documents to digital format
+- **Real-time Translation**: Translating text in images instantly
+- **Accessibility Tools**: Reading text aloud for visually impaired users
+- **Academic Research**: Digitizing research papers and books
+
+## Best Practices
+
+1. **User Experience**: Provide clear feedback during processing
+2. **Error Handling**: Gracefully handle recognition failures
+3. **Performance**: Optimize for battery life and processing speed
+4. **Privacy**: Process data locally when possible
+
+## Conclusion
+
+OCR technology opens up endless possibilities for mobile app innovation. By following these implementation strategies and best practices, you can create powerful applications that bridge the gap between physical and digital text.
+
+*Ready to start building? Check out our sample project on GitHub for a complete implementation example.*`,
                         date: "2024-12-15",
                         readTime: "8 min read",
                         views: "1.2k",
@@ -762,8 +781,61 @@
                     {
                         id: 2,
                         title: "Deep Learning for Pattern Recognition",
-                        excerpt: "A deep dive into modern pattern recognition techniques using neural networks and their applications.",
-                        content: "# Deep Learning for Pattern Recognition\n\nPattern recognition is a fundamental aspect...",
+                        excerpt: "A comprehensive exploration of modern pattern recognition techniques using neural networks.",
+                        content: `# Deep Learning for Pattern Recognition
+
+## Overview
+
+Pattern recognition is a fundamental aspect of machine learning that involves identifying regularities in data. Deep learning has revolutionized this field by providing powerful tools for automatic feature extraction and classification.
+
+## Neural Network Architectures
+
+### Convolutional Neural Networks (CNNs)
+
+CNNs are particularly effective for image pattern recognition:
+
+\`\`\`python
+import tensorflow as tf
+from tensorflow.keras import layers, models
+
+def create_cnn_model(input_shape, num_classes):
+    model = models.Sequential([
+        layers.Conv2D(32, (3, 3), activation='relu', input_shape=input_shape),
+        layers.MaxPooling2D((2, 2)),
+        layers.Conv2D(64, (3, 3), activation='relu'),
+        layers.MaxPooling2D((2, 2)),
+        layers.Conv2D(64, (3, 3), activation='relu'),
+        layers.Flatten(),
+        layers.Dense(64, activation='relu'),
+        layers.Dense(num_classes, activation='softmax')
+    ])
+    return model
+
+# Example usage
+model = create_cnn_model((28, 28, 1), 10)
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+\`\`\`
+
+## Applications in Computer Vision
+
+Modern pattern recognition systems can:
+
+- **Object Detection**: Identify and locate objects in images
+- **Facial Recognition**: Authenticate users through facial features
+- **Medical Imaging**: Detect anomalies in medical scans
+- **Quality Control**: Identify defects in manufacturing
+
+## Future Directions
+
+The field continues to evolve with:
+
+1. **Transformer Architectures**: Vision Transformers (ViTs) for image recognition
+2. **Self-Supervised Learning**: Learning patterns without labeled data
+3. **Few-Shot Learning**: Recognition with minimal training examples
+
+Pattern recognition will continue to be a cornerstone of AI advancement.`,
                         date: "2024-12-10",
                         readTime: "6 min read",
                         views: "890",
@@ -775,7 +847,87 @@
                         id: 3,
                         title: "Modern Web Development with React",
                         excerpt: "Best practices for building scalable and maintainable React applications in 2024.",
-                        content: "# Modern Web Development with React\n\nReact continues to evolve...",
+                        content: `# Modern Web Development with React
+
+## Introduction
+
+React continues to evolve, and 2024 brings exciting new features and best practices. This guide covers the latest approaches to building scalable React applications.
+
+## React 18 Features
+
+### Concurrent Features
+
+React 18 introduced concurrent features that improve user experience:
+
+\`\`\`jsx
+import { useState, useTransition } from 'react';
+
+function SearchResults() {
+    const [query, setQuery] = useState('');
+    const [results, setResults] = useState([]);
+    const [isPending, startTransition] = useTransition();
+
+    const handleSearch = (value) => {
+        setQuery(value);
+        startTransition(() => {
+            // This update is marked as non-urgent
+            setResults(searchFunction(value));
+        });
+    };
+
+    return (
+        <div>
+            <input 
+                value={query}
+                onChange={(e) => handleSearch(e.target.value)}
+                placeholder="Search..."
+            />
+            {isPending && <div>Searching...</div>}
+            <ResultsList results={results} />
+        </div>
+    );
+}
+\`\`\`
+
+## State Management Best Practices
+
+### Context vs Redux
+
+Choose the right state management solution:
+
+- **React Context**: For simple, component-tree-scoped state
+- **Redux Toolkit**: For complex, global state management
+- **Zustand**: For lightweight global state
+
+## Performance Optimization
+
+### Code Splitting
+
+\`\`\`jsx
+import { lazy, Suspense } from 'react';
+
+const LazyComponent = lazy(() => import('./LazyComponent'));
+
+function App() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <LazyComponent />
+        </Suspense>
+    );
+}
+\`\`\`
+
+## Testing Strategies
+
+Modern React testing focuses on:
+
+1. **User-Centric Testing**: Test how users interact with your app
+2. **Integration Tests**: Test component interactions
+3. **E2E Testing**: Test complete user workflows
+
+## Conclusion
+
+React development in 2024 emphasizes performance, user experience, and developer productivity. Stay updated with the latest features and best practices!`,
                         date: "2024-12-05",
                         readTime: "5 min read",
                         views: "1.5k",
@@ -842,7 +994,7 @@
                 });
 
                 if (this.filteredPosts.length === 0) {
-                    container.innerHTML = '<div style="text-align: center; padding: 4rem; color: white;"><h3>No posts found</h3><p>Try adjusting your search or filter criteria.</p></div>';
+                    container.innerHTML = '<div style="text-align: center; padding: 4rem; color: #4a5568;"><h3>No posts found</h3><p>Try adjusting your search or filter criteria.</p></div>';
                 }
             }
 
@@ -886,49 +1038,59 @@
             openPost(postId) {
                 const post = this.posts.find(p => p.id === postId);
                 if (post) {
-                    // In a real implementation, this would navigate to a detailed post page
-                    // For now, we'll show an alert
-                    alert(`Opening post: ${post.title}\n\nIn a full implementation, this would navigate to the detailed post page with the markdown content rendered.`);
+                    this.showArticleDetail(post);
                 }
+            }
+
+            showArticleDetail(post) {
+                const articleDetail = document.getElementById('articleDetail');
+                const articleContent = document.getElementById('articleContent');
+                const mainContent = document.getElementById('mainContent');
+
+                // Hide blog list
+                mainContent.style.display = 'none';
+                
+                // Show article detail
+                articleDetail.classList.add('active');
+                
+                // Render markdown content
+                articleContent.innerHTML = marked.parse(post.content);
+
+                // Scroll to top
+                window.scrollTo(0, 0);
+
+                // Highlight code blocks
+                Prism.highlightAll();
+            }
+
+            showBlogList() {
+                const articleDetail = document.getElementById('articleDetail');
+                const mainContent = document.getElementById('mainContent');
+
+                // Hide article detail
+                articleDetail.classList.remove('active');
+                
+                // Show blog list
+                mainContent.style.display = 'grid';
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
             }
         }
 
         // Initialize blog manager
         const blogManager = new BlogManager();
 
-        // Smooth scrolling and animations
+        // Smooth scrolling for header
         window.addEventListener('scroll', () => {
             const header = document.querySelector('.header');
             if (window.scrollY > 50) {
                 header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
             } else {
                 header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
             }
-        });
-
-        // Add intersection observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe blog cards for scroll animations
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.blog-card').forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(card);
-            });
         });
     </script>
 </body>
