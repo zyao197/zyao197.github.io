@@ -1,0 +1,478 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Blog - Zheyu Yao</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav a:hover, .nav a.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .blog-content {
+            padding: 2rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .blog-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .blog-excerpt {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background: #ecf0f1;
+            color: #667eea;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .read-more {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #764ba2;
+            transform: translateX(5px);
+        }
+
+        .featured {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .featured .blog-image {
+            height: 250px;
+            border-radius: 15px;
+        }
+
+        .featured .blog-content {
+            padding: 1rem 0;
+        }
+
+        .featured .blog-title {
+            font-size: 2rem;
+        }
+
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .sidebar h3 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .recent-posts {
+            list-style: none;
+        }
+
+        .recent-posts li {
+            border-bottom: 1px solid #ecf0f1;
+            padding: 1rem 0;
+        }
+
+        .recent-posts li:last-child {
+            border-bottom: none;
+        }
+
+        .recent-posts a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .recent-posts a:hover {
+            color: #667eea;
+        }
+
+        .recent-posts .date {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured {
+                grid-template-columns: 1fr;
+            }
+
+            .featured .blog-image {
+                height: 200px;
+            }
+
+            .category-filter {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">Zheyu's Tech Blog</a>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="academic.html">Academic</a>
+                <a href="blog.html" class="active">Blog</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>Tech Insights & Tutorials</h1>
+        <p>Exploring the latest in technology, programming, and innovation</p>
+    </div>
+
+    <div class="container">
+        <div class="category-filter">
+            <a href="#" class="filter-btn active">All Posts</a>
+            <a href="#" class="filter-btn">Machine Learning</a>
+            <a href="#" class="filter-btn">Web Development</a>
+            <a href="#" class="filter-btn">Mobile Apps</a>
+            <a href="#" class="filter-btn">Research</a>
+        </div>
+
+        <div class="blog-grid">
+            <article class="blog-card featured">
+                <div class="blog-image">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> December 15, 2024</span>
+                        <span><i class="fas fa-clock"></i> 8 min read</span>
+                    </div>
+                    <h2 class="blog-title">Building Intelligent Mobile Apps with OCR Technology</h2>
+                    <p class="blog-excerpt">Explore how to integrate Optical Character Recognition into mobile applications for enhanced user experiences. This comprehensive guide covers implementation strategies, best practices, and real-world applications.</p>
+                    <div class="blog-tags">
+                        <span class="tag">OCR</span>
+                        <span class="tag">Mobile Development</span>
+                        <span class="tag">AI</span>
+                    </div>
+                    <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-image">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> December 10, 2024</span>
+                        <span><i class="fas fa-clock"></i> 6 min read</span>
+                    </div>
+                    <h2 class="blog-title">Deep Learning for Pattern Recognition</h2>
+                    <p class="blog-excerpt">A deep dive into modern pattern recognition techniques using neural networks and their applications in computer vision.</p>
+                    <div class="blog-tags">
+                        <span class="tag">Deep Learning</span>
+                        <span class="tag">Pattern Recognition</span>
+                    </div>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-image">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> December 5, 2024</span>
+                        <span><i class="fas fa-clock"></i> 5 min read</span>
+                    </div>
+                    <h2 class="blog-title">Modern Web Development with React</h2>
+                    <p class="blog-excerpt">Best practices for building scalable and maintainable React applications in 2024.</p>
+                    <div class="blog-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Web Development</span>
+                    </div>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-image">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> November 28, 2024</span>
+                        <span><i class="fas fa-clock"></i> 7 min read</span>
+                    </div>
+                    <h2 class="blog-title">iOS App Development: From Concept to App Store</h2>
+                    <p class="blog-excerpt">A complete guide to developing and publishing iOS applications, covering design patterns, testing, and deployment strategies.</p>
+                    <div class="blog-tags">
+                        <span class="tag">iOS</span>
+                        <span class="tag">Swift</span>
+                        <span class="tag">Mobile Development</span>
+                    </div>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-image">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> November 20, 2024</span>
+                        <span><i class="fas fa-clock"></i> 4 min read</span>
+                    </div>
+                    <h2 class="blog-title">Optimizing Database Performance</h2>
+                    <p class="blog-excerpt">Techniques and strategies for improving database query performance and scalability in modern applications.</p>
+                    <div class="blog-tags">
+                        <span class="tag">Database</span>
+                        <span class="tag">Performance</span>
+                        <span class="tag">SQL</span>
+                    </div>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-image">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> November 15, 2024</span>
+                        <span><i class="fas fa-clock"></i> 6 min read</span>
+                    </div>
+                    <h2 class="blog-title">Cloud Architecture Best Practices</h2>
+                    <p class="blog-excerpt">Design principles for building robust and scalable cloud-native applications using modern architectural patterns.</p>
+                    <div class="blog-tags">
+                        <span class="tag">Cloud Computing</span>
+                        <span class="tag">Architecture</span>
+                        <span class="tag">DevOps</span>
+                    </div>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+        </div>
+
+        <div class="sidebar">
+            <h3>Recent Posts</h3>
+            <ul class="recent-posts">
+                <li>
+                    <a href="#">Machine Learning Model Deployment Strategies</a>
+                    <div class="date">December 12, 2024</div>
+                </li>
+                <li>
+                    <a href="#">Understanding Microservices Architecture</a>
+                    <div class="date">December 8, 2024</div>
+                </li>
+                <li>
+                    <a href="#">API Design Principles for Modern Applications</a>
+                    <div class="date">December 3, 2024</div>
+                </li>
+                <li>
+                    <a href="#">Security Best Practices in Web Development</a>
+                    <div class="date">November 25, 2024</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
