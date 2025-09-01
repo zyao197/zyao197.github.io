@@ -14,36 +14,42 @@
         }
 
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            line-height: 1.7;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
             color: #333;
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
         }
 
         .header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .nav {
-            background: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
         }
 
-        .nav-container {
+        .header-container {
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            justify-content: center;
-            gap: 2rem;
+            justify-content: space-between;
+            align-items: center;
             padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
         }
 
         .nav a {
@@ -51,31 +57,51 @@
             text-decoration: none;
             font-weight: 500;
             padding: 0.5rem 1rem;
-            border-radius: 5px;
+            border-radius: 25px;
             transition: all 0.3s ease;
         }
 
         .nav a:hover, .nav a.active {
-            background: #3498db;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 3rem 2rem;
+            padding: 0 2rem 4rem;
         }
 
         .profile-section {
             background: white;
-            border-radius: 10px;
+            border-radius: 20px;
             padding: 3rem;
             margin-bottom: 3rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             display: grid;
             grid-template-columns: 300px 1fr;
             gap: 3rem;
-            align-items: start;
+            align-items: center;
         }
 
         .profile-image {
@@ -83,22 +109,23 @@
             height: 250px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid #3498db;
+            border: 5px solid #667eea;
             margin: 0 auto;
             display: block;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
 
-        .profile-info h1 {
+        .profile-info h2 {
             color: #2c3e50;
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
         }
 
         .profile-info .title {
-            color: #3498db;
+            color: #667eea;
             font-size: 1.3rem;
             margin-bottom: 1rem;
-            font-style: italic;
+            font-weight: 600;
         }
 
         .profile-info .affiliation {
@@ -109,36 +136,56 @@
 
         .section {
             background: white;
-            border-radius: 10px;
+            border-radius: 20px;
             padding: 3rem;
             margin-bottom: 3rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
 
         .section h2 {
             color: #2c3e50;
             font-size: 2rem;
             margin-bottom: 2rem;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section h2 i {
+            color: #667eea;
         }
 
         .research-area {
-            background: #ecf0f1;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            border-left: 4px solid #3498db;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .research-area:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
         .research-area h3 {
             color: #2c3e50;
             margin-bottom: 1rem;
+            font-size: 1.3rem;
         }
 
         .publication {
             border-bottom: 1px solid #ecf0f1;
-            padding: 1.5rem 0;
+            padding: 2rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .publication:hover {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 0 -2rem;
         }
 
         .publication:last-child {
@@ -152,9 +199,9 @@
         }
 
         .publication .authors {
-            color: #3498db;
+            color: #667eea;
             margin-bottom: 0.5rem;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .publication .venue {
@@ -168,89 +215,138 @@
         }
 
         .publication .links a {
-            background: #3498db;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
             text-decoration: none;
             margin-right: 0.5rem;
             font-size: 0.9rem;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .publication .links a:hover {
-            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
-        .education-item, .experience-item {
-            border-left: 4px solid #3498db;
-            padding-left: 2rem;
-            margin-bottom: 2rem;
+        .timeline-item {
             position: relative;
+            padding-left: 3rem;
+            margin-bottom: 3rem;
+            border-left: 3px solid #667eea;
         }
 
-        .education-item::before, .experience-item::before {
+        .timeline-item::before {
             content: '';
             position: absolute;
             left: -8px;
             top: 0;
-            width: 12px;
-            height: 12px;
-            background: #3498db;
+            width: 16px;
+            height: 16px;
+            background: #667eea;
             border-radius: 50%;
+            box-shadow: 0 0 0 4px white, 0 0 0 6px #667eea;
         }
 
-        .education-item h3, .experience-item h3 {
+        .timeline-item h3 {
             color: #2c3e50;
             margin-bottom: 0.5rem;
+            font-size: 1.3rem;
         }
 
-        .education-item .period, .experience-item .period {
-            color: #3498db;
-            font-weight: 500;
+        .timeline-item .period {
+            color: #667eea;
+            font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
-        .education-item .institution, .experience-item .institution {
+        .timeline-item .institution {
             color: #7f8c8d;
             font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            padding: 1rem;
+            border-radius: 50%;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-link:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.1);
         }
 
         @media (max-width: 768px) {
-            .profile-section {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2rem;
-            }
-
-            .nav-container {
+            .header-container {
                 flex-direction: column;
                 gap: 1rem;
             }
 
+            .nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .profile-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
             .container {
-                padding: 2rem 1rem;
+                padding: 0 1rem 2rem;
             }
 
             .section {
                 padding: 2rem;
             }
+
+            .back-link {
+                position: static;
+                margin: 2rem auto;
+                display: block;
+                width: fit-content;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Dr. Zheyu Yao</h1>
-        <p>Academic Profile & Research Portfolio</p>
-    </div>
+    <a href="index.html" class="back-link">
+        <i class="fas fa-home"></i>
+    </a>
 
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="index.html">Home</a>
-            <a href="academic.html" class="active">Academic</a>
-            <a href="blog.html">Blog</a>
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">Zheyu's Academic Profile</a>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="academic.html" class="active">Academic</a>
+                <a href="blog.html">Blog</a>
+            </nav>
         </div>
-    </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Academic Profile</h1>
+        <p>Research, Publications, and Academic Journey</p>
+    </div>
 
     <div class="container">
         <div class="profile-section">
@@ -258,7 +354,7 @@
                 <img src="images/profile/biophoto.jpg" alt="Zheyu Yao" class="profile-image">
             </div>
             <div class="profile-info">
-                <h1>Zheyu Yao</h1>
+                <h2>Zheyu Yao</h2>
                 <div class="title">Graduate Research Student</div>
                 <div class="affiliation">Pattern Recognition and Intelligent Systems<br>University of Liverpool, UK</div>
                 <p>I am a dedicated researcher specializing in pattern recognition, machine learning, and intelligent systems. My work focuses on developing innovative algorithms and applications that bridge the gap between theoretical computer science and practical real-world solutions.</p>
@@ -307,13 +403,13 @@
 
         <div class="section">
             <h2><i class="fas fa-graduation-cap"></i> Education</h2>
-            <div class="education-item">
+            <div class="timeline-item">
                 <h3>Master of Science in Pattern Recognition and Intelligent Systems</h3>
                 <div class="period">2023 - Present</div>
                 <div class="institution">University of Liverpool, United Kingdom</div>
                 <p>Focusing on advanced machine learning techniques and their applications in intelligent systems.</p>
             </div>
-            <div class="education-item">
+            <div class="timeline-item">
                 <h3>Bachelor of Engineering in Computer Science</h3>
                 <div class="period">2019 - 2023</div>
                 <div class="institution">Previous Institution</div>
@@ -323,13 +419,13 @@
 
         <div class="section">
             <h2><i class="fas fa-briefcase"></i> Projects</h2>
-            <div class="experience-item">
+            <div class="timeline-item">
                 <h3>Divein2Papers - Academic Paper Management System</h3>
                 <div class="period">2024 - Present</div>
                 <div class="institution">Independent Research Project</div>
                 <p>Developed a comprehensive mobile application for managing academic papers with OCR capabilities, intelligent organization, and cloud synchronization.</p>
             </div>
-            <div class="experience-item">
+            <div class="timeline-item">
                 <h3>Pattern Recognition Framework</h3>
                 <div class="period">2023 - 2024</div>
                 <div class="institution">University Research Lab</div>
