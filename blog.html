@@ -911,13 +911,43 @@
 
             async simulateMarkdownLoading() {
                 await new Promise(resolve => setTimeout(resolve, 800));
-
-                // 尝试加载真实的markdown文件
                 await this.loadMarkdownFiles();
+                this.filteredPosts = [...this.posts];
+            }
 
-                // 如果没有加载到文件，使用默认示例
-                if (this.posts.length === 0) {
-                    this.posts = [
+            async loadMarkdownFiles() {
+                const markdownFiles = [
+                    'posts/ocr-mobile-apps.md',
+                    'posts/new-blog-post.md'
+                ];
+
+                let loadedPosts = [];
+
+                for (const filePath of markdownFiles) {
+                    try {
+                        const response = await fetch(filePath);
+                        if (response.ok) {
+                            const content = await response.text();
+                            const post = this.parseMarkdownPost(content, filePath);
+                            if (post) {
+                                loadedPosts.push(post);
+                            }
+                        }
+                    } catch (error) {
+                        console.log(`无法加载文件 ${filePath}:`, error);
+                    }
+                }
+
+                // 如果成功加载了markdown文件，使用它们，否则使用默认内容
+                if (loadedPosts.length > 0) {
+                    this.posts = [...loadedPosts, ...this.getDefaultPosts()];
+                } else {
+                    this.posts = this.getDefaultPosts();
+                }
+            }
+
+            getDefaultPosts() {
+                return [
                     {
                         id: 1,
                         title: "Building Intelligent Mobile Apps with OCR Technology",
@@ -1013,7 +1043,7 @@ OCR technology opens up endless possibilities for mobile app innovation. By foll
                         featured: true
                     },
                     {
-                        id: 6,
+                        id: 2,
                         title: "我的第一篇技术博客",
                         excerpt: "分享web开发的经验和见解，包括技术栈选择、最佳实践和性能优化等内容。",
                         content: `# 我的第一篇技术博客
@@ -1055,7 +1085,7 @@ console.log("博客文章创建成功！", blogPost);
                         featured: false
                     },
                     {
-                        id: 2,
+                        id: 3,
                         title: "Deep Learning for Pattern Recognition",
                         excerpt: "A comprehensive exploration of modern pattern recognition techniques using neural networks and their practical applications.",
                         content: `# Deep Learning for Pattern Recognition
@@ -1116,7 +1146,7 @@ The field continues evolving with transformer architectures and self-supervised 
                         icon: "fas fa-brain"
                     },
                     {
-                        id: 3,
+                        id: 4,
                         title: "Modern Web Development with React 18",
                         excerpt: "Best practices for building scalable and maintainable React applications using the latest features and patterns.",
                         content: `# Modern Web Development with React 18
@@ -1193,160 +1223,8 @@ React development in 2024 emphasizes performance, user experience, and developer
                         category: "web-development",
                         tags: ["React", "JavaScript", "Web Development", "Performance"],
                         icon: "fas fa-code"
-                    },
-                    {
-                        id: 4,
-                        title: "Advanced Computer Vision Techniques",
-                        excerpt: "Exploring state-of-the-art computer vision algorithms and their implementation in real-world applications.",
-                        content: `# Advanced Computer Vision Techniques
-
-## Introduction
-
-Computer vision has evolved rapidly with deep learning advancements. This article explores cutting-edge techniques that are reshaping how machines understand visual information.
-
-## Object Detection
-
-### YOLO Architecture
-
-Modern object detection uses YOLO (You Only Look Once) for real-time processing:
-
-\`\`\`python
-import cv2
-import numpy as np
-
-def detect_objects(image_path, model_path):
-    net = cv2.dnn.readNet(model_path)
-    image = cv2.imread(image_path)
-    
-    blob = cv2.dnn.blobFromImage(image, 1/255.0, (416, 416), swapRB=True, crop=False)
-    net.setInput(blob)
-    
-    outputs = net.forward()
-    return process_detections(outputs, image)
-\`\`\`
-
-## Image Segmentation
-
-Semantic and instance segmentation enable precise pixel-level understanding of scenes.
-
-### U-Net Architecture
-
-U-Net is particularly effective for medical image segmentation and other precision tasks.
-
-## Future Trends
-
-- **Vision Transformers**: Applying transformer architecture to computer vision
-- **Self-supervised Learning**: Learning without labeled data
-- **Few-shot Learning**: Generalizing from minimal examples
-
-Computer vision continues to push the boundaries of AI capabilities, enabling applications we couldn't imagine just years ago.`,
-                        date: "2024-11-28",
-                        readTime: "7 min read",
-                        views: "1.1k",
-                        category: "research",
-                        tags: ["Computer Vision", "Object Detection", "Image Processing"],
-                        icon: "fas fa-eye"
-                    },
-                    {
-                        id: 5,
-                        title: "Building Scalable APIs with Node.js",
-                        excerpt: "Learn how to design and implement robust, scalable APIs using Node.js, Express, and modern architectural patterns.",
-                        content: `# Building Scalable APIs with Node.js
-
-## Architecture Principles
-
-Building scalable APIs requires careful consideration of architecture patterns and performance optimization strategies.
-
-## Express.js Best Practices
-
-### Basic Setup
-
-\`\`\`javascript
-const express = require('express');
-const cors = require('cors');
-const app = express();
-
-app.use(express.json());
-app.use(cors());
-
-app.get('/api/health', (req, res) => {
-    res.json({ 
-        status: 'OK', 
-        timestamp: new Date().toISOString(),
-        uptime: process.uptime()
-    });
-});
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(\`Server running on port \${PORT}\`);
-});
-\`\`\`
-
-## Performance Optimization
-
-### Key Strategies
-
-- **Connection Pooling**: Efficient database connections
-- **Caching Strategies**: Redis for session and data caching
-- **Rate Limiting**: Protect against abuse
-- **Load Balancing**: Distribute traffic across instances
-
-### Middleware Implementation
-
-\`\`\`javascript
-const rateLimit = require('express-rate-limit');
-
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100 // limit each IP to 100 requests per windowMs
-});
-
-app.use('/api/', limiter);
-\`\`\`
-
-## Security Considerations
-
-Implement comprehensive security measures including authentication, authorization, and input validation.
-
-## Monitoring and Logging
-
-Proper monitoring and logging are essential for maintaining API reliability and performance.
-
-APIs form the backbone of modern applications, connecting frontend experiences with backend data and services.`,
-                        date: "2024-11-20",
-                        readTime: "9 min read",
-                        views: "920",
-                        category: "web-development",
-                        tags: ["Node.js", "API", "Express", "Backend"],
-                        icon: "fas fa-server"
                     }
                 ];
-
-                this.filteredPosts = [...this.posts];
-            }
-
-            async loadMarkdownFiles() {
-                const markdownFiles = [
-                    'posts/ocr-mobile-apps.md',
-                    'posts/new-blog-post.md'
-                    // 在这里添加更多markdown文件路径
-                ];
-
-                for (const filePath of markdownFiles) {
-                    try {
-                        const response = await fetch(filePath);
-                        if (response.ok) {
-                            const content = await response.text();
-                            const post = this.parseMarkdownPost(content, filePath);
-                            if (post) {
-                                this.posts.push(post);
-                            }
-                        }
-                    } catch (error) {
-                        console.log(`无法加载文件 ${filePath}:`, error);
-                    }
-                }
             }
 
             parseMarkdownPost(content, filePath) {
