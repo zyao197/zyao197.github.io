@@ -1,0 +1,978 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Profile - Zheyu Yao</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary-color: #7c3aed;
+            --accent-color: #06b6d4;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0;
+            --border-light: #f1f5f9;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            --gradient-secondary: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(248, 250, 252, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(248, 250, 252, 0.98);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-decoration: none;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-lg);
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 2rem 4rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="white" opacity="0.1"/><circle cx="80" cy="40" r="1" fill="white" opacity="0.1"/><circle cx="40" cy="80" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-affiliation {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            color: white;
+            font-size: 1.2rem;
+            padding: 1rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-links a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Sidebar Navigation */
+        .content-nav {
+            position: sticky;
+            top: 140px;
+            height: fit-content;
+        }
+
+        .nav-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .content-nav ul {
+            list-style: none;
+        }
+
+        .content-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .content-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.8rem 1rem;
+            border-radius: var(--radius-sm);
+            display: block;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .content-nav a:hover,
+        .content-nav a.active {
+            color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.1);
+            transform: translateX(5px);
+        }
+
+        /* Main Content */
+        .main-content {
+            min-height: 500px;
+        }
+
+        .content-section {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--bg-accent);
+        }
+
+        .section-header i {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--text-primary);
+        }
+
+        /* Biography Section */
+        .bio-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        /* Research Cards */
+        .research-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .research-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .research-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: var(--primary-color);
+            opacity: 0.05;
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+
+        .research-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .research-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            position: relative;
+        }
+
+        .research-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* Publications */
+        .publication-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 2rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .publication-item:hover {
+            background: var(--bg-accent);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            margin: 0 -2rem;
+        }
+
+        .publication-item:last-child {
+            border-bottom: none;
+        }
+
+        .publication-title {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .publication-authors {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .publication-venue {
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .publication-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .publication-links {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pub-link {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .pub-link:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--gradient-primary);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 18px;
+            height: 18px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--bg-primary), 0 0 0 6px var(--primary-color);
+        }
+
+        .timeline-content {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .timeline-content h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-period {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-institution {
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                gap: 0.25rem;
+            }
+
+            .nav-links a {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .main-container {
+                padding: 100px 1rem 2rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .content-nav {
+                position: static;
+                order: -1;
+            }
+
+            .hero-section {
+                padding: 3rem 1rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 2rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Activities Section */
+        .activities-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .activity-item {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 0;
+        }
+
+        .activity-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .activity-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background: var(--bg-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .activity-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .activity-item:hover .activity-image img {
+            transform: scale(1.05);
+        }
+
+        .activity-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .activity-content h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .activity-date {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .activity-location {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .activity-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .activity-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .activity-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Mobile Styles for Activities */
+        @media (max-width: 768px) {
+            .activity-item {
+                grid-template-columns: 1fr;
+            }
+
+            .activity-image {
+                height: 150px;
+            }
+
+            .activity-content {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animation for content sections */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Zheyu Yao</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="academic.html" class="active">Academic</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <img src="images/profile/biophoto.jpg" alt="Zheyu Yao" class="profile-image">
+                <h1 class="hero-title">Zheyu Yao</h1>
+                <p class="hero-subtitle">Graduate Research Student</p>
+                <p class="hero-affiliation">University of Liverpool</p>
+                <div class="contact-links">
+                    <a href="mailto:zheyu.yao@outlook.com"><i class="fas fa-envelope"></i></a>
+                    <a href="https://scholar.google.com/citations?user=Uu2pcowAAAAJ&hl=en&oi=sra" target="_blank"><i class="fab fa-google-scholar"></i></a>
+                    <a href="https://github.com/zyao197" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/zyao197" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Sidebar Navigation -->
+            <aside class="content-nav">
+                <div class="nav-card">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="#bio" class="nav-link active">Biography</a></li>
+                        <li><a href="#research" class="nav-link">Research Interests</a></li>
+                        <li><a href="#publications" class="nav-link">Publications</a></li>
+                        <li><a href="#education" class="nav-link">Education</a></li>
+                        <li><a href="#projects" class="nav-link">Projects</a></li>
+                        <li><a href="#activities" class="nav-link">Activities</a></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <section id="bio" class="content-section active">
+                    <div class="section-header">
+                        <i class="fas fa-user"></i>
+                        <h2>Biography</h2>
+                    </div>
+                    <p class="bio-text">I am a dedicated researcher specializing in pattern recognition, machine learning, and intelligent systems. My work focuses on developing innovative algorithms and applications that bridge the gap between theoretical computer science and practical real-world solutions. Currently pursuing my Master's degree at the University of Liverpool, I am passionate about advancing the field through rigorous research and practical implementations.</p>
+                </section>
+
+                <section id="research" class="content-section">
+                    <div class="section-header">
+                        <i class="fas fa-microscope"></i>
+                        <h2>Research Interests</h2>
+                    </div>
+                    <div class="research-grid">
+                        <div class="research-card">
+                            <h3>Machine Learning & Pattern Recognition</h3>
+                            <p>Developing advanced algorithms for pattern recognition in complex datasets, with applications in computer vision and signal processing. Focus on deep learning architectures and optimization techniques.</p>
+                        </div>
+                        <div class="research-card">
+                            <h3>Computer Vision</h3>
+                            <p>Specializing in image processing, object detection, and scene understanding using state-of-the-art deep learning techniques. Research includes OCR systems and document analysis.</p>
+                        </div>
+                        <div class="research-card">
+                            <h3>Intelligent Systems</h3>
+                            <p>Designing and implementing intelligent systems that can adapt and learn from their environment for practical applications in mobile computing and real-time processing.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="publications" class="content-section">
+                    <div class="section-header">
+                        <i class="fas fa-file-alt"></i>
+                        <h2>Selected Publications</h2>
+                    </div>
+                    <div class="publication-item">
+                        <div class="publication-title">Advanced Pattern Recognition Techniques for Mobile Applications</div>
+                        <div class="publication-authors">Zheyu Yao, et al.</div>
+                        <div class="publication-venue">International Conference on Pattern Recognition (ICPR), 2024</div>
+                        <p class="publication-description">This paper presents novel approaches to implementing pattern recognition algorithms on mobile devices, focusing on efficiency and accuracy optimization while maintaining real-time performance.</p>
+                        <div class="publication-links">
+                            <a href="#" class="pub-link"><i class="fas fa-file-pdf"></i> PDF</a>
+                            <a href="#" class="pub-link"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" class="pub-link"><i class="fas fa-external-link-alt"></i> DOI</a>
+                        </div>
+                    </div>
+                    <div class="publication-item">
+                        <div class="publication-title">OCR Enhancement Using Deep Learning for Academic Document Processing</div>
+                        <div class="publication-authors">Zheyu Yao, Research Team</div>
+                        <div class="publication-venue">Journal of Intelligent Systems, 2024</div>
+                        <p class="publication-description">A comprehensive study on improving OCR accuracy for academic papers using state-of-the-art deep learning models, with applications in document digitization and analysis.</p>
+                        <div class="publication-links">
+                            <a href="#" class="pub-link"><i class="fas fa-file-pdf"></i> PDF</a>
+                            <a href="#" class="pub-link"><i class="fas fa-external-link-alt"></i> DOI</a>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="education" class="content-section">
+                    <div class="section-header">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h2>Education</h2>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Master of Science in Pattern Recognition and Intelligent Systems</h3>
+                                <div class="timeline-period">2023 - Present</div>
+                                <div class="timeline-institution">University of Liverpool, United Kingdom</div>
+                                <div class="timeline-description">Focusing on advanced machine learning techniques and their applications in intelligent systems. Research includes computer vision, pattern recognition, and mobile computing applications.</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Bachelor of Engineering in Computer Science</h3>
+                                <div class="timeline-period">2019 - 2023</div>
+                                <div class="timeline-institution">Previous Institution</div>
+                                <div class="timeline-description">Graduated with honors, specializing in artificial intelligence and software engineering. Strong foundation in algorithms, data structures, and machine learning.</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="projects" class="content-section">
+                    <div class="section-header">
+                        <i class="fas fa-briefcase"></i>
+                        <h2>Notable Projects</h2>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Divein2Papers - Academic Paper Management System</h3>
+                                <div class="timeline-period">2024 - Present</div>
+                                <div class="timeline-institution">Independent Research Project</div>
+                                <div class="timeline-description">Developed a comprehensive mobile application for managing academic papers with OCR capabilities, intelligent organization, and cloud synchronization. Features include advanced text recognition and smart categorization.</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Pattern Recognition Framework</h3>
+                                <div class="timeline-period">2023 - 2024</div>
+                                <div class="timeline-institution">University Research Lab</div>
+                                <div class="timeline-description">Created a modular framework for implementing various pattern recognition algorithms with focus on real-time processing capabilities and mobile deployment.</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="activities" class="content-section">
+                    <div class="section-header">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h2>Academic Activities</h2>
+                    </div>
+                    <div class="activities-grid">
+                        <div class="activity-item">
+                            <div class="activity-image">
+                                <img src="images/activities/conference2024.jpg" alt="International Conference 2024" onerror="this.style.display='none'">
+                            </div>
+                            <div class="activity-content">
+                                <h3>International Conference on Pattern Recognition</h3>
+                                <div class="activity-date">September 2024</div>
+                                <div class="activity-location">Liverpool, UK</div>
+                                <p class="activity-description">Presented research on "Advanced Pattern Recognition Techniques for Mobile Applications" at the prestigious ICPR conference. The presentation received positive feedback from the international research community.</p>
+                                <div class="activity-tags">
+                                    <span class="activity-tag">Conference</span>
+                                    <span class="activity-tag">Presentation</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-image">
+                                <img src="images/activities/workshop2024.jpg" alt="Machine Learning Workshop" onerror="this.style.display='none'">
+                            </div>
+                            <div class="activity-content">
+                                <h3>ML Workshop: Deep Learning in Practice</h3>
+                                <div class="activity-date">July 2024</div>
+                                <div class="activity-location">University of Liverpool</div>
+                                <p class="activity-description">Organized and conducted a hands-on workshop for graduate students on implementing deep learning models. Covered practical aspects of model training, optimization, and deployment.</p>
+                                <div class="activity-tags">
+                                    <span class="activity-tag">Workshop</span>
+                                    <span class="activity-tag">Teaching</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-image">
+                                <img src="images/activities/lab2024.jpg" alt="Research Lab Activity" onerror="this.style.display='none'">
+                            </div>
+                            <div class="activity-content">
+                                <h3>Research Lab Collaboration</h3>
+                                <div class="activity-date">May 2024</div>
+                                <div class="activity-location">AI Research Lab</div>
+                                <p class="activity-description">Collaborative research session with fellow researchers working on OCR enhancement projects. Shared insights and methodologies for improving text recognition accuracy in complex documents.</p>
+                                <div class="activity-tags">
+                                    <span class="activity-tag">Research</span>
+                                    <span class="activity-tag">Collaboration</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-image">
+                                <img src="images/activities/seminar2024.jpg" alt="Academic Seminar" onerror="this.style.display='none'">
+                            </div>
+                            <div class="activity-content">
+                                <h3>Graduate Research Seminar</h3>
+                                <div class="activity-date">March 2024</div>
+                                <div class="activity-location">University of Liverpool</div>
+                                <p class="activity-description">Regular participation in graduate research seminars, presenting ongoing work and receiving feedback from faculty and peers. Focus on mobile computing applications and intelligent systems.</p>
+                                <div class="activity-tags">
+                                    <span class="activity-tag">Seminar</span>
+                                    <span class="activity-tag">Research</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling and navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navbar scroll effect (consistent with blog page)
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.content-section');
+
+            // Handle navigation clicks
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    isManualNavigation = true;
+                    const targetId = this.getAttribute('href').substring(1);
+                    showSection(targetId);
+                    updateActiveNav(this);
+                    
+                    // Reset manual navigation flag after animation
+                    setTimeout(() => {
+                        isManualNavigation = false;
+                    }, 1000);
+                });
+            });
+
+            // Show specific section
+            function showSection(targetId) {
+                sections.forEach(section => {
+                    section.classList.remove('active', 'fade-in');
+                    section.style.display = 'none';
+                });
+                
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                    setTimeout(() => {
+                        targetSection.classList.add('active', 'fade-in');
+                    }, 10);
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+
+            // Update active navigation
+            function updateActiveNav(activeLink) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                activeLink.classList.add('active');
+            }
+
+            // Intersection Observer for auto-updating navigation
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '-120px 0px -80% 0px'
+            };
+
+            let isManualNavigation = false;
+
+            const observer = new IntersectionObserver(function(entries) {
+                if (isManualNavigation) return;
+                
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.target.classList.contains('active')) {
+                        const correspondingNavLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+                        if (correspondingNavLink) {
+                            updateActiveNav(correspondingNavLink);
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Initialize first section
+            if (sections.length > 0) {
+                sections[0].style.display = 'block';
+                sections[0].classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
