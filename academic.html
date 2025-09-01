@@ -510,6 +510,115 @@
             }
         }
 
+        /* Activities Section */
+        .activities-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .activity-item {
+            background: var(--gradient-secondary);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 0;
+        }
+
+        .activity-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .activity-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background: var(--bg-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .activity-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .activity-item:hover .activity-image img {
+            transform: scale(1.05);
+        }
+
+        .activity-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .activity-content h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .activity-date {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .activity-location {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .activity-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .activity-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .activity-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Mobile Styles for Activities */
+        @media (max-width: 768px) {
+            .activity-item {
+                grid-template-columns: 1fr;
+            }
+
+            .activity-image {
+                height: 150px;
+            }
+
+            .activity-content {
+                padding: 1.5rem;
+            }
+        }
+
         /* Animation for content sections */
         @keyframes fadeInUp {
             from {
@@ -569,6 +678,7 @@
                         <li><a href="#publications" class="nav-link">Publications</a></li>
                         <li><a href="#education" class="nav-link">Education</a></li>
                         <li><a href="#projects" class="nav-link">Projects</a></li>
+                        <li><a href="#activities" class="nav-link">Activities</a></li>
                     </ul>
                 </div>
             </aside>
@@ -677,6 +787,78 @@
                                 <div class="timeline-period">2023 - 2024</div>
                                 <div class="timeline-institution">University Research Lab</div>
                                 <div class="timeline-description">Created a modular framework for implementing various pattern recognition algorithms with focus on real-time processing capabilities and mobile deployment.</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="activities" class="content-section">
+                    <div class="section-header">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h2>Academic Activities</h2>
+                    </div>
+                    <div class="activities-grid">
+                        <div class="activity-item">
+                            <div class="activity-image">
+                                <img src="images/activities/conference2024.jpg" alt="International Conference 2024" onerror="this.style.display='none'">
+                            </div>
+                            <div class="activity-content">
+                                <h3>International Conference on Pattern Recognition</h3>
+                                <div class="activity-date">September 2024</div>
+                                <div class="activity-location">Liverpool, UK</div>
+                                <p class="activity-description">Presented research on "Advanced Pattern Recognition Techniques for Mobile Applications" at the prestigious ICPR conference. The presentation received positive feedback from the international research community.</p>
+                                <div class="activity-tags">
+                                    <span class="activity-tag">Conference</span>
+                                    <span class="activity-tag">Presentation</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-image">
+                                <img src="images/activities/workshop2024.jpg" alt="Machine Learning Workshop" onerror="this.style.display='none'">
+                            </div>
+                            <div class="activity-content">
+                                <h3>ML Workshop: Deep Learning in Practice</h3>
+                                <div class="activity-date">July 2024</div>
+                                <div class="activity-location">University of Liverpool</div>
+                                <p class="activity-description">Organized and conducted a hands-on workshop for graduate students on implementing deep learning models. Covered practical aspects of model training, optimization, and deployment.</p>
+                                <div class="activity-tags">
+                                    <span class="activity-tag">Workshop</span>
+                                    <span class="activity-tag">Teaching</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-image">
+                                <img src="images/activities/lab2024.jpg" alt="Research Lab Activity" onerror="this.style.display='none'">
+                            </div>
+                            <div class="activity-content">
+                                <h3>Research Lab Collaboration</h3>
+                                <div class="activity-date">May 2024</div>
+                                <div class="activity-location">AI Research Lab</div>
+                                <p class="activity-description">Collaborative research session with fellow researchers working on OCR enhancement projects. Shared insights and methodologies for improving text recognition accuracy in complex documents.</p>
+                                <div class="activity-tags">
+                                    <span class="activity-tag">Research</span>
+                                    <span class="activity-tag">Collaboration</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-image">
+                                <img src="images/activities/seminar2024.jpg" alt="Academic Seminar" onerror="this.style.display='none'">
+                            </div>
+                            <div class="activity-content">
+                                <h3>Graduate Research Seminar</h3>
+                                <div class="activity-date">March 2024</div>
+                                <div class="activity-location">University of Liverpool</div>
+                                <p class="activity-description">Regular participation in graduate research seminars, presenting ongoing work and receiving feedback from faculty and peers. Focus on mobile computing applications and intelligent systems.</p>
+                                <div class="activity-tags">
+                                    <span class="activity-tag">Seminar</span>
+                                    <span class="activity-tag">Research</span>
+                                </div>
                             </div>
                         </div>
                     </div>
