@@ -1,0 +1,35 @@
+Access to fetch at 'file:///Users/zyao197/Documents/GitHub/zyao197.github.io/posts/ocr-mobile-apps.md' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app.
+posts/ocr-mobile-apps.md:1  Failed to load resource: net::ERR_FAILED
+blog.html:1030 Error accessing posts/ocr-mobile-apps.md: TypeError: Failed to fetch
+    at WordPressBlogManager.discoverMarkdownFiles (blog.html:1022:48)
+    at WordPressBlogManager.scanAndLoadPosts (blog.html:970:54)
+    at WordPressBlogManager.init (blog.html:941:28)
+    at new WordPressBlogManager (blog.html:936:22)
+    at blog.html:1655:29
+discoverMarkdownFiles @ blog.html:1030
+blog.html:1 Access to fetch at 'file:///Users/zyao197/Documents/GitHub/zyao197.github.io/posts/new-blog-post.md' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app.
+posts/new-blog-post.md:1  Failed to load resource: net::ERR_FAILED
+blog.html:1030 Error accessing posts/new-blog-post.md: TypeError: Failed to fetch
+    at WordPressBlogManager.discoverMarkdownFiles (blog.html:1022:48)
+    at async WordPressBlogManager.scanAndLoadPosts (blog.html:970:43)
+    at async WordPressBlogManager.init (blog.html:941:17)
+discoverMarkdownFiles @ blog.html:1030
+blog.html:1 Access to fetch at 'file:///Users/zyao197/Documents/GitHub/zyao197.github.io/posts/advanced-react-patterns.md' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app.
+posts/advanced-react-patterns.md:1  Failed to load resource: net::ERR_FAILED
+blog.html:1030 Error accessing posts/advanced-react-patterns.md: TypeError: Failed to fetch
+    at WordPressBlogManager.discoverMarkdownFiles (blog.html:1022:48)
+    at async WordPressBlogManager.scanAndLoadPosts (blog.html:970:43)
+    at async WordPressBlogManager.init (blog.html:941:17)
+discoverMarkdownFiles @ blog.html:1030
+blog.html:1 Access to fetch at 'file:///Users/zyao197/Documents/GitHub/zyao197.github.io/posts/ai-powered-development.md' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app.
+posts/ai-powered-development.md:1  Failed to load resource: net::ERR_FAILED
+blog.html:1030 Error accessing posts/ai-powered-development.md: TypeError: Failed to fetch
+    at WordPressBlogManager.discoverMarkdownFiles (blog.html:1022:48)
+    at async WordPressBlogManager.scanAndLoadPosts (blog.html:970:43)
+    at async WordPressBlogManager.init (blog.html:941:17)
+discoverMarkdownFiles @ blog.html:1030
+blog.html:1034 Total files discovered: 0 Array(0)
+blog.html:971 Discovered markdown files: Array(0)
+blog.html:989 Total posts loaded: 0 Array(0)
+blog.html:996 No posts were successfully loaded!
+scanAndLoadPosts @ blog.html:996
