@@ -217,6 +217,7 @@
             display: grid;
             grid-template-columns: 200px 1fr;
             height: 180px;
+            cursor: pointer;
         }
 
         .post-card:hover {
@@ -415,10 +416,17 @@
         .recent-posts .recent-post {
             padding: 0.75rem 0;
             border-bottom: 1px solid var(--border-light);
+            cursor: pointer;
+            transition: background 0.3s ease;
         }
 
         .recent-posts .recent-post:last-child {
             border-bottom: none;
+        }
+
+        .recent-posts .recent-post:hover {
+            background: rgba(37, 99, 235, 0.05);
+            border-radius: var(--radius-md);
         }
 
         .recent-post a {
@@ -494,9 +502,20 @@
         .article-content h1 {
             font-size: 2.5rem;
             font-weight: 800;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             color: var(--text-primary);
             line-height: 1.2;
+        }
+
+        .article-content .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
         .article-content h2 {
@@ -520,6 +539,14 @@
             color: var(--text-secondary);
             font-size: 1.05rem;
             line-height: 1.7;
+        }
+
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-lg);
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
         }
 
         .article-content code {
@@ -674,6 +701,32 @@
 
         .post-card[data-category="research"] .post-thumbnail {
             background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        .admin-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+        }
+
+        .admin-btn:hover {
+            background: var(--primary-hover);
+            transform: scale(1.1);
         }
 
         /* Responsive Design */
@@ -844,19 +897,8 @@
                         <i class="fas fa-clock"></i>
                         Recent Posts
                     </h3>
-                    <div class="recent-posts">
-                        <div class="recent-post">
-                            <a href="#" onclick="blogManager.openPost(1)">Building Intelligent Mobile Apps with OCR</a>
-                            <div class="recent-date">December 15, 2024</div>
-                        </div>
-                        <div class="recent-post">
-                            <a href="#" onclick="blogManager.openPost(2)">Deep Learning for Pattern Recognition</a>
-                            <div class="recent-date">December 10, 2024</div>
-                        </div>
-                        <div class="recent-post">
-                            <a href="#" onclick="blogManager.openPost(3)">Modern Web Development with React</a>
-                            <div class="recent-date">December 5, 2024</div>
-                        </div>
+                    <div class="recent-posts" id="recentPosts">
+                        <!-- Recent posts will be loaded dynamically -->
                     </div>
                 </div>
 
@@ -865,17 +907,19 @@
                         <i class="fas fa-hashtag"></i>
                         Popular Tags
                     </h3>
-                    <div class="post-tags">
-                        <span class="tag">Machine Learning</span>
-                        <span class="tag">OCR</span>
-                        <span class="tag">React</span>
-                        <span class="tag">iOS</span>
-                        <span class="tag">Computer Vision</span>
-                        <span class="tag">Neural Networks</span>
+                    <div class="post-tags" id="popularTags">
+                        <!-- Tags will be loaded dynamically -->
                     </div>
                 </div>
             </aside>
         </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel">
+        <button class="admin-btn" onclick="blogManager.refreshPosts()" title="Refresh Posts">
+            <i class="fas fa-sync-alt"></i>
+        </button>
     </div>
 
     <!-- Scripts -->
@@ -883,401 +927,295 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
-        class BlogManager {
+        class WordPressBlogManager {
             constructor() {
                 this.posts = [];
                 this.filteredPosts = [];
                 this.currentFilter = 'all';
+                this.postsCache = new Map();
                 this.init();
             }
 
             async init() {
-                await this.loadMarkdownPosts();
+                this.setupMarkedOptions();
+                await this.scanAndLoadPosts();
                 this.setupEventListeners();
                 this.renderPosts();
+                this.updateSidebar();
             }
 
-            async loadMarkdownPosts() {
-                document.getElementById('loading').style.display = 'block';
+            setupMarkedOptions() {
+                marked.setOptions({
+                    highlight: function(code, lang) {
+                        if (Prism.languages[lang]) {
+                            return Prism.highlight(code, Prism.languages[lang], lang);
+                        } else {
+                            return code;
+                        }
+                    },
+                    breaks: true,
+                    gfm: true
+                });
+            }
 
+            async scanAndLoadPosts() {
+                document.getElementById('loading').style.display = 'block';
+                
                 try {
-                    await this.simulateMarkdownLoading();
+                    // 动态扫描posts目录中的所有markdown文件
+                    const markdownFiles = await this.discoverMarkdownFiles();
+                    this.posts = [];
+                    
+                    for (const file of markdownFiles) {
+                        try {
+                            const post = await this.loadMarkdownPost(file);
+                            if (post) {
+                                this.posts.push(post);
+                            }
+                        } catch (error) {
+                            console.warn(`Failed to load ${file}:`, error);
+                        }
+                    }
+
+                    // 按日期排序，最新的在前
+                    this.posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    this.filteredPosts = [...this.posts];
+                    
                 } catch (error) {
-                    console.error('Error loading markdown posts:', error);
+                    console.error('Error scanning posts:', error);
                 } finally {
                     document.getElementById('loading').style.display = 'none';
                 }
             }
 
-            async simulateMarkdownLoading() {
-                await new Promise(resolve => setTimeout(resolve, 800));
-                await this.loadMarkdownFiles();
-                this.filteredPosts = [...this.posts];
-            }
-
-            async loadMarkdownFiles() {
-                const markdownFiles = [
+            async discoverMarkdownFiles() {
+                // 已知的markdown文件列表
+                const knownFiles = [
                     'posts/ocr-mobile-apps.md',
                     'posts/new-blog-post.md'
                 ];
 
-                let loadedPosts = [];
-
-                for (const filePath of markdownFiles) {
+                const availableFiles = [];
+                
+                for (const file of knownFiles) {
                     try {
-                        const response = await fetch(filePath);
+                        const response = await fetch(file, { method: 'HEAD' });
                         if (response.ok) {
-                            const content = await response.text();
-                            const post = this.parseMarkdownPost(content, filePath);
-                            if (post) {
-                                loadedPosts.push(post);
-                            }
+                            availableFiles.push(file);
                         }
                     } catch (error) {
-                        console.log(`无法加载文件 ${filePath}:`, error);
+                        console.log(`File ${file} not accessible`);
                     }
                 }
 
-                // 如果成功加载了markdown文件，使用它们，否则使用默认内容
-                if (loadedPosts.length > 0) {
-                    this.posts = [...loadedPosts, ...this.getDefaultPosts()];
-                } else {
-                    this.posts = this.getDefaultPosts();
+                return availableFiles;
+            }
+
+            async loadMarkdownPost(filePath) {
+                if (this.postsCache.has(filePath)) {
+                    return this.postsCache.get(filePath);
+                }
+
+                try {
+                    const response = await fetch(filePath);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const content = await response.text();
+                    const post = this.parseMarkdownFrontMatter(content, filePath);
+                    
+                    if (post) {
+                        this.postsCache.set(filePath, post);
+                        return post;
+                    }
+                } catch (error) {
+                    console.error(`Error loading ${filePath}:`, error);
+                    return null;
                 }
             }
 
-            getDefaultPosts() {
-                return [
-                    {
-                        id: 1,
-                        title: "Building Intelligent Mobile Apps with OCR Technology",
-                        excerpt: "Discover how to integrate advanced Optical Character Recognition into mobile applications for enhanced user experiences and accessibility.",
-                        content: `# Building Intelligent Mobile Apps with OCR Technology
-
-## Introduction
-
-Optical Character Recognition (OCR) technology has revolutionized how we interact with text in the digital world. In this comprehensive guide, we'll explore how to integrate advanced OCR capabilities into mobile applications.
-
-## What is OCR?
-
-OCR is a technology that converts different types of documents, such as scanned paper documents, PDF files, or images captured by a digital camera, into editable and searchable data.
-
-### Key Benefits
-
-- **Accessibility**: Makes text content accessible to users with visual impairments
-- **Efficiency**: Eliminates manual data entry
-- **Searchability**: Makes scanned documents searchable
-- **Automation**: Enables automated document processing
-
-## Implementation Strategies
-
-### Choosing the Right OCR Framework
-
-For iOS development, you have several options:
-
-\`\`\`swift
-import Vision
-import UIKit
-
-class OCRViewController: UIViewController {
-    func recognizeText(in image: UIImage) {
-        guard let cgImage = image.cgImage else { return }
-        
-        let request = VNRecognizeTextRequest { (request, error) in
-            guard let observations = request.results as? [VNRecognizedTextObservation] else { return }
-            
-            let recognizedStrings = observations.compactMap { observation in
-                return observation.topCandidates(1).first?.string
-            }
-            
-            DispatchQueue.main.async {
-                self.handleRecognizedText(recognizedStrings)
-            }
-        }
-        
-        request.recognitionLevel = .accurate
-        
-        let imageRequestHandler = VNImageRequestHandler(cgImage: cgImage, options: [:])
-        try? imageRequestHandler.perform([request])
-    }
-    
-    func handleRecognizedText(_ texts: [String]) {
-        print("Recognized text: \\(texts.joined(separator: " "))")
-    }
-}
-\`\`\`
-
-### Optimization Techniques
-
-To improve OCR accuracy:
-
-1. **Image Preprocessing**: Enhance image quality before processing
-2. **Language Models**: Use appropriate language models for your target text
-3. **Confidence Thresholds**: Filter results based on confidence scores
-
-## Real-World Applications
-
-OCR technology powers many innovative applications:
-
-- **Document Digitization**: Converting physical documents to digital format
-- **Real-time Translation**: Translating text in images instantly
-- **Accessibility Tools**: Reading text aloud for visually impaired users
-- **Academic Research**: Digitizing research papers and books
-
-## Best Practices
-
-1. **User Experience**: Provide clear feedback during processing
-2. **Error Handling**: Gracefully handle recognition failures
-3. **Performance**: Optimize for battery life and processing speed
-4. **Privacy**: Process data locally when possible
-
-## Conclusion
-
-OCR technology opens up endless possibilities for mobile app innovation. By following these implementation strategies and best practices, you can create powerful applications that bridge the gap between physical and digital text.`,
-                        date: "2024-12-15",
-                        readTime: "8 min read",
-                        views: "2.3k",
-                        category: "mobile-apps",
-                        tags: ["OCR", "Mobile Development", "iOS", "Machine Learning"],
-                        icon: "fas fa-mobile-alt",
-                        featured: true
-                    },
-                    {
-                        id: 2,
-                        title: "我的第一篇技术博客",
-                        excerpt: "分享web开发的经验和见解，包括技术栈选择、最佳实践和性能优化等内容。",
-                        content: `# 我的第一篇技术博客
-
-## 简介
-
-这是我的第一篇技术博客文章。在这里我将分享一些关于web开发的见解和经验。
-
-## 技术栈选择
-
-在现代web开发中，选择合适的技术栈非常重要：
-
-\`\`\`javascript
-const blogPost = {
-    title: "我的第一篇博客",
-    date: "2024-12-20",
-    category: "web-development",
-    tags: ["JavaScript", "Web开发", "技术分享"]
-};
-
-console.log("博客文章创建成功！", blogPost);
-\`\`\`
-
-## 最佳实践
-
-1. **代码质量**：始终保持代码整洁和可维护
-2. **性能优化**：关注用户体验和页面加载速度  
-3. **安全性**：实施适当的安全措施
-
-## 结论
-
-通过不断学习和实践，我们可以成为更好的开发者。`,
-                        date: "2024-12-20",
-                        readTime: "5分钟阅读",
-                        views: "156",
-                        category: "web-development",
-                        tags: ["JavaScript", "Web开发", "技术分享", "最佳实践"],
-                        icon: "fas fa-code",
-                        featured: false
-                    },
-                    {
-                        id: 3,
-                        title: "Deep Learning for Pattern Recognition",
-                        excerpt: "A comprehensive exploration of modern pattern recognition techniques using neural networks and their practical applications.",
-                        content: `# Deep Learning for Pattern Recognition
-
-## Overview
-
-Pattern recognition is a fundamental aspect of machine learning that involves identifying regularities in data. Deep learning has revolutionized this field with unprecedented accuracy and capabilities.
-
-## Neural Network Architectures
-
-### Convolutional Neural Networks (CNNs)
-
-CNNs are particularly effective for image-based pattern recognition:
-
-\`\`\`python
-import tensorflow as tf
-from tensorflow.keras import layers, models
-
-def create_cnn_model(input_shape, num_classes):
-    model = models.Sequential([
-        layers.Conv2D(32, (3, 3), activation='relu', input_shape=input_shape),
-        layers.MaxPooling2D((2, 2)),
-        layers.Conv2D(64, (3, 3), activation='relu'),
-        layers.MaxPooling2D((2, 2)),
-        layers.Conv2D(64, (3, 3), activation='relu'),
-        layers.Flatten(),
-        layers.Dense(64, activation='relu'),
-        layers.Dense(num_classes, activation='softmax')
-    ])
-    return model
-\`\`\`
-
-### Training Strategies
-
-Effective training requires careful consideration of:
-
-- **Data Augmentation**: Expanding dataset diversity
-- **Transfer Learning**: Leveraging pre-trained models
-- **Regularization**: Preventing overfitting
-
-## Applications
-
-Deep learning pattern recognition enables:
-
-- Object Detection in autonomous vehicles
-- Facial Recognition systems
-- Medical Imaging analysis
-- Quality Control in manufacturing
-
-## Future Directions
-
-The field continues evolving with transformer architectures and self-supervised learning approaches that promise even greater capabilities.`,
-                        date: "2024-12-10",
-                        readTime: "6 min read",
-                        views: "1.8k",
-                        category: "machine-learning",
-                        tags: ["Deep Learning", "Pattern Recognition", "Neural Networks", "TensorFlow"],
-                        icon: "fas fa-brain"
-                    },
-                    {
-                        id: 4,
-                        title: "Modern Web Development with React 18",
-                        excerpt: "Best practices for building scalable and maintainable React applications using the latest features and patterns.",
-                        content: `# Modern Web Development with React 18
-
-## Introduction
-
-React 18 brings exciting new features that enhance performance and developer experience. This guide covers the latest approaches to building scalable React applications.
-
-## React 18 Features
-
-### Concurrent Features
-
-React 18 introduces concurrent rendering capabilities:
-
-\`\`\`jsx
-import { useState, useTransition } from 'react';
-
-function SearchResults() {
-    const [query, setQuery] = useState('');
-    const [isPending, startTransition] = useTransition();
-
-    const handleSearch = (value) => {
-        setQuery(value);
-        startTransition(() => {
-            setResults(searchFunction(value));
-        });
-    };
-
-    return (
-        <div>
-            <input onChange={(e) => handleSearch(e.target.value)} />
-            {isPending && <div>Searching...</div>}
-        </div>
-    );
-}
-\`\`\`
-
-### Automatic Batching
-
-React 18 automatically batches multiple state updates for better performance.
-
-## Performance Optimization
-
-### Code Splitting
-
-Implement strategic code splitting for optimal loading:
-
-\`\`\`jsx
-import { lazy, Suspense } from 'react';
-
-const LazyComponent = lazy(() => import('./LazyComponent'));
-
-function App() {
-    return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <LazyComponent />
-        </Suspense>
-    );
-}
-\`\`\`
-
-## Best Practices
-
-1. **Component Design**: Keep components focused and reusable
-2. **State Management**: Choose appropriate state solutions
-3. **Testing**: Implement comprehensive testing strategies
-
-## Conclusion
-
-React development in 2024 emphasizes performance, user experience, and developer productivity. These patterns and practices ensure robust, scalable applications.`,
-                        date: "2024-12-05",
-                        readTime: "5 min read",
-                        views: "1.5k",
-                        category: "web-development",
-                        tags: ["React", "JavaScript", "Web Development", "Performance"],
-                        icon: "fas fa-code"
-                    }
-                ];
-            }
-
-            parseMarkdownPost(content, filePath) {
+            parseMarkdownFrontMatter(content, filePath) {
                 const lines = content.split('\n');
-                const title = lines.find(line => line.startsWith('# '))?.replace('# ', '') || '未命名文章';
                 
-                // 提取发布日期
-                const dateMatch = content.match(/\*.*?(\d{4}年\d{1,2}月\d{1,2}日|\d{4}-\d{2}-\d{2}|\d{4}\/\d{2}\/\d{2})/);
-                const date = dateMatch ? dateMatch[1] : new Date().toISOString().split('T')[0];
+                // 提取标题 (第一个 # 开头的行)
+                const titleLine = lines.find(line => line.match(/^#+\s+/));
+                const title = titleLine ? titleLine.replace(/^#+\s+/, '').trim() : this.getFileNameFromPath(filePath);
                 
-                // 提取阅读时间
-                const readTimeMatch = content.match(/(\d+分钟阅读|\d+ min read)/);
-                const readTime = readTimeMatch ? readTimeMatch[1] : '5分钟阅读';
+                // 提取元数据行（*发布于... 或 *Published on...）
+                const metaLine = lines.find(line => line.match(/^\*.*?(发布于|Published on)/));
+                let date = new Date().toISOString().split('T')[0];
+                let readTime = '5 min read';
                 
-                // 生成摘要（取前两个段落）
-                const paragraphs = content.split('\n\n').filter(p => 
-                    p.trim() && 
-                    !p.startsWith('#') && 
-                    !p.startsWith('*') &&
-                    !p.startsWith('```') &&
-                    !p.startsWith('---')
-                );
-                const excerpt = paragraphs.slice(0, 2).join(' ').substring(0, 150) + '...';
+                if (metaLine) {
+                    // 提取日期
+                    const dateMatch = metaLine.match(/(\d{4}年\d{1,2}月\d{1,2}日|\d{4}-\d{2}-\d{2}|\d{4}\/\d{2}\/\d{2}|December \d{1,2}, \d{4}|November \d{1,2}, \d{4}|October \d{1,2}, \d{4})/);
+                    if (dateMatch) {
+                        date = this.normalizeDate(dateMatch[1]);
+                    }
+                    
+                    // 提取阅读时间
+                    const readTimeMatch = metaLine.match(/(\d+分钟阅读|\d+ min read)/);
+                    if (readTimeMatch) {
+                        readTime = readTimeMatch[1];
+                    }
+                }
+
+                // 生成摘要
+                const excerpt = this.generateExcerpt(content);
                 
                 // 提取标签
-                const tagsMatch = content.match(/\*\*标签\*\*:\s*(.+)/);
-                const tags = tagsMatch ? 
-                    tagsMatch[1].split(/[#\s]+/).filter(tag => tag.trim()) :
-                    ['技术分享'];
+                const tags = this.extractTags(content);
                 
                 // 确定分类
-                let category = 'research';
-                if (content.includes('web开发') || content.includes('Web开发') || content.includes('JavaScript')) {
-                    category = 'web-development';
-                } else if (content.includes('机器学习') || content.includes('AI') || content.includes('深度学习')) {
-                    category = 'machine-learning';
-                } else if (content.includes('移动开发') || content.includes('iOS') || content.includes('Android')) {
-                    category = 'mobile-apps';
-                }
+                const category = this.determineCategory(content, tags, title);
+                
+                // 生成唯一ID
+                const id = this.generatePostId(filePath);
+                
+                // 检查是否为特色文章
+                const featured = content.includes('featured: true') || content.includes('![') || tags.includes('Featured');
 
                 return {
-                    id: this.posts.length + 1,
+                    id,
                     title,
                     excerpt,
                     content,
                     date,
                     readTime,
-                    views: Math.floor(Math.random() * 1000) + 100,
+                    views: this.generateViews(),
                     category,
                     tags: tags.slice(0, 4),
                     icon: this.getCategoryIcon(category),
-                    featured: false
+                    featured,
+                    filePath,
+                    slug: this.generateSlug(title)
                 };
+            }
+
+            getFileNameFromPath(filePath) {
+                return filePath.split('/').pop().replace('.md', '').replace(/-/g, ' ')
+                    .replace(/\b\w/g, l => l.toUpperCase());
+            }
+
+            normalizeDate(dateStr) {
+                if (dateStr.includes('年')) {
+                    // 中文日期格式
+                    const match = dateStr.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
+                    if (match) {
+                        return `${match[1]}-${match[2].padStart(2, '0')}-${match[3].padStart(2, '0')}`;
+                    }
+                } else if (dateStr.includes('/')) {
+                    // YYYY/MM/DD 格式
+                    return dateStr.replace(/\//g, '-');
+                } else if (dateStr.match(/[A-Z][a-z]+ \d{1,2}, \d{4}/)) {
+                    // "December 15, 2024" 格式
+                    return new Date(dateStr).toISOString().split('T')[0];
+                }
+                return dateStr;
+            }
+
+            generateExcerpt(content) {
+                // 移除markdown标记，提取纯文本段落
+                const textContent = content
+                    .replace(/^#+.*$/gm, '') // 移除标题
+                    .replace(/^\*.*$/gm, '') // 移除元数据行
+                    .replace(/```[\s\S]*?```/g, '') // 移除代码块
+                    .replace(/`[^`]*`/g, '') // 移除行内代码
+                    .replace(/!\[.*?\]\(.*?\)/g, '') // 移除图片
+                    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1') // 移除链接，保留文本
+                    .replace(/\*\*([^*]*)\*\*/g, '$1') // 移除加粗标记
+                    .replace(/\*([^*]*)\*/g, '$1') // 移除斜体标记
+                    .replace(/---+/g, '') // 移除分隔线
+                    .split('\n')
+                    .filter(line => line.trim() && !line.startsWith('#'))
+                    .join(' ')
+                    .trim();
+
+                return textContent.length > 150 ? textContent.substring(0, 150) + '...' : textContent;
+            }
+
+            extractTags(content) {
+                const tags = [];
+                
+                // 从标签行提取 (**标签**: #tag1 #tag2 或 **Tags**: #tag1 #tag2)
+                const tagLineMatch = content.match(/\*\*(标签|Tags)\*\*:\s*(.+)/);
+                if (tagLineMatch) {
+                    const tagStr = tagLineMatch[2];
+                    const extractedTags = tagStr.split(/[#\s]+/).filter(tag => tag.trim() && !tag.includes(':'));
+                    tags.push(...extractedTags);
+                }
+                
+                // 从内容中推断标签
+                const contentTags = this.inferTagsFromContent(content);
+                tags.push(...contentTags);
+                
+                return [...new Set(tags)]; // 去重
+            }
+
+            inferTagsFromContent(content) {
+                const tagMap = {
+                    'React': ['react', 'React', 'jsx'],
+                    'JavaScript': ['javascript', 'JavaScript', 'JS'],
+                    'Python': ['python', 'Python', 'py'],
+                    'Machine Learning': ['machine learning', 'ML', '机器学习'],
+                    'Deep Learning': ['deep learning', 'neural network', '深度学习'],
+                    'OCR': ['OCR', 'optical character recognition'],
+                    'Web Development': ['web开发', 'Web开发', 'HTML', 'CSS'],
+                    'Mobile Development': ['iOS', 'Android', 'mobile', '移动开发'],
+                    'Computer Vision': ['computer vision', 'CV', '计算机视觉']
+                };
+
+                const inferredTags = [];
+                const contentLower = content.toLowerCase();
+                
+                for (const [tag, keywords] of Object.entries(tagMap)) {
+                    if (keywords.some(keyword => contentLower.includes(keyword.toLowerCase()))) {
+                        inferredTags.push(tag);
+                    }
+                }
+                
+                return inferredTags;
+            }
+
+            determineCategory(content, tags, title) {
+                const contentLower = content.toLowerCase() + ' ' + title.toLowerCase();
+                
+                if (contentLower.includes('machine learning') || contentLower.includes('deep learning') || 
+                    contentLower.includes('neural network') || contentLower.includes('机器学习') ||
+                    tags.some(tag => ['Machine Learning', 'Deep Learning', 'AI'].includes(tag))) {
+                    return 'machine-learning';
+                }
+                
+                if (contentLower.includes('web') || contentLower.includes('react') || 
+                    contentLower.includes('javascript') || contentLower.includes('html') ||
+                    tags.some(tag => ['React', 'JavaScript', 'Web Development'].includes(tag))) {
+                    return 'web-development';
+                }
+                
+                if (contentLower.includes('mobile') || contentLower.includes('ios') || 
+                    contentLower.includes('android') || contentLower.includes('app') ||
+                    tags.some(tag => ['iOS', 'Mobile Development', 'OCR'].includes(tag))) {
+                    return 'mobile-apps';
+                }
+                
+                return 'research';
+            }
+
+            generatePostId(filePath) {
+                // 生成基于文件路径的唯一ID
+                return btoa(filePath).replace(/[^a-zA-Z0-9]/g, '').substring(0, 8);
+            }
+
+            generateSlug(title) {
+                return title.toLowerCase()
+                    .replace(/[^\w\s-]/g, '')
+                    .replace(/\s+/g, '-')
+                    .trim();
+            }
+
+            generateViews() {
+                return Math.floor(Math.random() * 5000) + 100;
             }
 
             getCategoryIcon(category) {
@@ -1315,6 +1253,15 @@ React development in 2024 emphasizes performance, user experience, and developer
                         navbar.classList.remove('scrolled');
                     }
                 });
+
+                // Handle browser back button
+                window.addEventListener('popstate', (e) => {
+                    if (e.state && e.state.postId) {
+                        this.openPost(e.state.postId, false);
+                    } else {
+                        this.showBlogList(false);
+                    }
+                });
             }
 
             filterPosts(category) {
@@ -1329,11 +1276,19 @@ React development in 2024 emphasizes performance, user experience, and developer
 
             searchPosts(query) {
                 const searchTerm = query.toLowerCase();
-                this.filteredPosts = this.posts.filter(post => 
-                    post.title.toLowerCase().includes(searchTerm) ||
-                    post.excerpt.toLowerCase().includes(searchTerm) ||
-                    post.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-                );
+                if (!searchTerm) {
+                    this.filteredPosts = this.posts.filter(post => 
+                        this.currentFilter === 'all' || post.category === this.currentFilter
+                    );
+                } else {
+                    this.filteredPosts = this.posts.filter(post => {
+                        const matchesCategory = this.currentFilter === 'all' || post.category === this.currentFilter;
+                        const matchesSearch = post.title.toLowerCase().includes(searchTerm) ||
+                            post.excerpt.toLowerCase().includes(searchTerm) ||
+                            post.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+                        return matchesCategory && matchesSearch;
+                    });
+                }
                 this.renderPosts();
             }
 
@@ -1342,6 +1297,47 @@ React development in 2024 emphasizes performance, user experience, and developer
                     btn.classList.remove('active');
                 });
                 activeBtn.classList.add('active');
+            }
+
+            updateSidebar() {
+                this.updateRecentPosts();
+                this.updatePopularTags();
+            }
+
+            updateRecentPosts() {
+                const recentPosts = document.getElementById('recentPosts');
+                const recent = this.posts.slice(0, 5);
+                
+                recentPosts.innerHTML = recent.map(post => `
+                    <div class="recent-post" onclick="blogManager.openPost('${post.id}')">
+                        <a href="#" onclick="event.preventDefault()">${post.title}</a>
+                        <div class="recent-date">${this.formatDate(post.date)}</div>
+                    </div>
+                `).join('');
+            }
+
+            updatePopularTags() {
+                const popularTags = document.getElementById('popularTags');
+                const allTags = {};
+                
+                this.posts.forEach(post => {
+                    post.tags.forEach(tag => {
+                        allTags[tag] = (allTags[tag] || 0) + 1;
+                    });
+                });
+
+                const sortedTags = Object.entries(allTags)
+                    .sort(([,a], [,b]) => b - a)
+                    .slice(0, 8);
+
+                popularTags.innerHTML = sortedTags.map(([tag]) => 
+                    `<span class="tag" onclick="blogManager.searchByTag('${tag}')" style="cursor: pointer;">${tag}</span>`
+                ).join('');
+            }
+
+            searchByTag(tag) {
+                document.getElementById('searchInput').value = tag;
+                this.searchPosts(tag);
             }
 
             renderPosts() {
@@ -1369,6 +1365,7 @@ React development in 2024 emphasizes performance, user experience, and developer
                 const article = document.createElement('article');
                 article.className = `post-card ${post.featured ? 'featured-post' : ''}`;
                 article.setAttribute('data-category', post.category);
+                article.onclick = () => this.openPost(post.id);
 
                 article.innerHTML = `
                     <div class="post-thumbnail">
@@ -1386,7 +1383,7 @@ React development in 2024 emphasizes performance, user experience, and developer
                             <div class="post-tags">
                                 ${post.tags.slice(0, 2).map(tag => `<span class="tag">${tag}</span>`).join('')}
                             </div>
-                            <a href="#" class="read-more" onclick="blogManager.openPost(${post.id})">
+                            <a href="#" class="read-more" onclick="event.preventDefault(); blogManager.openPost('${post.id}')">
                                 Read More <i class="fas fa-arrow-right"></i>
                             </a>
                         </div>
@@ -1405,10 +1402,13 @@ React development in 2024 emphasizes performance, user experience, and developer
                 });
             }
 
-            openPost(postId) {
+            openPost(postId, pushState = true) {
                 const post = this.posts.find(p => p.id === postId);
                 if (post) {
                     this.showArticleDetail(post);
+                    if (pushState) {
+                        history.pushState({ postId }, post.title, `#post-${post.slug}`);
+                    }
                 }
             }
 
@@ -1420,21 +1420,54 @@ React development in 2024 emphasizes performance, user experience, and developer
                 mainContent.style.display = 'none';
                 articleDetail.classList.add('active');
                 
-                articleContent.innerHTML = marked.parse(post.content);
+                // 渲染markdown内容
+                const renderedContent = marked.parse(post.content);
+                
+                // 添加文章元数据
+                const articleMeta = `
+                    <div class="article-meta">
+                        <span><i class="fas fa-calendar-alt"></i> ${this.formatDate(post.date)}</span>
+                        <span><i class="fas fa-clock"></i> ${post.readTime}</span>
+                        <span><i class="fas fa-eye"></i> ${post.views} views</span>
+                        <span><i class="fas fa-folder"></i> ${this.getCategoryName(post.category)}</span>
+                    </div>
+                `;
+                
+                articleContent.innerHTML = renderedContent.replace(
+                    /(<h1[^>]*>.*?<\/h1>)/,
+                    `$1${articleMeta}`
+                );
+                
                 this.generateTableOfContents();
                 window.scrollTo(0, 0);
                 
+                // 高亮代码
                 setTimeout(() => {
                     Prism.highlightAll();
                 }, 100);
             }
 
+            getCategoryName(category) {
+                const names = {
+                    'machine-learning': 'Machine Learning',
+                    'web-development': 'Web Development', 
+                    'mobile-apps': 'Mobile Apps',
+                    'research': 'Research'
+                };
+                return names[category] || 'General';
+            }
+
             generateTableOfContents() {
                 const content = document.getElementById('articleContent');
-                const headings = content.querySelectorAll('h1, h2, h3');
+                const headings = content.querySelectorAll('h1, h2, h3, h4');
                 const tocList = document.getElementById('tocList');
                 
                 tocList.innerHTML = '';
+                
+                if (headings.length === 0) {
+                    tocList.innerHTML = '<li><em>No headings found</em></li>';
+                    return;
+                }
                 
                 headings.forEach((heading, index) => {
                     const id = `heading-${index}`;
@@ -1444,7 +1477,13 @@ React development in 2024 emphasizes performance, user experience, and developer
                     const a = document.createElement('a');
                     a.href = `#${id}`;
                     a.textContent = heading.textContent;
-                    a.className = heading.tagName.toLowerCase() === 'h3' ? 'toc-h3' : '';
+                    
+                    // 添加层级样式
+                    const level = parseInt(heading.tagName.charAt(1));
+                    if (level > 2) {
+                        a.className = 'toc-h3';
+                        a.style.paddingLeft = `${level * 0.5}rem`;
+                    }
                     
                     a.addEventListener('click', (e) => {
                         e.preventDefault();
@@ -1456,12 +1495,11 @@ React development in 2024 emphasizes performance, user experience, and developer
                     tocList.appendChild(li);
                 });
 
-                // Update active TOC item on scroll
                 this.setupTocScrollSpy();
             }
 
             setupTocScrollSpy() {
-                const headings = document.querySelectorAll('#articleContent h1, #articleContent h2, #articleContent h3');
+                const headings = document.querySelectorAll('#articleContent h1, #articleContent h2, #articleContent h3, #articleContent h4');
                 const tocLinks = document.querySelectorAll('#tocList a');
 
                 const observer = new IntersectionObserver((entries) => {
@@ -1488,18 +1526,85 @@ React development in 2024 emphasizes performance, user experience, and developer
                 activeLink.classList.add('active');
             }
 
-            showBlogList() {
+            showBlogList(pushState = true) {
                 const articleDetail = document.getElementById('articleDetail');
                 const mainContent = document.getElementById('mainContent');
 
                 articleDetail.classList.remove('active');
                 mainContent.style.display = 'block';
                 window.scrollTo(0, 0);
+                
+                if (pushState) {
+                    history.pushState(null, 'Blog', 'blog.html');
+                }
+            }
+
+            async refreshPosts() {
+                const refreshBtn = document.querySelector('.admin-btn i');
+                refreshBtn.style.animation = 'spin 1s linear infinite';
+                
+                this.postsCache.clear();
+                await this.scanAndLoadPosts();
+                this.renderPosts();
+                this.updateSidebar();
+                
+                refreshBtn.style.animation = '';
+                
+                // 显示刷新成功提示
+                this.showNotification('Posts refreshed successfully!', 'success');
+            }
+
+            showNotification(message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 100px;
+                    right: 2rem;
+                    background: ${type === 'success' ? '#10b981' : '#3b82f6'};
+                    color: white;
+                    padding: 1rem 1.5rem;
+                    border-radius: var(--radius-lg);
+                    box-shadow: var(--shadow-lg);
+                    z-index: 1001;
+                    transform: translateX(100%);
+                    transition: transform 0.3s ease;
+                `;
+                notification.textContent = message;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(0)';
+                }, 100);
+                
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            }
+
+            // WordPress-like permalink handling
+            handlePermalink() {
+                const hash = window.location.hash;
+                if (hash.startsWith('#post-')) {
+                    const slug = hash.replace('#post-', '');
+                    const post = this.posts.find(p => p.slug === slug);
+                    if (post) {
+                        this.openPost(post.id, false);
+                    }
+                }
             }
         }
 
         // Initialize blog manager
-        const blogManager = new BlogManager();
+        const blogManager = new WordPressBlogManager();
+
+        // Handle initial page load with hash
+        window.addEventListener('load', () => {
+            blogManager.handlePermalink();
+        });
     </script>
 </body>
 </html>
