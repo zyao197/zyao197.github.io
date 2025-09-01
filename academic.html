@@ -163,11 +163,16 @@
         .contact-links a {
             color: white;
             font-size: 1.2rem;
-            padding: 0.8rem;
+            padding: 1rem;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
             text-decoration: none;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .contact-links a:hover {
@@ -241,12 +246,14 @@
             margin-bottom: 2rem;
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--border-color);
+            display: none;
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.5s ease;
         }
 
         .content-section.active {
+            display: block;
             opacity: 1;
             transform: translateY(0);
         }
@@ -697,15 +704,21 @@
             // Show specific section
             function showSection(targetId) {
                 sections.forEach(section => {
-                    section.classList.remove('active');
-                    if (section.id === targetId) {
-                        section.classList.add('active', 'fade-in');
-                        section.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
+                    section.classList.remove('active', 'fade-in');
+                    section.style.display = 'none';
                 });
+                
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                    setTimeout(() => {
+                        targetSection.classList.add('active', 'fade-in');
+                    }, 10);
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             }
 
             // Update active navigation
@@ -737,6 +750,7 @@
 
             // Initialize first section
             if (sections.length > 0) {
+                sections[0].style.display = 'block';
                 sections[0].classList.add('active');
             }
         });
