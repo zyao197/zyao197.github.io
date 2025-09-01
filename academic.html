@@ -7,6 +7,26 @@
     <title>Academic Profile - Zheyu Yao</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-accent: #f1f5f9;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --gradient-primary: linear-gradient(135deg, #2563eb, #1d4ed8);
+            --gradient-secondary: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -16,29 +36,93 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
-            display: flex;
-            min-height: 100vh;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
         }
 
-        .sidebar {
-            width: 350px;
-            background: linear-gradient(145deg, #2c3e50, #34495e);
-            color: white;
-            padding: 2rem;
+        /* Navigation */
+        .navbar {
             position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-            box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
             z-index: 1000;
+            padding: 1rem 0;
         }
 
-        .sidebar-header {
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+            background: var(--bg-accent);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 2rem 4rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 3rem;
             text-align: center;
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="white" opacity="0.1"/><circle cx="80" cy="40" r="1" fill="white" opacity="0.1"/><circle cx="40" cy="80" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
 
         .profile-image {
@@ -46,62 +130,33 @@
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid rgba(255,255,255,0.3);
-            margin-bottom: 1rem;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-lg);
         }
 
-        .sidebar-header h1 {
-            font-size: 1.8rem;
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
-        .sidebar-header .title {
-            color: #3498db;
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-affiliation {
             font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .sidebar-header .affiliation {
-            font-size: 0.9rem;
             opacity: 0.8;
-        }
-
-        .sidebar-nav {
             margin-bottom: 2rem;
-        }
-
-        .sidebar-nav ul {
-            list-style: none;
-        }
-
-        .sidebar-nav li {
-            margin-bottom: 0.5rem;
-        }
-
-        .sidebar-nav a {
-            color: white;
-            text-decoration: none;
-            padding: 0.8rem 1rem;
-            border-radius: 8px;
-            display: block;
-            transition: all 0.3s ease;
-            opacity: 0.8;
-        }
-
-        .sidebar-nav a:hover, .sidebar-nav a.active {
-            background: rgba(255,255,255,0.1);
-            opacity: 1;
-            transform: translateX(5px);
-        }
-
-        .sidebar-contact {
-            margin-top: auto;
         }
 
         .contact-links {
             display: flex;
-            gap: 1rem;
             justify-content: center;
+            gap: 1rem;
             flex-wrap: wrap;
         }
 
@@ -110,108 +165,176 @@
             font-size: 1.2rem;
             padding: 0.8rem;
             border-radius: 50%;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
+            text-decoration: none;
         }
 
         .contact-links a:hover {
-            background: #3498db;
+            background: rgba(255, 255, 255, 0.3);
             transform: translateY(-3px);
         }
 
-        .back-btn {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Sidebar Navigation */
+        .content-nav {
+            position: sticky;
+            top: 140px;
+            height: fit-content;
+        }
+
+        .nav-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .content-nav ul {
+            list-style: none;
+        }
+
+        .content-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .content-nav a {
+            color: var(--text-secondary);
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
+            padding: 0.8rem 1rem;
+            border-radius: var(--radius-sm);
+            display: block;
             transition: all 0.3s ease;
+            font-weight: 500;
         }
 
-        .back-btn:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
+        .content-nav a:hover,
+        .content-nav a.active {
+            color: var(--primary-color);
+            background: var(--bg-accent);
+            transform: translateX(5px);
         }
 
+        /* Main Content */
         .main-content {
-            margin-left: 350px;
-            flex: 1;
-            padding: 3rem;
+            min-height: 500px;
         }
 
         .content-section {
-            background: white;
-            border-radius: 15px;
-            padding: 2.5rem;
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
             margin-bottom: 2rem;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
-            border: 1px solid #e9ecef;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
         }
 
-        .content-section h2 {
-            color: #2c3e50;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
+        .content-section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
             display: flex;
             align-items: center;
             gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--bg-accent);
         }
 
-        .content-section h2 i {
-            color: #3498db;
-            font-size: 1.5rem;
+        .section-header i {
+            font-size: 1.8rem;
+            color: var(--primary-color);
         }
 
-        .bio-section p {
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--text-primary);
+        }
+
+        /* Biography Section */
+        .bio-text {
             font-size: 1.1rem;
             line-height: 1.8;
-            color: #555;
+            color: var(--text-secondary);
         }
 
+        /* Research Cards */
         .research-grid {
             display: grid;
             gap: 1.5rem;
         }
 
         .research-card {
-            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            background: var(--gradient-secondary);
             padding: 2rem;
-            border-radius: 12px;
-            border-left: 4px solid #3498db;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--primary-color);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .research-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: var(--primary-color);
+            opacity: 0.05;
+            border-radius: 50%;
+            transform: translate(30px, -30px);
         }
 
         .research-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-md);
         }
 
         .research-card h3 {
-            color: #2c3e50;
+            color: var(--text-primary);
             margin-bottom: 1rem;
             font-size: 1.3rem;
+            position: relative;
         }
 
         .research-card p {
-            color: #666;
+            color: var(--text-secondary);
             line-height: 1.6;
+            position: relative;
         }
 
+        /* Publications */
         .publication-item {
-            border-bottom: 1px solid #e9ecef;
+            border-bottom: 1px solid var(--border-color);
             padding: 2rem 0;
             transition: all 0.3s ease;
         }
 
         .publication-item:hover {
-            background: #f8f9fa;
+            background: var(--bg-accent);
             padding: 2rem;
-            border-radius: 10px;
+            border-radius: var(--radius-md);
             margin: 0 -2rem;
         }
 
@@ -220,21 +343,27 @@
         }
 
         .publication-title {
-            color: #2c3e50;
+            color: var(--text-primary);
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
         .publication-authors {
-            color: #3498db;
+            color: var(--primary-color);
             font-weight: 500;
             margin-bottom: 0.5rem;
         }
 
         .publication-venue {
-            color: #7f8c8d;
+            color: var(--text-secondary);
             font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .publication-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
             margin-bottom: 1rem;
         }
 
@@ -245,7 +374,7 @@
         }
 
         .pub-link {
-            background: linear-gradient(145deg, #3498db, #2980b9);
+            background: var(--gradient-primary);
             color: white;
             padding: 0.5rem 1rem;
             border-radius: 20px;
@@ -255,13 +384,15 @@
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s ease;
+            font-weight: 500;
         }
 
         .pub-link:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+            box-shadow: var(--shadow-md);
         }
 
+        /* Timeline */
         .timeline {
             position: relative;
         }
@@ -269,7 +400,7 @@
         .timeline-item {
             position: relative;
             padding-left: 3rem;
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
             padding-bottom: 2rem;
         }
 
@@ -280,280 +411,334 @@
             top: 0;
             bottom: 0;
             width: 3px;
-            background: linear-gradient(to bottom, #3498db, #2980b9);
+            background: var(--gradient-primary);
         }
 
         .timeline-item::after {
             content: '';
             position: absolute;
-            left: -6px;
+            left: -8px;
             top: 0;
-            width: 15px;
-            height: 15px;
-            background: #3498db;
+            width: 18px;
+            height: 18px;
+            background: var(--primary-color);
             border-radius: 50%;
-            box-shadow: 0 0 0 4px white, 0 0 0 6px #3498db;
+            box-shadow: 0 0 0 4px var(--bg-primary), 0 0 0 6px var(--primary-color);
+        }
+
+        .timeline-content {
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
         }
 
         .timeline-content h3 {
-            color: #2c3e50;
+            color: var(--text-primary);
             font-size: 1.3rem;
             margin-bottom: 0.5rem;
         }
 
         .timeline-period {
-            color: #3498db;
+            color: var(--primary-color);
             font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
         .timeline-institution {
-            color: #7f8c8d;
+            color: var(--text-secondary);
             font-style: italic;
             margin-bottom: 1rem;
         }
 
         .timeline-description {
-            color: #666;
+            color: var(--text-secondary);
             line-height: 1.6;
         }
 
-        @media (max-width: 1024px) {
-            .sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
             }
 
-            .sidebar.active {
-                transform: translateX(0);
+            .nav-links {
+                gap: 1rem;
             }
 
-            .main-content {
-                margin-left: 0;
-                padding: 2rem 1rem;
+            .nav-links a {
+                padding: 0.5rem;
+                font-size: 0.9rem;
             }
 
-            .mobile-menu-btn {
-                position: fixed;
-                top: 1rem;
-                left: 1rem;
-                z-index: 1001;
-                background: #2c3e50;
-                color: white;
-                border: none;
-                padding: 1rem;
-                border-radius: 50%;
-                font-size: 1.2rem;
-                cursor: pointer;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            .main-container {
+                padding: 100px 1rem 2rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .content-nav {
+                position: static;
+                order: -1;
+            }
+
+            .hero-section {
+                padding: 3rem 1rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 2rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
             }
         }
 
-        .mobile-menu-btn {
-            display: none;
+        /* Animation for content sections */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        @media (max-width: 1024px) {
-            .mobile-menu-btn {
-                display: block;
-            }
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
         }
     </style>
 </head>
 <body>
-    <button class="mobile-menu-btn" onclick="toggleSidebar()">
-        <i class="fas fa-bars"></i>
-    </button>
-
-    <div class="sidebar" id="sidebar">
-        <a href="index.html" class="back-btn">
-            <i class="fas fa-home"></i>
-            Back to Home
-        </a>
-        
-        <div class="sidebar-header">
-            <img src="images/profile/biophoto.jpg" alt="Zheyu Yao" class="profile-image">
-            <h1>Zheyu Yao</h1>
-            <div class="title">Graduate Research Student</div>
-            <div class="affiliation">University of Liverpool</div>
-        </div>
-
-        <nav class="sidebar-nav">
-            <ul>
-                <li><a href="#bio" class="nav-link active">Biography</a></li>
-                <li><a href="#research" class="nav-link">Research Interests</a></li>
-                <li><a href="#publications" class="nav-link">Publications</a></li>
-                <li><a href="#education" class="nav-link">Education</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Zheyu Yao</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="academic.html" class="active">Academic</a></li>
             </ul>
-        </nav>
+        </div>
+    </nav>
 
-        <div class="sidebar-contact">
-            <div class="contact-links">
-                <a href="mailto:zheyu.yao@outlook.com"><i class="fas fa-envelope"></i></a>
-                <a href="https://scholar.google.com/citations?user=Uu2pcowAAAAJ&hl=en&oi=sra" target="_blank"><i class="fab fa-google-scholar"></i></a>
-                <a href="https://github.com/zyao197" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/zyao197" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <div class="main-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <img src="images/profile/biophoto.jpg" alt="Zheyu Yao" class="profile-image">
+                <h1 class="hero-title">Zheyu Yao</h1>
+                <p class="hero-subtitle">Graduate Research Student</p>
+                <p class="hero-affiliation">University of Liverpool</p>
+                <div class="contact-links">
+                    <a href="mailto:zheyu.yao@outlook.com"><i class="fas fa-envelope"></i></a>
+                    <a href="https://scholar.google.com/citations?user=Uu2pcowAAAAJ&hl=en&oi=sra" target="_blank"><i class="fab fa-google-scholar"></i></a>
+                    <a href="https://github.com/zyao197" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/zyao197" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </div>
             </div>
+        </section>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Sidebar Navigation -->
+            <aside class="content-nav">
+                <div class="nav-card">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="#bio" class="nav-link active">Biography</a></li>
+                        <li><a href="#research" class="nav-link">Research Interests</a></li>
+                        <li><a href="#publications" class="nav-link">Publications</a></li>
+                        <li><a href="#education" class="nav-link">Education</a></li>
+                        <li><a href="#projects" class="nav-link">Projects</a></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <section id="bio" class="content-section active">
+                    <div class="section-header">
+                        <i class="fas fa-user"></i>
+                        <h2>Biography</h2>
+                    </div>
+                    <p class="bio-text">I am a dedicated researcher specializing in pattern recognition, machine learning, and intelligent systems. My work focuses on developing innovative algorithms and applications that bridge the gap between theoretical computer science and practical real-world solutions. Currently pursuing my Master's degree at the University of Liverpool, I am passionate about advancing the field through rigorous research and practical implementations.</p>
+                </section>
+
+                <section id="research" class="content-section">
+                    <div class="section-header">
+                        <i class="fas fa-microscope"></i>
+                        <h2>Research Interests</h2>
+                    </div>
+                    <div class="research-grid">
+                        <div class="research-card">
+                            <h3>Machine Learning & Pattern Recognition</h3>
+                            <p>Developing advanced algorithms for pattern recognition in complex datasets, with applications in computer vision and signal processing. Focus on deep learning architectures and optimization techniques.</p>
+                        </div>
+                        <div class="research-card">
+                            <h3>Computer Vision</h3>
+                            <p>Specializing in image processing, object detection, and scene understanding using state-of-the-art deep learning techniques. Research includes OCR systems and document analysis.</p>
+                        </div>
+                        <div class="research-card">
+                            <h3>Intelligent Systems</h3>
+                            <p>Designing and implementing intelligent systems that can adapt and learn from their environment for practical applications in mobile computing and real-time processing.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="publications" class="content-section">
+                    <div class="section-header">
+                        <i class="fas fa-file-alt"></i>
+                        <h2>Selected Publications</h2>
+                    </div>
+                    <div class="publication-item">
+                        <div class="publication-title">Advanced Pattern Recognition Techniques for Mobile Applications</div>
+                        <div class="publication-authors">Zheyu Yao, et al.</div>
+                        <div class="publication-venue">International Conference on Pattern Recognition (ICPR), 2024</div>
+                        <p class="publication-description">This paper presents novel approaches to implementing pattern recognition algorithms on mobile devices, focusing on efficiency and accuracy optimization while maintaining real-time performance.</p>
+                        <div class="publication-links">
+                            <a href="#" class="pub-link"><i class="fas fa-file-pdf"></i> PDF</a>
+                            <a href="#" class="pub-link"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" class="pub-link"><i class="fas fa-external-link-alt"></i> DOI</a>
+                        </div>
+                    </div>
+                    <div class="publication-item">
+                        <div class="publication-title">OCR Enhancement Using Deep Learning for Academic Document Processing</div>
+                        <div class="publication-authors">Zheyu Yao, Research Team</div>
+                        <div class="publication-venue">Journal of Intelligent Systems, 2024</div>
+                        <p class="publication-description">A comprehensive study on improving OCR accuracy for academic papers using state-of-the-art deep learning models, with applications in document digitization and analysis.</p>
+                        <div class="publication-links">
+                            <a href="#" class="pub-link"><i class="fas fa-file-pdf"></i> PDF</a>
+                            <a href="#" class="pub-link"><i class="fas fa-external-link-alt"></i> DOI</a>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="education" class="content-section">
+                    <div class="section-header">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h2>Education</h2>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Master of Science in Pattern Recognition and Intelligent Systems</h3>
+                                <div class="timeline-period">2023 - Present</div>
+                                <div class="timeline-institution">University of Liverpool, United Kingdom</div>
+                                <div class="timeline-description">Focusing on advanced machine learning techniques and their applications in intelligent systems. Research includes computer vision, pattern recognition, and mobile computing applications.</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Bachelor of Engineering in Computer Science</h3>
+                                <div class="timeline-period">2019 - 2023</div>
+                                <div class="timeline-institution">Previous Institution</div>
+                                <div class="timeline-description">Graduated with honors, specializing in artificial intelligence and software engineering. Strong foundation in algorithms, data structures, and machine learning.</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="projects" class="content-section">
+                    <div class="section-header">
+                        <i class="fas fa-briefcase"></i>
+                        <h2>Notable Projects</h2>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Divein2Papers - Academic Paper Management System</h3>
+                                <div class="timeline-period">2024 - Present</div>
+                                <div class="timeline-institution">Independent Research Project</div>
+                                <div class="timeline-description">Developed a comprehensive mobile application for managing academic papers with OCR capabilities, intelligent organization, and cloud synchronization. Features include advanced text recognition and smart categorization.</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Pattern Recognition Framework</h3>
+                                <div class="timeline-period">2023 - 2024</div>
+                                <div class="timeline-institution">University Research Lab</div>
+                                <div class="timeline-description">Created a modular framework for implementing various pattern recognition algorithms with focus on real-time processing capabilities and mobile deployment.</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
         </div>
     </div>
 
-    <main class="main-content">
-        <section id="bio" class="content-section bio-section">
-            <h2><i class="fas fa-user"></i> Biography</h2>
-            <p>I am a dedicated researcher specializing in pattern recognition, machine learning, and intelligent systems. My work focuses on developing innovative algorithms and applications that bridge the gap between theoretical computer science and practical real-world solutions. Currently pursuing my Master's degree at the University of Liverpool, I am passionate about advancing the field through rigorous research and practical implementations.</p>
-        </section>
-
-        <section id="research" class="content-section">
-            <h2><i class="fas fa-microscope"></i> Research Interests</h2>
-            <div class="research-grid">
-                <div class="research-card">
-                    <h3>Machine Learning & Pattern Recognition</h3>
-                    <p>Developing advanced algorithms for pattern recognition in complex datasets, with applications in computer vision and signal processing. Focus on deep learning architectures and optimization techniques.</p>
-                </div>
-                <div class="research-card">
-                    <h3>Computer Vision</h3>
-                    <p>Specializing in image processing, object detection, and scene understanding using state-of-the-art deep learning techniques. Research includes OCR systems and document analysis.</p>
-                </div>
-                <div class="research-card">
-                    <h3>Intelligent Systems</h3>
-                    <p>Designing and implementing intelligent systems that can adapt and learn from their environment for practical applications in mobile computing and real-time processing.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="publications" class="content-section">
-            <h2><i class="fas fa-file-alt"></i> Selected Publications</h2>
-            <div class="publication-item">
-                <div class="publication-title">Advanced Pattern Recognition Techniques for Mobile Applications</div>
-                <div class="publication-authors">Zheyu Yao, et al.</div>
-                <div class="publication-venue">International Conference on Pattern Recognition (ICPR), 2024</div>
-                <p>This paper presents novel approaches to implementing pattern recognition algorithms on mobile devices, focusing on efficiency and accuracy optimization while maintaining real-time performance.</p>
-                <div class="publication-links">
-                    <a href="#" class="pub-link"><i class="fas fa-file-pdf"></i> PDF</a>
-                    <a href="#" class="pub-link"><i class="fab fa-github"></i> Code</a>
-                    <a href="#" class="pub-link"><i class="fas fa-external-link-alt"></i> DOI</a>
-                </div>
-            </div>
-            <div class="publication-item">
-                <div class="publication-title">OCR Enhancement Using Deep Learning for Academic Document Processing</div>
-                <div class="publication-authors">Zheyu Yao, Research Team</div>
-                <div class="publication-venue">Journal of Intelligent Systems, 2024</div>
-                <p>A comprehensive study on improving OCR accuracy for academic papers using state-of-the-art deep learning models, with applications in document digitization and analysis.</p>
-                <div class="publication-links">
-                    <a href="#" class="pub-link"><i class="fas fa-file-pdf"></i> PDF</a>
-                    <a href="#" class="pub-link"><i class="fas fa-external-link-alt"></i> DOI</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="education" class="content-section">
-            <h2><i class="fas fa-graduation-cap"></i> Education</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Master of Science in Pattern Recognition and Intelligent Systems</h3>
-                        <div class="timeline-period">2023 - Present</div>
-                        <div class="timeline-institution">University of Liverpool, United Kingdom</div>
-                        <div class="timeline-description">Focusing on advanced machine learning techniques and their applications in intelligent systems. Research includes computer vision, pattern recognition, and mobile computing applications.</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Bachelor of Engineering in Computer Science</h3>
-                        <div class="timeline-period">2019 - 2023</div>
-                        <div class="timeline-institution">Previous Institution</div>
-                        <div class="timeline-description">Graduated with honors, specializing in artificial intelligence and software engineering. Strong foundation in algorithms, data structures, and machine learning.</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="content-section">
-            <h2><i class="fas fa-briefcase"></i> Notable Projects</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Divein2Papers - Academic Paper Management System</h3>
-                        <div class="timeline-period">2024 - Present</div>
-                        <div class="timeline-institution">Independent Research Project</div>
-                        <div class="timeline-description">Developed a comprehensive mobile application for managing academic papers with OCR capabilities, intelligent organization, and cloud synchronization. Features include advanced text recognition and smart categorization.</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Pattern Recognition Framework</h3>
-                        <div class="timeline-period">2023 - 2024</div>
-                        <div class="timeline-institution">University Research Lab</div>
-                        <div class="timeline-description">Created a modular framework for implementing various pattern recognition algorithms with focus on real-time processing capabilities and mobile deployment.</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
     <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
-        }
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                
-                // Update active nav item
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-                
-                // Smooth scroll to section
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                
-                // Close sidebar on mobile after navigation
-                if (window.innerWidth <= 1024) {
-                    document.getElementById('sidebar').classList.remove('active');
-                }
-            });
-        });
-
-        // Close sidebar when clicking outside on mobile
-        document.addEventListener('click', function(e) {
-            const sidebar = document.getElementById('sidebar');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            
-            if (window.innerWidth <= 1024 && 
-                !sidebar.contains(e.target) && 
-                !menuBtn.contains(e.target)) {
-                sidebar.classList.remove('active');
-            }
-        });
-
-        // Update active nav item on scroll
-        window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('.content-section');
+        // Smooth scrolling and navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
             const navLinks = document.querySelectorAll('.nav-link');
-            
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (window.scrollY >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
+            const sections = document.querySelectorAll('.content-section');
+
+            // Handle navigation clicks
             navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('active');
-                }
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    showSection(targetId);
+                    updateActiveNav(this);
+                });
             });
+
+            // Show specific section
+            function showSection(targetId) {
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                    if (section.id === targetId) {
+                        section.classList.add('active', 'fade-in');
+                        section.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            }
+
+            // Update active navigation
+            function updateActiveNav(activeLink) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                activeLink.classList.add('active');
+            }
+
+            // Intersection Observer for auto-updating navigation
+            const observerOptions = {
+                threshold: 0.3,
+                rootMargin: '-100px 0px -50% 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const correspondingNavLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+                        if (correspondingNavLink) {
+                            updateActiveNav(correspondingNavLink);
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Initialize first section
+            if (sections.length > 0) {
+                sections[0].classList.add('active');
+            }
         });
     </script>
 </body>
