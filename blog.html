@@ -7,7 +7,25 @@
     <title>Tech Blog - Zheyu Yao</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-accent: #f3f4f6;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,27 +33,36 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            color: #1a202c;
-            background: #f7fafc;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
             min-height: 100vh;
         }
 
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid #e2e8f0;
-            position: sticky;
+        /* Navigation */
+        .navbar {
+            position: fixed;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
         }
 
-        .header-content {
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -43,318 +70,439 @@
 
         .logo {
             font-size: 1.5rem;
-            font-weight: 700;
-            color: #2d3748;
+            font-weight: 800;
+            color: var(--text-primary);
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
         .logo:hover {
-            color: #4299e1;
+            color: var(--primary-color);
         }
 
-        .nav {
+        .nav-links {
             display: flex;
             gap: 2rem;
-            align-items: center;
+            list-style: none;
         }
 
-        .nav a {
-            color: #4a5568;
+        .nav-links a {
+            color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
             padding: 0.5rem 1rem;
             border-radius: 8px;
             transition: all 0.3s ease;
-        }
-
-        .nav a:hover, .nav a.active {
-            color: #4299e1;
-            background: #ebf8ff;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-align: center;
-            padding: 4rem 2rem;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 900;
-            margin-bottom: 1rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
-        .search-container {
-            max-width: 500px;
-            margin: 0 auto;
             position: relative;
         }
 
-        .search-input {
-            width: 100%;
-            padding: 1rem 1.5rem 1rem 3rem;
-            border: none;
-            border-radius: 50px;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            font-size: 1rem;
-            outline: none;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.1);
         }
 
-        .search-input:focus {
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-primary);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="white" stop-opacity="0.1"/><stop offset="100%" stop-color="white" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23a)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 1.25rem 1.5rem 1.25rem 4rem;
+            border: none;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            font-size: 1.1rem;
+            outline: none;
+            box-shadow: var(--shadow-xl);
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .search-box:focus {
             background: white;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
         .search-icon {
             position: absolute;
-            left: 1rem;
+            left: 1.5rem;
             top: 50%;
             transform: translateY(-50%);
-            color: #667eea;
-            font-size: 1.2rem;
+            color: var(--primary-color);
+            font-size: 1.25rem;
         }
 
-        .main-content {
+        /* Main Content */
+        .main-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 4rem 2rem;
+        }
+
+        .content-grid {
             display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 3rem;
+            grid-template-columns: 1fr 350px;
+            gap: 4rem;
             align-items: start;
         }
 
-        .blog-container {
+        /* Blog Posts */
+        .blog-grid {
             display: grid;
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
-        .blog-card {
-            background: white;
-            border-radius: 16px;
+        .post-card {
+            background: var(--bg-primary);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            border: 1px solid #e2e8f0;
-        }
-
-        .blog-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
-        }
-
-        .blog-header {
-            height: 200px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 3rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border-color);
             position: relative;
         }
 
-        .blog-content {
+        .post-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .post-image {
+            height: 240px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .post-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .post-card:hover .post-image::before {
+            transform: translateX(100%);
+        }
+
+        .post-image i {
+            font-size: 3.5rem;
+            color: white;
+            opacity: 0.9;
+        }
+
+        .post-content {
             padding: 2rem;
         }
 
-        .blog-meta {
+        .post-meta {
             display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
+            align-items: center;
+            gap: 1.5rem;
             margin-bottom: 1rem;
-            color: #718096;
+            color: var(--text-secondary);
             font-size: 0.9rem;
+            font-weight: 500;
         }
 
-        .blog-meta span {
+        .post-meta span {
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .blog-title {
+        .post-title {
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            color: #2d3748;
-            line-height: 1.3;
+            color: var(--text-primary);
+            line-height: 1.4;
+            transition: color 0.3s ease;
         }
 
-        .blog-excerpt {
-            color: #4a5568;
+        .post-card:hover .post-title {
+            color: var(--primary-color);
+        }
+
+        .post-excerpt {
+            color: var(--text-secondary);
             margin-bottom: 1.5rem;
             line-height: 1.6;
         }
 
-        .blog-tags {
+        .post-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.75rem;
             margin-bottom: 1.5rem;
         }
 
         .tag {
-            background: #ebf8ff;
-            color: #2b6cb0;
-            padding: 0.25rem 0.75rem;
+            background: var(--bg-accent);
+            color: var(--text-secondary);
+            padding: 0.4rem 1rem;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 500;
             transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
         }
 
         .tag:hover {
-            background: #bee3f8;
-            transform: translateY(-1px);
-        }
-
-        .read-more {
-            background: #4299e1;
+            background: var(--primary-color);
             color: white;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .read-more:hover {
-            background: #3182ce;
             transform: translateY(-2px);
         }
 
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.875rem 1.75rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .read-more:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .read-more i {
+            transition: transform 0.3s ease;
+        }
+
+        .read-more:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Featured Post */
+        .featured-post {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 500px 1fr;
+            gap: 0;
+            min-height: 400px;
+            margin-bottom: 1rem;
+        }
+
+        .featured-post .post-image {
+            height: 100%;
+            border-radius: 20px 0 0 20px;
+            background: var(--gradient-secondary);
+        }
+
+        .featured-post .post-image i {
+            font-size: 5rem;
+        }
+
+        .featured-post .post-content {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-post .post-title {
+            font-size: 2.25rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .featured-post .post-excerpt {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Sidebar */
         .sidebar {
             display: flex;
             flex-direction: column;
             gap: 2rem;
+            position: sticky;
+            top: 120px;
         }
 
-        .sidebar-section {
-            background: white;
+        .sidebar-card {
+            background: var(--bg-primary);
             border-radius: 16px;
             padding: 2rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e2e8f0;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
         }
 
-        .sidebar-section h3 {
-            color: #2d3748;
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
+        .sidebar-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
             font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
-        .filter-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
+        .category-filters {
+            display: grid;
+            gap: 0.75rem;
         }
 
         .filter-btn {
             background: transparent;
-            color: #4a5568;
-            border: none;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 0.875rem 1.25rem;
+            border-radius: 12px;
             text-align: left;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 1rem;
             font-weight: 500;
+            font-family: inherit;
         }
 
-        .filter-btn:hover, .filter-btn.active {
-            background: #ebf8ff;
-            color: #2b6cb0;
-            transform: translateX(5px);
+        .filter-btn:hover {
+            background: var(--bg-accent);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateX(4px);
         }
 
-        .recent-post-item {
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .filter-btn i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .recent-posts {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .recent-post {
             padding: 1rem 0;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
         }
 
-        .recent-post-item:last-child {
+        .recent-post:last-child {
             border-bottom: none;
         }
 
-        .recent-post-item a {
-            color: #2d3748;
+        .recent-post:hover {
+            transform: translateX(8px);
+        }
+
+        .recent-post a {
+            color: var(--text-primary);
             text-decoration: none;
             font-weight: 600;
             font-size: 0.95rem;
             transition: color 0.3s ease;
+            display: block;
+            margin-bottom: 0.25rem;
         }
 
-        .recent-post-item a:hover {
-            color: #4299e1;
+        .recent-post a:hover {
+            color: var(--primary-color);
         }
 
-        .recent-post-date {
-            color: #718096;
+        .recent-date {
+            color: var(--text-secondary);
             font-size: 0.85rem;
-            margin-top: 0.25rem;
         }
 
-        .back-link {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: #4299e1;
-            color: white;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.25rem;
-            box-shadow: 0 4px 20px rgba(66, 153, 225, 0.4);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .back-link:hover {
-            background: #3182ce;
-            transform: scale(1.1) translateY(-2px);
-            box-shadow: 0 8px 30px rgba(66, 153, 225, 0.5);
-        }
-
+        /* Loading State */
         .loading {
             display: none;
             text-align: center;
-            padding: 4rem;
-            color: #4a5568;
+            padding: 6rem 2rem;
+            color: var(--text-secondary);
         }
 
         .spinner {
-            border: 3px solid #e2e8f0;
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--bg-accent);
+            border-top: 3px solid var(--primary-color);
             border-radius: 50%;
-            border-top: 3px solid #4299e1;
-            width: 40px;
-            height: 40px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
+            margin: 0 auto 1.5rem;
         }
 
         @keyframes spin {
@@ -362,291 +510,397 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Featured post styling */
-        .featured-post {
-            grid-column: 1 / -1;
-            display: grid;
-            grid-template-columns: 400px 1fr;
-            gap: 0;
-            min-height: 350px;
+        /* Article Detail View */
+        .article-detail {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
         }
 
-        .featured-post .blog-header {
-            height: 100%;
-            border-radius: 16px 0 0 16px;
+        .article-detail.active {
+            display: block;
+            animation: fadeInUp 0.6s ease;
         }
 
-        .featured-post .blog-content {
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.875rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+        }
+
+        .back-btn:hover {
+            background: var(--bg-accent);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .article-content {
+            background: var(--bg-primary);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .article-content h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .article-content h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin: 3rem 0 1.5rem 0;
+            color: var(--text-primary);
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .article-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1rem 0;
+            color: var(--text-primary);
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .article-content code {
+            background: var(--bg-accent);
+            color: #e53e3e;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-family: 'SF Mono', Consolas, 'Monaco', monospace;
+            font-size: 0.9em;
+        }
+
+        .article-content pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 2rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 2rem 0;
+            font-family: 'SF Mono', Consolas, 'Monaco', monospace;
+            box-shadow: var(--shadow-md);
+        }
+
+        .article-content pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            background: var(--bg-accent);
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .article-content li {
+            margin-bottom: 0.75rem;
+            line-height: 1.7;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 56px;
+            height: 56px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             justify-content: center;
+            text-decoration: none;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
         }
 
-        .featured-post .blog-title {
-            font-size: 2rem;
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
         }
 
-        /* Responsive design */
+        .back-to-top:hover {
+            background: var(--primary-hover);
+            transform: scale(1.1) translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive Design */
         @media (max-width: 1024px) {
-            .main-content {
+            .content-grid {
                 grid-template-columns: 1fr;
-                gap: 2rem;
-                padding: 2rem 1rem;
+                gap: 3rem;
             }
 
             .sidebar {
                 order: -1;
+                position: static;
             }
 
-            .filter-buttons {
-                flex-direction: row;
-                flex-wrap: wrap;
+            .category-filters {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             }
 
             .featured-post {
                 grid-template-columns: 1fr;
             }
 
-            .featured-post .blog-header {
-                border-radius: 16px 16px 0 0;
-                height: 200px;
+            .featured-post .post-image {
+                height: 240px;
+                border-radius: 20px 20px 0 0;
+            }
+
+            .featured-post .post-content {
+                padding: 2rem;
             }
         }
 
         @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
+            .nav-container {
+                padding: 0 1rem;
             }
 
-            .nav {
-                flex-wrap: wrap;
-                justify-content: center;
+            .nav-links {
+                gap: 1rem;
             }
 
             .hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .main-container {
                 padding: 3rem 1rem;
             }
 
-            .hero h1 {
-                font-size: 2.5rem;
+            .article-detail {
+                padding: 6rem 1rem 3rem;
             }
 
-            .blog-content {
-                padding: 1.5rem;
+            .article-content {
+                padding: 2rem;
             }
 
-            .back-link {
-                bottom: 1rem;
-                right: 1rem;
+            .back-to-top {
                 width: 48px;
                 height: 48px;
+                bottom: 1rem;
+                right: 1rem;
+            }
+
+            .category-filters {
+                grid-template-columns: 1fr;
             }
         }
 
-        /* Article detail styles */
-        .article-detail {
-            display: none;
-            background: white;
-            border-radius: 16px;
-            padding: 3rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e2e8f0;
+        /* Category Color Coding */
+        .post-card[data-category="machine-learning"] .post-image {
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
         }
 
-        .article-detail.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
+        .post-card[data-category="web-development"] .post-image {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .post-card[data-category="mobile-apps"] .post-image {
+            background: linear-gradient(135deg, #10b981, #059669);
         }
 
-        .article-detail h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            color: #2d3748;
-        }
-
-        .article-detail h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin: 2rem 0 1rem 0;
-            color: #2d3748;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 0.5rem;
-        }
-
-        .article-detail h3 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin: 1.5rem 0 1rem 0;
-            color: #4a5568;
-        }
-
-        .article-detail p {
-            margin-bottom: 1.5rem;
-            color: #4a5568;
-            line-height: 1.7;
-        }
-
-        .article-detail code {
-            background: #f1f5f9;
-            color: #e53e3e;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-family: 'SF Mono', Consolas, monospace;
-            font-size: 0.9em;
-        }
-
-        .article-detail pre {
-            background: #1a202c;
-            color: #e2e8f0;
-            padding: 1.5rem;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin: 1.5rem 0;
-            font-family: 'SF Mono', Consolas, monospace;
-        }
-
-        .article-detail pre code {
-            background: none;
-            color: inherit;
-            padding: 0;
-        }
-
-        .article-detail ul, .article-detail ol {
-            margin: 1rem 0 1.5rem 2rem;
-            color: #4a5568;
-        }
-
-        .article-detail li {
-            margin-bottom: 0.5rem;
-        }
-
-        .article-detail blockquote {
-            border-left: 4px solid #4299e1;
-            padding-left: 1.5rem;
-            margin: 1.5rem 0;
-            font-style: italic;
-            color: #4a5568;
-            background: #f7fafc;
-            padding: 1rem 1.5rem;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .back-to-list {
-            background: #e2e8f0;
-            color: #4a5568;
-            text-decoration: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .back-to-list:hover {
-            background: #cbd5e0;
-            transform: translateY(-1px);
+        .post-card[data-category="research"] .post-image {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
         }
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-link">
-        <i class="fas fa-home"></i>
-    </a>
-
-    <header class="header">
-        <div class="header-content">
-            <a href="index.html" class="logo">Zheyu's Tech Blog</a>
-            <nav class="nav">
-                <a href="index.html">Home</a>
-                <a href="blog.html" class="active">Blog</a>
-            </nav>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Zheyu Yao</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="academic.html">Academic</a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
 
-    <div class="hero">
-        <h1>Tech Insights & Innovation</h1>
-        <p>Exploring cutting-edge technology, research breakthroughs, and practical tutorials</p>
-        <div class="search-container">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" class="search-input" placeholder="Search articles..." id="searchInput">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Tech Insights & Innovation</h1>
+            <p>Exploring cutting-edge technology, sharing research discoveries, and documenting the journey of building impactful software solutions</p>
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-box" placeholder="Search articles, topics, or technologies..." id="searchInput">
+            </div>
         </div>
-    </div>
+    </section>
 
+    <!-- Loading State -->
     <div class="loading" id="loading">
         <div class="spinner"></div>
-        <p>Loading articles...</p>
+        <p>Loading amazing content...</p>
     </div>
 
-    <!-- Article detail view -->
+    <!-- Article Detail View -->
     <div class="article-detail" id="articleDetail">
-        <a href="#" class="back-to-list" onclick="blogManager.showBlogList()">
+        <a href="#" class="back-btn" onclick="blogManager.showBlogList()">
             <i class="fas fa-arrow-left"></i>
             Back to Blog
         </a>
-        <div id="articleContent"></div>
+        <div class="article-content" id="articleContent"></div>
     </div>
 
-    <main class="main-content" id="mainContent">
-        <div class="blog-container" id="blogContainer">
-            <!-- Blog posts will be dynamically loaded here -->
+    <!-- Main Content -->
+    <div class="main-container" id="mainContent">
+        <div class="content-grid">
+            <div class="blog-grid" id="blogContainer">
+                <!-- Blog posts will be dynamically loaded here -->
+            </div>
+
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-layer-group"></i>
+                        Categories
+                    </h3>
+                    <div class="category-filters">
+                        <button class="filter-btn active" data-category="all">
+                            <i class="fas fa-th-large"></i>
+                            All Posts
+                        </button>
+                        <button class="filter-btn" data-category="machine-learning">
+                            <i class="fas fa-brain"></i>
+                            Machine Learning
+                        </button>
+                        <button class="filter-btn" data-category="web-development">
+                            <i class="fas fa-code"></i>
+                            Web Development
+                        </button>
+                        <button class="filter-btn" data-category="mobile-apps">
+                            <i class="fas fa-mobile-alt"></i>
+                            Mobile Apps
+                        </button>
+                        <button class="filter-btn" data-category="research">
+                            <i class="fas fa-flask"></i>
+                            Research
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-clock"></i>
+                        Recent Posts
+                    </h3>
+                    <div class="recent-posts">
+                        <div class="recent-post">
+                            <a href="#" onclick="blogManager.openPost(1)">Building Intelligent Mobile Apps with OCR</a>
+                            <div class="recent-date">December 15, 2024</div>
+                        </div>
+                        <div class="recent-post">
+                            <a href="#" onclick="blogManager.openPost(2)">Deep Learning for Pattern Recognition</a>
+                            <div class="recent-date">December 10, 2024</div>
+                        </div>
+                        <div class="recent-post">
+                            <a href="#" onclick="blogManager.openPost(3)">Modern Web Development with React</a>
+                            <div class="recent-date">December 5, 2024</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-hashtag"></i>
+                        Popular Tags
+                    </h3>
+                    <div class="post-tags">
+                        <span class="tag">Machine Learning</span>
+                        <span class="tag">OCR</span>
+                        <span class="tag">React</span>
+                        <span class="tag">iOS</span>
+                        <span class="tag">Computer Vision</span>
+                        <span class="tag">Neural Networks</span>
+                    </div>
+                </div>
+            </aside>
         </div>
+    </div>
 
-        <aside class="sidebar">
-            <div class="sidebar-section">
-                <h3>Categories</h3>
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-category="all">
-                        <i class="fas fa-th-large"></i>
-                        All Posts
-                    </button>
-                    <button class="filter-btn" data-category="machine-learning">
-                        <i class="fas fa-brain"></i>
-                        Machine Learning
-                    </button>
-                    <button class="filter-btn" data-category="web-development">
-                        <i class="fas fa-code"></i>
-                        Web Development
-                    </button>
-                    <button class="filter-btn" data-category="mobile-apps">
-                        <i class="fas fa-mobile-alt"></i>
-                        Mobile Apps
-                    </button>
-                    <button class="filter-btn" data-category="research">
-                        <i class="fas fa-flask"></i>
-                        Research
-                    </button>
-                </div>
-            </div>
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
 
-            <div class="sidebar-section">
-                <h3>Recent Posts</h3>
-                <div class="recent-post-item">
-                    <a href="#" onclick="blogManager.openPost(4)">Machine Learning Model Deployment</a>
-                    <div class="recent-post-date">December 12, 2024</div>
-                </div>
-                <div class="recent-post-item">
-                    <a href="#" onclick="blogManager.openPost(5)">Understanding Microservices</a>
-                    <div class="recent-post-date">December 8, 2024</div>
-                </div>
-                <div class="recent-post-item">
-                    <a href="#" onclick="blogManager.openPost(6)">API Design Principles</a>
-                    <div class="recent-post-date">December 3, 2024</div>
-                </div>
-            </div>
-        </aside>
-    </main>
-
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -678,14 +932,13 @@
             }
 
             async simulateMarkdownLoading() {
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                await new Promise(resolve => setTimeout(resolve, 800));
 
-                // Sample markdown posts with full content
                 this.posts = [
                     {
                         id: 1,
                         title: "Building Intelligent Mobile Apps with OCR Technology",
-                        excerpt: "Discover how to integrate advanced Optical Character Recognition into mobile applications for enhanced user experiences.",
+                        excerpt: "Discover how to integrate advanced Optical Character Recognition into mobile applications for enhanced user experiences and accessibility.",
                         content: `# Building Intelligent Mobile Apps with OCR Technology
 
 ## Introduction
@@ -735,7 +988,6 @@ class OCRViewController: UIViewController {
     }
     
     func handleRecognizedText(_ texts: [String]) {
-        // Process recognized text
         print("Recognized text: \\(texts.joined(separator: " "))")
     }
 }
@@ -767,32 +1019,28 @@ OCR technology powers many innovative applications:
 
 ## Conclusion
 
-OCR technology opens up endless possibilities for mobile app innovation. By following these implementation strategies and best practices, you can create powerful applications that bridge the gap between physical and digital text.
-
-*Ready to start building? Check out our sample project on GitHub for a complete implementation example.*`,
+OCR technology opens up endless possibilities for mobile app innovation. By following these implementation strategies and best practices, you can create powerful applications that bridge the gap between physical and digital text.`,
                         date: "2024-12-15",
                         readTime: "8 min read",
-                        views: "1.2k",
+                        views: "2.3k",
                         category: "mobile-apps",
-                        tags: ["OCR", "Mobile Development", "Machine Learning", "iOS"],
-                        icon: "fas fa-robot",
+                        tags: ["OCR", "Mobile Development", "iOS", "Machine Learning"],
+                        icon: "fas fa-mobile-alt",
                         featured: true
                     },
                     {
                         id: 2,
                         title: "Deep Learning for Pattern Recognition",
-                        excerpt: "A comprehensive exploration of modern pattern recognition techniques using neural networks.",
+                        excerpt: "A comprehensive exploration of modern pattern recognition techniques using neural networks and their practical applications.",
                         content: `# Deep Learning for Pattern Recognition
 
 ## Overview
 
-Pattern recognition is a fundamental aspect of machine learning that involves identifying regularities in data. Deep learning has revolutionized this field by providing powerful tools for automatic feature extraction and classification.
+Pattern recognition is a fundamental aspect of machine learning that involves identifying regularities in data. Deep learning has revolutionized this field.
 
 ## Neural Network Architectures
 
 ### Convolutional Neural Networks (CNNs)
-
-CNNs are particularly effective for image pattern recognition:
 
 \`\`\`python
 import tensorflow as tf
@@ -810,130 +1058,146 @@ def create_cnn_model(input_shape, num_classes):
         layers.Dense(num_classes, activation='softmax')
     ])
     return model
-
-# Example usage
-model = create_cnn_model((28, 28, 1), 10)
-model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
 \`\`\`
 
-## Applications in Computer Vision
+## Applications
 
-Modern pattern recognition systems can:
-
-- **Object Detection**: Identify and locate objects in images
-- **Facial Recognition**: Authenticate users through facial features
-- **Medical Imaging**: Detect anomalies in medical scans
-- **Quality Control**: Identify defects in manufacturing
+- Object Detection
+- Facial Recognition  
+- Medical Imaging
+- Quality Control
 
 ## Future Directions
 
-The field continues to evolve with:
-
-1. **Transformer Architectures**: Vision Transformers (ViTs) for image recognition
-2. **Self-Supervised Learning**: Learning patterns without labeled data
-3. **Few-Shot Learning**: Recognition with minimal training examples
-
-Pattern recognition will continue to be a cornerstone of AI advancement.`,
+The field continues evolving with transformer architectures and self-supervised learning.`,
                         date: "2024-12-10",
                         readTime: "6 min read",
-                        views: "890",
+                        views: "1.8k",
                         category: "machine-learning",
-                        tags: ["Deep Learning", "Pattern Recognition", "Neural Networks"],
+                        tags: ["Deep Learning", "Pattern Recognition", "Neural Networks", "TensorFlow"],
                         icon: "fas fa-brain"
                     },
                     {
                         id: 3,
-                        title: "Modern Web Development with React",
-                        excerpt: "Best practices for building scalable and maintainable React applications in 2024.",
-                        content: `# Modern Web Development with React
+                        title: "Modern Web Development with React 18",
+                        excerpt: "Best practices for building scalable and maintainable React applications using the latest features and patterns.",
+                        content: `# Modern Web Development with React 18
 
 ## Introduction
 
-React continues to evolve, and 2024 brings exciting new features and best practices. This guide covers the latest approaches to building scalable React applications.
+React 18 brings exciting new features. This guide covers the latest approaches to building scalable React applications.
 
 ## React 18 Features
 
 ### Concurrent Features
-
-React 18 introduced concurrent features that improve user experience:
 
 \`\`\`jsx
 import { useState, useTransition } from 'react';
 
 function SearchResults() {
     const [query, setQuery] = useState('');
-    const [results, setResults] = useState([]);
     const [isPending, startTransition] = useTransition();
 
     const handleSearch = (value) => {
         setQuery(value);
         startTransition(() => {
-            // This update is marked as non-urgent
             setResults(searchFunction(value));
         });
     };
 
     return (
         <div>
-            <input 
-                value={query}
-                onChange={(e) => handleSearch(e.target.value)}
-                placeholder="Search..."
-            />
+            <input onChange={(e) => handleSearch(e.target.value)} />
             {isPending && <div>Searching...</div>}
-            <ResultsList results={results} />
         </div>
     );
 }
 \`\`\`
 
-## State Management Best Practices
-
-### Context vs Redux
-
-Choose the right state management solution:
-
-- **React Context**: For simple, component-tree-scoped state
-- **Redux Toolkit**: For complex, global state management
-- **Zustand**: For lightweight global state
-
 ## Performance Optimization
 
-### Code Splitting
-
-\`\`\`jsx
-import { lazy, Suspense } from 'react';
-
-const LazyComponent = lazy(() => import('./LazyComponent'));
-
-function App() {
-    return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <LazyComponent />
-        </Suspense>
-    );
-}
-\`\`\`
-
-## Testing Strategies
-
-Modern React testing focuses on:
-
-1. **User-Centric Testing**: Test how users interact with your app
-2. **Integration Tests**: Test component interactions
-3. **E2E Testing**: Test complete user workflows
+Code splitting and lazy loading are essential for modern React apps.
 
 ## Conclusion
 
-React development in 2024 emphasizes performance, user experience, and developer productivity. Stay updated with the latest features and best practices!`,
+React development in 2024 emphasizes performance and user experience.`,
                         date: "2024-12-05",
                         readTime: "5 min read",
                         views: "1.5k",
                         category: "web-development",
-                        tags: ["React", "JavaScript", "Web Development"],
+                        tags: ["React", "JavaScript", "Web Development", "Performance"],
                         icon: "fas fa-code"
+                    },
+                    {
+                        id: 4,
+                        title: "Advanced Computer Vision Techniques",
+                        excerpt: "Exploring state-of-the-art computer vision algorithms and their implementation in real-world applications.",
+                        content: `# Advanced Computer Vision Techniques
+
+## Introduction
+
+Computer vision has evolved rapidly with deep learning advancements. This article explores cutting-edge techniques.
+
+## Object Detection
+
+Modern object detection uses YOLO and R-CNN architectures for real-time processing.
+
+## Image Segmentation
+
+Semantic and instance segmentation enable precise pixel-level understanding.
+
+## Future Trends
+
+- Vision Transformers
+- Self-supervised learning
+- Few-shot learning
+
+Computer vision continues to push the boundaries of AI capabilities.`,
+                        date: "2024-11-28",
+                        readTime: "7 min read",
+                        views: "1.1k",
+                        category: "research",
+                        tags: ["Computer Vision", "Object Detection", "Image Processing"],
+                        icon: "fas fa-eye"
+                    },
+                    {
+                        id: 5,
+                        title: "Building Scalable APIs with Node.js",
+                        excerpt: "Learn how to design and implement robust, scalable APIs using Node.js, Express, and modern architectural patterns.",
+                        content: `# Building Scalable APIs with Node.js
+
+## Architecture Principles
+
+Building scalable APIs requires careful consideration of architecture patterns and performance optimization.
+
+## Express.js Best Practices
+
+\`\`\`javascript
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+app.use(cors());
+
+app.get('/api/health', (req, res) => {
+    res.json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+\`\`\`
+
+## Performance Optimization
+
+- Connection pooling
+- Caching strategies
+- Rate limiting
+- Load balancing
+
+APIs form the backbone of modern applications.`,
+                        date: "2024-11-20",
+                        readTime: "9 min read",
+                        views: "920",
+                        category: "web-development",
+                        tags: ["Node.js", "API", "Express", "Backend"],
+                        icon: "fas fa-server"
                     }
                 ];
 
@@ -954,6 +1218,26 @@ React development in 2024 emphasizes performance, user experience, and developer
                 const searchInput = document.getElementById('searchInput');
                 searchInput.addEventListener('input', (e) => {
                     this.searchPosts(e.target.value);
+                });
+
+                // Navbar scroll effect
+                window.addEventListener('scroll', () => {
+                    const navbar = document.getElementById('navbar');
+                    const backToTop = document.getElementById('backToTop');
+                    
+                    if (window.scrollY > 100) {
+                        navbar.classList.add('scrolled');
+                        backToTop.classList.add('visible');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                        backToTop.classList.remove('visible');
+                    }
+                });
+
+                // Back to top functionality
+                document.getElementById('backToTop').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
             }
 
@@ -988,37 +1272,46 @@ React development in 2024 emphasizes performance, user experience, and developer
                 const container = document.getElementById('blogContainer');
                 container.innerHTML = '';
 
+                if (this.filteredPosts.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-search"></i>
+                            <h3>No Posts Found</h3>
+                            <p>Try adjusting your search criteria or browse all categories.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
                 this.filteredPosts.forEach(post => {
                     const postElement = this.createPostElement(post);
                     container.appendChild(postElement);
                 });
-
-                if (this.filteredPosts.length === 0) {
-                    container.innerHTML = '<div style="text-align: center; padding: 4rem; color: #4a5568;"><h3>No posts found</h3><p>Try adjusting your search or filter criteria.</p></div>';
-                }
             }
 
             createPostElement(post) {
                 const article = document.createElement('article');
-                article.className = `blog-card ${post.featured ? 'featured-post' : ''}`;
+                article.className = `post-card ${post.featured ? 'featured-post' : ''}`;
+                article.setAttribute('data-category', post.category);
 
                 article.innerHTML = `
-                    <div class="blog-header">
+                    <div class="post-image">
                         <i class="${post.icon}"></i>
                     </div>
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <span><i class="fas fa-calendar"></i> ${this.formatDate(post.date)}</span>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="fas fa-calendar-alt"></i> ${this.formatDate(post.date)}</span>
                             <span><i class="fas fa-clock"></i> ${post.readTime}</span>
                             <span><i class="fas fa-eye"></i> ${post.views} views</span>
                         </div>
-                        <h2 class="blog-title">${post.title}</h2>
-                        <p class="blog-excerpt">${post.excerpt}</p>
-                        <div class="blog-tags">
+                        <h2 class="post-title">${post.title}</h2>
+                        <p class="post-excerpt">${post.excerpt}</p>
+                        <div class="post-tags">
                             ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                         </div>
                         <a href="#" class="read-more" onclick="blogManager.openPost(${post.id})">
-                            Read ${post.featured ? 'Full Article' : 'More'} <i class="fas fa-arrow-right"></i>
+                            Read ${post.featured ? 'Full Article' : 'More'} 
+                            <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 `;
@@ -1047,51 +1340,29 @@ React development in 2024 emphasizes performance, user experience, and developer
                 const articleContent = document.getElementById('articleContent');
                 const mainContent = document.getElementById('mainContent');
 
-                // Hide blog list
                 mainContent.style.display = 'none';
-                
-                // Show article detail
                 articleDetail.classList.add('active');
                 
-                // Render markdown content
                 articleContent.innerHTML = marked.parse(post.content);
-
-                // Scroll to top
                 window.scrollTo(0, 0);
-
-                // Highlight code blocks
-                Prism.highlightAll();
+                
+                setTimeout(() => {
+                    Prism.highlightAll();
+                }, 100);
             }
 
             showBlogList() {
                 const articleDetail = document.getElementById('articleDetail');
                 const mainContent = document.getElementById('mainContent');
 
-                // Hide article detail
                 articleDetail.classList.remove('active');
-                
-                // Show blog list
-                mainContent.style.display = 'grid';
-                
-                // Scroll to top
+                mainContent.style.display = 'block';
                 window.scrollTo(0, 0);
             }
         }
 
         // Initialize blog manager
         const blogManager = new BlogManager();
-
-        // Smooth scrolling for header
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 50) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
-            }
-        });
     </script>
 </body>
 </html>
