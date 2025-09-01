@@ -964,24 +964,37 @@
                 document.getElementById('loading').style.display = 'block';
                 
                 try {
+                    console.log('Starting to scan posts...');
+                    
                     // 加载markdown文件
                     const markdownFiles = await this.discoverMarkdownFiles();
+                    console.log('Discovered markdown files:', markdownFiles);
                     
                     this.posts = [];
                     for (const file of markdownFiles) {
                         try {
+                            console.log(`Loading post from: ${file}`);
                             const post = await this.loadMarkdownPost(file);
                             if (post) {
                                 this.posts.push(post);
+                                console.log(`Successfully loaded post: ${post.title}`);
+                            } else {
+                                console.warn(`Post parsing failed for: ${file}`);
                             }
                         } catch (error) {
-                            console.warn(`Failed to load ${file}:`, error);
+                            console.error(`Failed to load ${file}:`, error);
                         }
                     }
+
+                    console.log(`Total posts loaded: ${this.posts.length}`, this.posts);
 
                     // 按日期排序，最新的在前
                     this.posts.sort((a, b) => new Date(b.date) - new Date(a.date));
                     this.filteredPosts = [...this.posts];
+                    
+                    if (this.posts.length === 0) {
+                        console.warn('No posts were successfully loaded!');
+                    }
                     
                 } catch (error) {
                     console.error('Error scanning posts:', error);
@@ -1005,35 +1018,53 @@
                 
                 for (const file of knownFiles) {
                     try {
-                        const response = await fetch(file, { method: 'HEAD' });
+                        // 直接尝试获取文件内容，而不是使用HEAD请求
+                        const response = await fetch(file);
                         if (response.ok) {
                             availableFiles.push(file);
+                            console.log(`Successfully found: ${file}`);
+                        } else {
+                            console.warn(`File not found: ${file} (Status: ${response.status})`);
                         }
                     } catch (error) {
-                        console.log(`File ${file} not accessible`);
+                        console.warn(`Error accessing ${file}:`, error);
                     }
                 }
 
+                console.log(`Total files discovered: ${availableFiles.length}`, availableFiles);
                 return availableFiles;
             }
 
             async loadMarkdownPost(filePath) {
                 if (this.postsCache.has(filePath)) {
+                    console.log(`Using cached version of: ${filePath}`);
                     return this.postsCache.get(filePath);
                 }
 
                 try {
+                    console.log(`Fetching content from: ${filePath}`);
                     const response = await fetch(filePath);
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     
                     const content = await response.text();
+                    console.log(`Content length for ${filePath}: ${content.length} characters`);
+                    
+                    if (!content.trim()) {
+                        console.warn(`Empty content for: ${filePath}`);
+                        return null;
+                    }
+                    
                     const post = this.parseMarkdownFrontMatter(content, filePath);
                     
                     if (post) {
                         this.postsCache.set(filePath, post);
+                        console.log(`Successfully parsed post: ${post.title} from ${filePath}`);
                         return post;
+                    } else {
+                        console.warn(`Failed to parse markdown for: ${filePath}`);
+                        return null;
                     }
                 } catch (error) {
                     console.error(`Error loading ${filePath}:`, error);
@@ -1042,61 +1073,77 @@
             }
 
             parseMarkdownFrontMatter(content, filePath) {
-                const lines = content.split('\n');
-                
-                // 提取标题 (第一个 # 开头的行)
-                const titleLine = lines.find(line => line.match(/^#+\s+/));
-                const title = titleLine ? titleLine.replace(/^#+\s+/, '').trim() : this.getFileNameFromPath(filePath);
-                
-                // 提取元数据行（*发布于... 或 *Published on...）
-                const metaLine = lines.find(line => line.match(/^\*.*?(发布于|Published on)/));
-                let date = new Date().toISOString().split('T')[0];
-                let readTime = '5 min read';
-                
-                if (metaLine) {
-                    // 提取日期
-                    const dateMatch = metaLine.match(/(\d{4}年\d{1,2}月\d{1,2}日|\d{4}-\d{2}-\d{2}|\d{4}\/\d{2}\/\d{2}|December \d{1,2}, \d{4}|November \d{1,2}, \d{4}|October \d{1,2}, \d{4})/);
-                    if (dateMatch) {
-                        date = this.normalizeDate(dateMatch[1]);
-                    }
+                try {
+                    const lines = content.split('\n');
+                    console.log(`Parsing ${filePath} with ${lines.length} lines`);
                     
-                    // 提取阅读时间
-                    const readTimeMatch = metaLine.match(/(\d+分钟阅读|\d+ min read)/);
-                    if (readTimeMatch) {
-                        readTime = readTimeMatch[1];
+                    // 提取标题 (第一个 # 开头的行)
+                    const titleLine = lines.find(line => line.match(/^#+\s+/));
+                    const title = titleLine ? titleLine.replace(/^#+\s+/, '').trim() : this.getFileNameFromPath(filePath);
+                    console.log(`Extracted title: ${title}`);
+                    
+                    // 提取元数据行（*发布于... 或 *Published on...）
+                    const metaLine = lines.find(line => line.match(/^\*.*?(发布于|Published on)/));
+                    let date = new Date().toISOString().split('T')[0];
+                    let readTime = '5 min read';
+                    
+                    if (metaLine) {
+                        console.log(`Found meta line: ${metaLine}`);
+                        // 提取日期
+                        const dateMatch = metaLine.match(/(\d{4}年\d{1,2}月\d{1,2}日|\d{4}-\d{2}-\d{2}|\d{4}\/\d{2}\/\d{2}|December \d{1,2}, \d{4}|November \d{1,2}, \d{4}|October \d{1,2}, \d{4})/);
+                        if (dateMatch) {
+                            date = this.normalizeDate(dateMatch[1]);
+                            console.log(`Extracted date: ${date}`);
+                        }
+                        
+                        // 提取阅读时间
+                        const readTimeMatch = metaLine.match(/(\d+分钟阅读|\d+ min read)/);
+                        if (readTimeMatch) {
+                            readTime = readTimeMatch[1];
+                        }
                     }
+
+                    // 生成摘要
+                    const excerpt = this.generateExcerpt(content);
+                    console.log(`Generated excerpt: ${excerpt.substring(0, 50)}...`);
+                    
+                    // 提取标签
+                    const tags = this.extractTags(content);
+                    console.log(`Extracted tags: ${tags}`);
+                    
+                    // 确定分类
+                    const category = this.determineCategory(content, tags, title);
+                    console.log(`Determined category: ${category}`);
+                    
+                    // 生成唯一ID
+                    const id = this.generatePostId(filePath);
+                    
+                    // 检查是否为特色文章
+                    const featured = content.includes('featured: true') || content.includes('![') || tags.includes('Featured');
+
+                    const post = {
+                        id,
+                        title,
+                        excerpt,
+                        content,
+                        date,
+                        readTime,
+                        views: this.generateViews(),
+                        category,
+                        tags: tags.slice(0, 4),
+                        icon: this.getCategoryIcon(category),
+                        featured,
+                        filePath,
+                        slug: this.generateSlug(title)
+                    };
+                    
+                    console.log(`Successfully created post object for: ${title}`);
+                    return post;
+                    
+                } catch (error) {
+                    console.error(`Error parsing markdown for ${filePath}:`, error);
+                    return null;
                 }
-
-                // 生成摘要
-                const excerpt = this.generateExcerpt(content);
-                
-                // 提取标签
-                const tags = this.extractTags(content);
-                
-                // 确定分类
-                const category = this.determineCategory(content, tags, title);
-                
-                // 生成唯一ID
-                const id = this.generatePostId(filePath);
-                
-                // 检查是否为特色文章
-                const featured = content.includes('featured: true') || content.includes('![') || tags.includes('Featured');
-
-                return {
-                    id,
-                    title,
-                    excerpt,
-                    content,
-                    date,
-                    readTime,
-                    views: this.generateViews(),
-                    category,
-                    tags: tags.slice(0, 4),
-                    icon: this.getCategoryIcon(category),
-                    featured,
-                    filePath,
-                    slug: this.generateSlug(title)
-                };
             }
 
             getFileNameFromPath(filePath) {
