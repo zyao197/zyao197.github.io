@@ -695,9 +695,15 @@
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
+                    isManualNavigation = true;
                     const targetId = this.getAttribute('href').substring(1);
                     showSection(targetId);
                     updateActiveNav(this);
+                    
+                    // Reset manual navigation flag after animation
+                    setTimeout(() => {
+                        isManualNavigation = false;
+                    }, 1000);
                 });
             });
 
@@ -729,13 +735,17 @@
 
             // Intersection Observer for auto-updating navigation
             const observerOptions = {
-                threshold: 0.3,
-                rootMargin: '-100px 0px -50% 0px'
+                threshold: 0.1,
+                rootMargin: '-120px 0px -80% 0px'
             };
 
+            let isManualNavigation = false;
+
             const observer = new IntersectionObserver(function(entries) {
+                if (isManualNavigation) return;
+                
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
+                    if (entry.isIntersecting && entry.target.classList.contains('active')) {
                         const correspondingNavLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
                         if (correspondingNavLink) {
                             updateActiveNav(correspondingNavLink);
