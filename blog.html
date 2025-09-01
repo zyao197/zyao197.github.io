@@ -10,12 +10,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #6366f1;
-            --primary-hover: #4f46e5;
-            --secondary-color: #8b5cf6;
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary-color: #7c3aed;
             --accent-color: #06b6d4;
             --text-primary: #0f172a;
-            --text-secondary: #64748b;
+            --text-secondary: #475569;
             --text-muted: #94a3b8;
             --bg-primary: #ffffff;
             --bg-secondary: #f8fafc;
@@ -30,8 +30,8 @@
             --radius-md: 0.5rem;
             --radius-lg: 0.75rem;
             --radius-xl: 1rem;
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-card: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4facfe 100%);
+            --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            --gradient-secondary: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
         }
 
         * {
@@ -46,7 +46,6 @@
             color: var(--text-primary);
             background: var(--bg-secondary);
             min-height: 100vh;
-            font-size: 16px;
         }
 
         /* Navigation */
@@ -56,14 +55,14 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            background: rgba(248, 250, 252, 0.8);
+            background: rgba(248, 250, 252, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-light);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
         }
 
         .navbar.scrolled {
-            background: rgba(248, 250, 252, 0.95);
+            background: rgba(248, 250, 252, 0.98);
             box-shadow: var(--shadow-lg);
         }
 
@@ -81,8 +80,7 @@
             font-weight: 800;
             color: var(--text-primary);
             text-decoration: none;
-            transition: all 0.3s ease;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -100,22 +98,20 @@
             font-weight: 500;
             padding: 0.75rem 1.5rem;
             border-radius: var(--radius-lg);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
+            transition: all 0.3s ease;
             font-size: 0.95rem;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
             color: var(--primary-color);
-            background: rgba(99, 102, 241, 0.1);
-            transform: translateY(-1px);
+            background: rgba(37, 99, 235, 0.1);
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 8rem 2rem 6rem;
+            background: var(--gradient-primary);
+            padding: 8rem 2rem 4rem;
             text-align: center;
             color: white;
             position: relative;
@@ -129,88 +125,81 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 30%, rgba(255,255,255,0.05) 0%, transparent 50%);
+            background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.1) 0%, transparent 50%);
         }
 
         .hero-content {
             position: relative;
             z-index: 1;
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             font-weight: 800;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             line-height: 1.1;
-            letter-spacing: -0.02em;
         }
 
         .hero p {
-            font-size: clamp(1.125rem, 2vw, 1.375rem);
+            font-size: 1.2rem;
             opacity: 0.9;
-            margin-bottom: 3rem;
-            line-height: 1.6;
-            max-width: 700px;
+            margin-bottom: 2rem;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
 
         .search-container {
             position: relative;
-            max-width: 600px;
+            max-width: 500px;
             margin: 0 auto;
         }
 
         .search-box {
             width: 100%;
-            padding: 1.25rem 1.5rem 1.25rem 4rem;
+            padding: 1rem 1.5rem 1rem 3.5rem;
             border: none;
             border-radius: var(--radius-xl);
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            font-size: 1.1rem;
+            font-size: 1rem;
             outline: none;
-            box-shadow: var(--shadow-xl);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-family: inherit;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
         }
 
         .search-box:focus {
             background: white;
             transform: translateY(-2px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            box-shadow: var(--shadow-xl);
         }
 
         .search-icon {
             position: absolute;
-            left: 1.5rem;
+            left: 1.25rem;
             top: 50%;
             transform: translateY(-50%);
             color: var(--primary-color);
-            font-size: 1.25rem;
         }
 
-        /* Main Content */
+        /* Main Content Layout */
         .main-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 3rem 2rem;
         }
 
-        .content-layout {
+        .blog-layout {
             display: grid;
-            grid-template-columns: 1fr 300px;
+            grid-template-columns: 1fr 320px;
             gap: 3rem;
             align-items: start;
         }
 
-        /* Blog Posts Container */
-        .blog-container {
-            max-width: 800px;
-            margin: 0 auto;
+        /* Blog Posts */
+        .blog-content {
+            max-width: none;
         }
 
         .blog-grid {
@@ -223,19 +212,20 @@
             border-radius: var(--radius-xl);
             overflow: hidden;
             box-shadow: var(--shadow-md);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             border: 1px solid var(--border-color);
-            position: relative;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            height: 180px;
         }
 
         .post-card:hover {
             transform: translateY(-4px);
             box-shadow: var(--shadow-xl);
-            border-color: rgba(99, 102, 241, 0.2);
+            border-color: var(--primary-color);
         }
 
-        .post-header {
-            height: 200px;
+        .post-thumbnail {
             background: var(--gradient-primary);
             display: flex;
             align-items: center;
@@ -244,110 +234,85 @@
             overflow: hidden;
         }
 
-        .post-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
-        }
-
-        .post-card:hover .post-header::before {
-            transform: translateX(100%);
-        }
-
-        .post-header i {
-            font-size: 3rem;
+        .post-thumbnail i {
+            font-size: 2rem;
             color: white;
             opacity: 0.9;
         }
 
-        .post-content {
-            padding: 2rem;
+        .post-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .post-meta {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
             color: var(--text-muted);
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
-        .post-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-size: 0.8rem;
         }
 
         .post-title {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             color: var(--text-primary);
             line-height: 1.3;
-            transition: color 0.3s ease;
-        }
-
-        .post-card:hover .post-title {
-            color: var(--primary-color);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .post-excerpt {
             color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .post-tags {
             display: flex;
+            gap: 0.5rem;
             flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
         }
 
         .tag {
             background: var(--bg-secondary);
             color: var(--text-secondary);
-            padding: 0.4rem 1rem;
+            padding: 0.25rem 0.75rem;
             border-radius: 50px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 500;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-light);
-        }
-
-        .tag:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-            cursor: pointer;
         }
 
         .read-more {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
+            color: var(--primary-color);
             text-decoration: none;
             font-weight: 600;
-            padding: 0.875rem 1.75rem;
-            border-radius: var(--radius-lg);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
         }
 
         .read-more:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+            color: var(--primary-hover);
         }
 
         .read-more i {
@@ -355,137 +320,115 @@
         }
 
         .read-more:hover i {
-            transform: translateX(4px);
+            transform: translateX(3px);
         }
 
         /* Featured Post */
         .featured-post {
-            margin-bottom: 2rem;
-            border: 2px solid rgba(99, 102, 241, 0.1);
+            grid-column: 1 / -1;
+            grid-template-columns: 300px 1fr;
+            height: 250px;
+            margin-bottom: 1rem;
+            border: 2px solid rgba(37, 99, 235, 0.1);
         }
 
-        .featured-post .post-header {
-            height: 300px;
-            background: var(--gradient-card);
+        .featured-post .post-thumbnail {
+            background: var(--gradient-secondary);
         }
 
-        .featured-post .post-header i {
-            font-size: 4rem;
+        .featured-post .post-thumbnail i {
+            font-size: 3rem;
         }
 
-        .featured-post .post-content {
-            padding: 2.5rem;
+        .featured-post .post-body {
+            padding: 2rem;
         }
 
         .featured-post .post-title {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            -webkit-line-clamp: 3;
         }
 
         .featured-post .post-excerpt {
-            font-size: 1.125rem;
-            margin-bottom: 2rem;
+            font-size: 1rem;
+            -webkit-line-clamp: 3;
+            margin-bottom: 1.5rem;
         }
 
         /* Sidebar */
         .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
             position: sticky;
             top: 120px;
+            height: fit-content;
         }
 
         .sidebar-card {
             background: var(--bg-card);
             border-radius: var(--radius-xl);
-            padding: 2rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
             box-shadow: var(--shadow-md);
             border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-
-        .sidebar-card:hover {
-            box-shadow: var(--shadow-lg);
         }
 
         .sidebar-title {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-        }
-
-        .category-filters {
-            display: grid;
-            gap: 0.75rem;
+            gap: 0.5rem;
         }
 
         .filter-btn {
             background: transparent;
             color: var(--text-secondary);
             border: 1px solid var(--border-color);
-            padding: 0.875rem 1.25rem;
+            padding: 0.75rem 1rem;
             border-radius: var(--radius-lg);
+            width: 100%;
             text-align: left;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
-            font-weight: 500;
-            font-family: inherit;
-            font-size: 0.9rem;
+            gap: 0.75rem;
         }
 
         .filter-btn:hover {
             background: var(--bg-secondary);
             border-color: var(--primary-color);
             color: var(--primary-color);
-            transform: translateX(4px);
         }
 
         .filter-btn.active {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             color: white;
-            border-color: transparent;
+            border-color: var(--primary-color);
         }
 
-        .filter-btn i {
-            width: 20px;
-            text-align: center;
-        }
-
-        .recent-posts {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .recent-post {
-            padding: 1rem 0;
+        .recent-posts .recent-post {
+            padding: 0.75rem 0;
             border-bottom: 1px solid var(--border-light);
-            transition: all 0.3s ease;
         }
 
-        .recent-post:last-child {
+        .recent-posts .recent-post:last-child {
             border-bottom: none;
-        }
-
-        .recent-post:hover {
-            transform: translateX(8px);
         }
 
         .recent-post a {
             color: var(--text-primary);
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
+            font-size: 0.9rem;
             display: block;
             margin-bottom: 0.25rem;
+            transition: color 0.3s ease;
         }
 
         .recent-post a:hover {
@@ -494,66 +437,42 @@
 
         .recent-date {
             color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-
-        /* Loading State */
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 6rem 2rem;
-            color: var(--text-secondary);
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid var(--border-color);
-            border-top: 3px solid var(--primary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1.5rem;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            font-size: 0.75rem;
         }
 
         /* Article Detail View */
         .article-detail {
             display: none;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 8rem 2rem 4rem;
+            padding-top: 5rem;
         }
 
         .article-detail.active {
             display: block;
-            animation: fadeInUp 0.6s ease;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .article-layout {
+            display: grid;
+            grid-template-columns: 1fr 250px;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .article-main {
+            max-width: 800px;
         }
 
         .back-btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
             background: var(--bg-card);
             color: var(--text-secondary);
             text-decoration: none;
-            padding: 0.875rem 1.5rem;
+            padding: 0.75rem 1.5rem;
             border-radius: var(--radius-lg);
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             transition: all 0.3s ease;
             border: 1px solid var(--border-color);
             font-weight: 500;
@@ -562,7 +481,6 @@
         .back-btn:hover {
             background: var(--bg-secondary);
             color: var(--text-primary);
-            transform: translateY(-2px);
         }
 
         .article-content {
@@ -571,8 +489,6 @@
             border-radius: var(--radius-xl);
             box-shadow: var(--shadow-lg);
             border: 1px solid var(--border-color);
-            max-width: 800px;
-            margin: 0 auto;
         }
 
         .article-content h1 {
@@ -584,26 +500,26 @@
         }
 
         .article-content h2 {
-            font-size: 1.875rem;
+            font-size: 1.75rem;
             font-weight: 700;
-            margin: 3rem 0 1.5rem 0;
+            margin: 2.5rem 0 1rem 0;
             color: var(--text-primary);
-            padding-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--border-color);
         }
 
         .article-content h3 {
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             font-weight: 600;
-            margin: 2.5rem 0 1rem 0;
+            margin: 2rem 0 1rem 0;
             color: var(--text-primary);
         }
 
         .article-content p {
             margin-bottom: 1.5rem;
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            line-height: 1.8;
+            font-size: 1.05rem;
+            line-height: 1.7;
         }
 
         .article-content code {
@@ -611,19 +527,18 @@
             color: #e53e3e;
             padding: 0.25rem 0.5rem;
             border-radius: var(--radius-sm);
-            font-family: 'SF Mono', Consolas, 'Monaco', monospace;
+            font-family: 'SF Mono', Consolas, monospace;
             font-size: 0.9em;
         }
 
         .article-content pre {
             background: #1e293b;
             color: #e2e8f0;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: var(--radius-lg);
             overflow-x: auto;
-            margin: 2rem 0;
-            font-family: 'SF Mono', Consolas, 'Monaco', monospace;
-            box-shadow: var(--shadow-md);
+            margin: 1.5rem 0;
+            font-family: 'SF Mono', Consolas, monospace;
         }
 
         .article-content pre code {
@@ -634,110 +549,163 @@
 
         .article-content blockquote {
             border-left: 4px solid var(--primary-color);
-            padding: 1.5rem 2rem;
-            margin: 2rem 0;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
             background: var(--bg-secondary);
             border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
             font-style: italic;
-            color: var(--text-secondary);
         }
 
         .article-content ul, .article-content ol {
-            margin: 1.5rem 0;
-            padding-left: 2rem;
-            color: var(--text-secondary);
+            margin: 1rem 0;
+            padding-left: 1.5rem;
         }
 
         .article-content li {
-            margin-bottom: 0.75rem;
-            line-height: 1.7;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
         }
 
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border-radius: 50%;
+        /* Table of Contents */
+        .toc-sidebar {
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+        }
+
+        .toc-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .toc-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc-list a {
+            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 1.25rem;
-            box-shadow: var(--shadow-lg);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
+            font-size: 0.9rem;
+            padding: 0.5rem 0;
+            display: block;
+            border-left: 3px solid transparent;
+            padding-left: 1rem;
+            transition: all 0.3s ease;
         }
 
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
+        .toc-list a:hover,
+        .toc-list a.active {
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.05);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
         }
 
-        .back-to-top:hover {
-            transform: scale(1.1) translateY(-2px);
-            box-shadow: var(--shadow-xl);
+        .toc-list .toc-h3 {
+            padding-left: 2rem;
+            font-size: 0.85rem;
         }
 
-        /* Empty State */
-        .empty-state {
+        /* Loading and Empty States */
+        .loading {
+            display: none;
             text-align: center;
             padding: 4rem 2rem;
             color: var(--text-secondary);
         }
 
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-secondary);
+        }
+
         .empty-state i {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
+            font-size: 3rem;
+            margin-bottom: 1rem;
             color: var(--primary-color);
             opacity: 0.5;
         }
 
-        .empty-state h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        /* Category Color Coding */
-        .post-card[data-category="machine-learning"] .post-header {
+        /* Category Colors */
+        .post-card[data-category="machine-learning"] .post-thumbnail {
             background: linear-gradient(135deg, #8b5cf6, #a855f7);
         }
 
-        .post-card[data-category="web-development"] .post-header {
+        .post-card[data-category="web-development"] .post-thumbnail {
             background: linear-gradient(135deg, #06b6d4, #0891b2);
         }
 
-        .post-card[data-category="mobile-apps"] .post-header {
+        .post-card[data-category="mobile-apps"] .post-thumbnail {
             background: linear-gradient(135deg, #10b981, #059669);
         }
 
-        .post-card[data-category="research"] .post-header {
+        .post-card[data-category="research"] .post-thumbnail {
             background: linear-gradient(135deg, #f59e0b, #d97706);
         }
 
         /* Responsive Design */
-        @media (max-width: 1200px) {
-            .content-layout {
+        @media (max-width: 1024px) {
+            .blog-layout,
+            .article-layout {
                 grid-template-columns: 1fr;
-                gap: 3rem;
+                gap: 2rem;
             }
 
-            .sidebar {
-                order: -1;
+            .sidebar,
+            .toc-sidebar {
                 position: static;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                display: grid;
+                order: -1;
             }
 
-            .category-filters {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            .sidebar-card,
+            .toc-card {
+                margin-bottom: 1rem;
+            }
+
+            .post-card {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .featured-post {
+                grid-template-columns: 1fr;
+            }
+
+            .post-body {
+                padding: 1.25rem;
             }
         }
 
@@ -756,64 +724,27 @@
             }
 
             .hero {
-                padding: 6rem 1rem 4rem;
+                padding: 6rem 1rem 3rem;
             }
 
             .main-container {
-                padding: 3rem 1rem;
+                padding: 2rem 1rem;
             }
 
-            .blog-container {
-                max-width: 100%;
-            }
-
-            .article-detail {
-                padding: 6rem 1rem 3rem;
+            .article-layout {
+                padding: 0 1rem;
             }
 
             .article-content {
                 padding: 2rem;
             }
 
-            .back-to-top {
-                width: 48px;
-                height: 48px;
-                bottom: 1rem;
-                right: 1rem;
-            }
-
-            .sidebar {
-                grid-template-columns: 1fr;
-            }
-
-            .category-filters {
-                grid-template-columns: 1fr;
-            }
-
-            .featured-post .post-content {
-                padding: 2rem;
-            }
-
-            .featured-post .post-title {
-                font-size: 1.75rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
+            .article-content h1 {
                 font-size: 2rem;
             }
 
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .post-content {
-                padding: 1.5rem;
-            }
-
-            .sidebar-card {
-                padding: 1.5rem;
+            .post-body {
+                padding: 1rem;
             }
         }
     </style>
@@ -838,7 +769,7 @@
             <p>Exploring cutting-edge technology, sharing research discoveries, and documenting the journey of building impactful software solutions</p>
             <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-box" placeholder="Search articles, topics, or technologies..." id="searchInput">
+                <input type="text" class="search-box" placeholder="Search articles..." id="searchInput">
             </div>
         </div>
     </section>
@@ -846,55 +777,66 @@
     <!-- Loading State -->
     <div class="loading" id="loading">
         <div class="spinner"></div>
-        <p>Loading amazing content...</p>
+        <p>Loading content...</p>
     </div>
 
     <!-- Article Detail View -->
     <div class="article-detail" id="articleDetail">
-        <a href="#" class="back-btn" onclick="blogManager.showBlogList()">
-            <i class="fas fa-arrow-left"></i>
-            Back to Blog
-        </a>
-        <div class="article-content" id="articleContent"></div>
+        <div class="article-layout">
+            <div class="article-main">
+                <a href="#" class="back-btn" onclick="blogManager.showBlogList()">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Blog
+                </a>
+                <div class="article-content" id="articleContent"></div>
+            </div>
+            <div class="toc-sidebar">
+                <div class="toc-card">
+                    <h3 class="toc-title">
+                        <i class="fas fa-list"></i>
+                        Table of Contents
+                    </h3>
+                    <ul class="toc-list" id="tocList"></ul>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Main Content -->
     <div class="main-container" id="mainContent">
-        <div class="content-layout">
-            <div class="blog-container">
+        <div class="blog-layout">
+            <div class="blog-content">
                 <div class="blog-grid" id="blogContainer">
-                    <!-- Blog posts will be dynamically loaded here -->
+                    <!-- Blog posts will be loaded here -->
                 </div>
             </div>
 
             <aside class="sidebar">
                 <div class="sidebar-card">
                     <h3 class="sidebar-title">
-                        <i class="fas fa-layer-group"></i>
+                        <i class="fas fa-filter"></i>
                         Categories
                     </h3>
-                    <div class="category-filters">
-                        <button class="filter-btn active" data-category="all">
-                            <i class="fas fa-th-large"></i>
-                            All Posts
-                        </button>
-                        <button class="filter-btn" data-category="machine-learning">
-                            <i class="fas fa-brain"></i>
-                            Machine Learning
-                        </button>
-                        <button class="filter-btn" data-category="web-development">
-                            <i class="fas fa-code"></i>
-                            Web Development
-                        </button>
-                        <button class="filter-btn" data-category="mobile-apps">
-                            <i class="fas fa-mobile-alt"></i>
-                            Mobile Apps
-                        </button>
-                        <button class="filter-btn" data-category="research">
-                            <i class="fas fa-flask"></i>
-                            Research
-                        </button>
-                    </div>
+                    <button class="filter-btn active" data-category="all">
+                        <i class="fas fa-th-large"></i>
+                        All Posts
+                    </button>
+                    <button class="filter-btn" data-category="machine-learning">
+                        <i class="fas fa-brain"></i>
+                        Machine Learning
+                    </button>
+                    <button class="filter-btn" data-category="web-development">
+                        <i class="fas fa-code"></i>
+                        Web Development
+                    </button>
+                    <button class="filter-btn" data-category="mobile-apps">
+                        <i class="fas fa-mobile-alt"></i>
+                        Mobile Apps
+                    </button>
+                    <button class="filter-btn" data-category="research">
+                        <i class="fas fa-flask"></i>
+                        Research
+                    </button>
                 </div>
 
                 <div class="sidebar-card">
@@ -935,11 +877,6 @@
             </aside>
         </div>
     </div>
-
-    <!-- Back to Top Button -->
-    <a href="#" class="back-to-top" id="backToTop">
-        <i class="fas fa-chevron-up"></i>
-    </a>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
@@ -990,7 +927,8 @@ Optical Character Recognition (OCR) technology has revolutionized how we interac
 
 OCR is a technology that converts different types of documents, such as scanned paper documents, PDF files, or images captured by a digital camera, into editable and searchable data.
 
-### Key Benefits:
+### Key Benefits
+
 - **Accessibility**: Makes text content accessible to users with visual impairments
 - **Efficiency**: Eliminates manual data entry
 - **Searchability**: Makes scanned documents searchable
@@ -998,7 +936,7 @@ OCR is a technology that converts different types of documents, such as scanned 
 
 ## Implementation Strategies
 
-### 1. Choosing the Right OCR Framework
+### Choosing the Right OCR Framework
 
 For iOS development, you have several options:
 
@@ -1034,7 +972,7 @@ class OCRViewController: UIViewController {
 }
 \`\`\`
 
-### 2. Optimization Techniques
+### Optimization Techniques
 
 To improve OCR accuracy:
 
@@ -1077,11 +1015,13 @@ OCR technology opens up endless possibilities for mobile app innovation. By foll
 
 ## Overview
 
-Pattern recognition is a fundamental aspect of machine learning that involves identifying regularities in data. Deep learning has revolutionized this field.
+Pattern recognition is a fundamental aspect of machine learning that involves identifying regularities in data. Deep learning has revolutionized this field with unprecedented accuracy and capabilities.
 
 ## Neural Network Architectures
 
 ### Convolutional Neural Networks (CNNs)
+
+CNNs are particularly effective for image-based pattern recognition:
 
 \`\`\`python
 import tensorflow as tf
@@ -1101,16 +1041,26 @@ def create_cnn_model(input_shape, num_classes):
     return model
 \`\`\`
 
+### Training Strategies
+
+Effective training requires careful consideration of:
+
+- **Data Augmentation**: Expanding dataset diversity
+- **Transfer Learning**: Leveraging pre-trained models
+- **Regularization**: Preventing overfitting
+
 ## Applications
 
-- Object Detection
-- Facial Recognition  
-- Medical Imaging
-- Quality Control
+Deep learning pattern recognition enables:
+
+- Object Detection in autonomous vehicles
+- Facial Recognition systems
+- Medical Imaging analysis
+- Quality Control in manufacturing
 
 ## Future Directions
 
-The field continues evolving with transformer architectures and self-supervised learning.`,
+The field continues evolving with transformer architectures and self-supervised learning approaches that promise even greater capabilities.`,
                         date: "2024-12-10",
                         readTime: "6 min read",
                         views: "1.8k",
@@ -1126,11 +1076,13 @@ The field continues evolving with transformer architectures and self-supervised 
 
 ## Introduction
 
-React 18 brings exciting new features. This guide covers the latest approaches to building scalable React applications.
+React 18 brings exciting new features that enhance performance and developer experience. This guide covers the latest approaches to building scalable React applications.
 
 ## React 18 Features
 
 ### Concurrent Features
+
+React 18 introduces concurrent rendering capabilities:
 
 \`\`\`jsx
 import { useState, useTransition } from 'react';
@@ -1155,13 +1107,39 @@ function SearchResults() {
 }
 \`\`\`
 
+### Automatic Batching
+
+React 18 automatically batches multiple state updates for better performance.
+
 ## Performance Optimization
 
-Code splitting and lazy loading are essential for modern React apps.
+### Code Splitting
+
+Implement strategic code splitting for optimal loading:
+
+\`\`\`jsx
+import { lazy, Suspense } from 'react';
+
+const LazyComponent = lazy(() => import('./LazyComponent'));
+
+function App() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <LazyComponent />
+        </Suspense>
+    );
+}
+\`\`\`
+
+## Best Practices
+
+1. **Component Design**: Keep components focused and reusable
+2. **State Management**: Choose appropriate state solutions
+3. **Testing**: Implement comprehensive testing strategies
 
 ## Conclusion
 
-React development in 2024 emphasizes performance and user experience.`,
+React development in 2024 emphasizes performance, user experience, and developer productivity. These patterns and practices ensure robust, scalable applications.`,
                         date: "2024-12-05",
                         readTime: "5 min read",
                         views: "1.5k",
@@ -1177,23 +1155,44 @@ React development in 2024 emphasizes performance and user experience.`,
 
 ## Introduction
 
-Computer vision has evolved rapidly with deep learning advancements. This article explores cutting-edge techniques.
+Computer vision has evolved rapidly with deep learning advancements. This article explores cutting-edge techniques that are reshaping how machines understand visual information.
 
 ## Object Detection
 
-Modern object detection uses YOLO and R-CNN architectures for real-time processing.
+### YOLO Architecture
+
+Modern object detection uses YOLO (You Only Look Once) for real-time processing:
+
+\`\`\`python
+import cv2
+import numpy as np
+
+def detect_objects(image_path, model_path):
+    net = cv2.dnn.readNet(model_path)
+    image = cv2.imread(image_path)
+    
+    blob = cv2.dnn.blobFromImage(image, 1/255.0, (416, 416), swapRB=True, crop=False)
+    net.setInput(blob)
+    
+    outputs = net.forward()
+    return process_detections(outputs, image)
+\`\`\`
 
 ## Image Segmentation
 
-Semantic and instance segmentation enable precise pixel-level understanding.
+Semantic and instance segmentation enable precise pixel-level understanding of scenes.
+
+### U-Net Architecture
+
+U-Net is particularly effective for medical image segmentation and other precision tasks.
 
 ## Future Trends
 
-- Vision Transformers
-- Self-supervised learning
-- Few-shot learning
+- **Vision Transformers**: Applying transformer architecture to computer vision
+- **Self-supervised Learning**: Learning without labeled data
+- **Few-shot Learning**: Generalizing from minimal examples
 
-Computer vision continues to push the boundaries of AI capabilities.`,
+Computer vision continues to push the boundaries of AI capabilities, enabling applications we couldn't imagine just years ago.`,
                         date: "2024-11-28",
                         readTime: "7 min read",
                         views: "1.1k",
@@ -1209,30 +1208,65 @@ Computer vision continues to push the boundaries of AI capabilities.`,
 
 ## Architecture Principles
 
-Building scalable APIs requires careful consideration of architecture patterns and performance optimization.
+Building scalable APIs requires careful consideration of architecture patterns and performance optimization strategies.
 
 ## Express.js Best Practices
 
+### Basic Setup
+
 \`\`\`javascript
 const express = require('express');
+const cors = require('cors');
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'OK', timestamp: new Date().toISOString() });
+    res.json({ 
+        status: 'OK', 
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime()
+    });
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(\`Server running on port \${PORT}\`);
 });
 \`\`\`
 
 ## Performance Optimization
 
-- Connection pooling
-- Caching strategies
-- Rate limiting
-- Load balancing
+### Key Strategies
 
-APIs form the backbone of modern applications.`,
+- **Connection Pooling**: Efficient database connections
+- **Caching Strategies**: Redis for session and data caching
+- **Rate Limiting**: Protect against abuse
+- **Load Balancing**: Distribute traffic across instances
+
+### Middleware Implementation
+
+\`\`\`javascript
+const rateLimit = require('express-rate-limit');
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100 // limit each IP to 100 requests per windowMs
+});
+
+app.use('/api/', limiter);
+\`\`\`
+
+## Security Considerations
+
+Implement comprehensive security measures including authentication, authorization, and input validation.
+
+## Monitoring and Logging
+
+Proper monitoring and logging are essential for maintaining API reliability and performance.
+
+APIs form the backbone of modern applications, connecting frontend experiences with backend data and services.`,
                         date: "2024-11-20",
                         readTime: "9 min read",
                         views: "920",
@@ -1264,21 +1298,11 @@ APIs form the backbone of modern applications.`,
                 // Navbar scroll effect
                 window.addEventListener('scroll', () => {
                     const navbar = document.getElementById('navbar');
-                    const backToTop = document.getElementById('backToTop');
-                    
                     if (window.scrollY > 100) {
                         navbar.classList.add('scrolled');
-                        backToTop.classList.add('visible');
                     } else {
                         navbar.classList.remove('scrolled');
-                        backToTop.classList.remove('visible');
                     }
-                });
-
-                // Back to top functionality
-                document.getElementById('backToTop').addEventListener('click', (e) => {
-                    e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
             }
 
@@ -1336,24 +1360,25 @@ APIs form the backbone of modern applications.`,
                 article.setAttribute('data-category', post.category);
 
                 article.innerHTML = `
-                    <div class="post-header">
+                    <div class="post-thumbnail">
                         <i class="${post.icon}"></i>
                     </div>
-                    <div class="post-content">
+                    <div class="post-body">
                         <div class="post-meta">
                             <span><i class="fas fa-calendar-alt"></i> ${this.formatDate(post.date)}</span>
                             <span><i class="fas fa-clock"></i> ${post.readTime}</span>
-                            <span><i class="fas fa-eye"></i> ${post.views} views</span>
+                            <span><i class="fas fa-eye"></i> ${post.views}</span>
                         </div>
                         <h2 class="post-title">${post.title}</h2>
                         <p class="post-excerpt">${post.excerpt}</p>
-                        <div class="post-tags">
-                            ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        <div class="post-footer">
+                            <div class="post-tags">
+                                ${post.tags.slice(0, 2).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                            </div>
+                            <a href="#" class="read-more" onclick="blogManager.openPost(${post.id})">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
-                        <a href="#" class="read-more" onclick="blogManager.openPost(${post.id})">
-                            Read ${post.featured ? 'Full Article' : 'More'} 
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
                     </div>
                 `;
 
@@ -1364,7 +1389,7 @@ APIs form the backbone of modern applications.`,
                 const date = new Date(dateString);
                 return date.toLocaleDateString('en-US', { 
                     year: 'numeric', 
-                    month: 'long', 
+                    month: 'short', 
                     day: 'numeric' 
                 });
             }
@@ -1385,11 +1410,71 @@ APIs form the backbone of modern applications.`,
                 articleDetail.classList.add('active');
                 
                 articleContent.innerHTML = marked.parse(post.content);
+                this.generateTableOfContents();
                 window.scrollTo(0, 0);
                 
                 setTimeout(() => {
                     Prism.highlightAll();
                 }, 100);
+            }
+
+            generateTableOfContents() {
+                const content = document.getElementById('articleContent');
+                const headings = content.querySelectorAll('h1, h2, h3');
+                const tocList = document.getElementById('tocList');
+                
+                tocList.innerHTML = '';
+                
+                headings.forEach((heading, index) => {
+                    const id = `heading-${index}`;
+                    heading.id = id;
+                    
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = `#${id}`;
+                    a.textContent = heading.textContent;
+                    a.className = heading.tagName.toLowerCase() === 'h3' ? 'toc-h3' : '';
+                    
+                    a.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        this.updateActiveTocItem(a);
+                    });
+                    
+                    li.appendChild(a);
+                    tocList.appendChild(li);
+                });
+
+                // Update active TOC item on scroll
+                this.setupTocScrollSpy();
+            }
+
+            setupTocScrollSpy() {
+                const headings = document.querySelectorAll('#articleContent h1, #articleContent h2, #articleContent h3');
+                const tocLinks = document.querySelectorAll('#tocList a');
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const id = entry.target.id;
+                            const tocLink = document.querySelector(`#tocList a[href="#${id}"]`);
+                            if (tocLink) {
+                                this.updateActiveTocItem(tocLink);
+                            }
+                        }
+                    });
+                }, {
+                    rootMargin: '-20% 0% -80% 0%'
+                });
+
+                headings.forEach(heading => observer.observe(heading));
+            }
+
+            updateActiveTocItem(activeLink) {
+                document.querySelectorAll('#tocList a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                activeLink.classList.add('active');
             }
 
             showBlogList() {
