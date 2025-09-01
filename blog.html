@@ -912,7 +912,12 @@
             async simulateMarkdownLoading() {
                 await new Promise(resolve => setTimeout(resolve, 800));
 
-                this.posts = [
+                // 尝试加载真实的markdown文件
+                await this.loadMarkdownFiles();
+
+                // 如果没有加载到文件，使用默认示例
+                if (this.posts.length === 0) {
+                    this.posts = [
                     {
                         id: 1,
                         title: "Building Intelligent Mobile Apps with OCR Technology",
@@ -1006,6 +1011,48 @@ OCR technology opens up endless possibilities for mobile app innovation. By foll
                         tags: ["OCR", "Mobile Development", "iOS", "Machine Learning"],
                         icon: "fas fa-mobile-alt",
                         featured: true
+                    },
+                    {
+                        id: 6,
+                        title: "我的第一篇技术博客",
+                        excerpt: "分享web开发的经验和见解，包括技术栈选择、最佳实践和性能优化等内容。",
+                        content: `# 我的第一篇技术博客
+
+## 简介
+
+这是我的第一篇技术博客文章。在这里我将分享一些关于web开发的见解和经验。
+
+## 技术栈选择
+
+在现代web开发中，选择合适的技术栈非常重要：
+
+\`\`\`javascript
+const blogPost = {
+    title: "我的第一篇博客",
+    date: "2024-12-20",
+    category: "web-development",
+    tags: ["JavaScript", "Web开发", "技术分享"]
+};
+
+console.log("博客文章创建成功！", blogPost);
+\`\`\`
+
+## 最佳实践
+
+1. **代码质量**：始终保持代码整洁和可维护
+2. **性能优化**：关注用户体验和页面加载速度  
+3. **安全性**：实施适当的安全措施
+
+## 结论
+
+通过不断学习和实践，我们可以成为更好的开发者。`,
+                        date: "2024-12-20",
+                        readTime: "5分钟阅读",
+                        views: "156",
+                        category: "web-development",
+                        tags: ["JavaScript", "Web开发", "技术分享", "最佳实践"],
+                        icon: "fas fa-code",
+                        featured: false
                     },
                     {
                         id: 2,
@@ -1277,6 +1324,92 @@ APIs form the backbone of modern applications, connecting frontend experiences w
                 ];
 
                 this.filteredPosts = [...this.posts];
+            }
+
+            async loadMarkdownFiles() {
+                const markdownFiles = [
+                    'posts/ocr-mobile-apps.md',
+                    'posts/new-blog-post.md'
+                    // 在这里添加更多markdown文件路径
+                ];
+
+                for (const filePath of markdownFiles) {
+                    try {
+                        const response = await fetch(filePath);
+                        if (response.ok) {
+                            const content = await response.text();
+                            const post = this.parseMarkdownPost(content, filePath);
+                            if (post) {
+                                this.posts.push(post);
+                            }
+                        }
+                    } catch (error) {
+                        console.log(`无法加载文件 ${filePath}:`, error);
+                    }
+                }
+            }
+
+            parseMarkdownPost(content, filePath) {
+                const lines = content.split('\n');
+                const title = lines.find(line => line.startsWith('# '))?.replace('# ', '') || '未命名文章';
+                
+                // 提取发布日期
+                const dateMatch = content.match(/\*.*?(\d{4}年\d{1,2}月\d{1,2}日|\d{4}-\d{2}-\d{2}|\d{4}\/\d{2}\/\d{2})/);
+                const date = dateMatch ? dateMatch[1] : new Date().toISOString().split('T')[0];
+                
+                // 提取阅读时间
+                const readTimeMatch = content.match(/(\d+分钟阅读|\d+ min read)/);
+                const readTime = readTimeMatch ? readTimeMatch[1] : '5分钟阅读';
+                
+                // 生成摘要（取前两个段落）
+                const paragraphs = content.split('\n\n').filter(p => 
+                    p.trim() && 
+                    !p.startsWith('#') && 
+                    !p.startsWith('*') &&
+                    !p.startsWith('```') &&
+                    !p.startsWith('---')
+                );
+                const excerpt = paragraphs.slice(0, 2).join(' ').substring(0, 150) + '...';
+                
+                // 提取标签
+                const tagsMatch = content.match(/\*\*标签\*\*:\s*(.+)/);
+                const tags = tagsMatch ? 
+                    tagsMatch[1].split(/[#\s]+/).filter(tag => tag.trim()) :
+                    ['技术分享'];
+                
+                // 确定分类
+                let category = 'research';
+                if (content.includes('web开发') || content.includes('Web开发') || content.includes('JavaScript')) {
+                    category = 'web-development';
+                } else if (content.includes('机器学习') || content.includes('AI') || content.includes('深度学习')) {
+                    category = 'machine-learning';
+                } else if (content.includes('移动开发') || content.includes('iOS') || content.includes('Android')) {
+                    category = 'mobile-apps';
+                }
+
+                return {
+                    id: this.posts.length + 1,
+                    title,
+                    excerpt,
+                    content,
+                    date,
+                    readTime,
+                    views: Math.floor(Math.random() * 1000) + 100,
+                    category,
+                    tags: tags.slice(0, 4),
+                    icon: this.getCategoryIcon(category),
+                    featured: false
+                };
+            }
+
+            getCategoryIcon(category) {
+                const icons = {
+                    'web-development': 'fas fa-code',
+                    'machine-learning': 'fas fa-brain',
+                    'mobile-apps': 'fas fa-mobile-alt',
+                    'research': 'fas fa-flask'
+                };
+                return icons[category] || 'fas fa-file-alt';
             }
 
             setupEventListeners() {
